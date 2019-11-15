@@ -1,0 +1,66 @@
+$subtext-font-size: 12px;
+$default-font-size: 16px;
+
+body {
+  font-family: "Montserrat", Helvetica, sans-serif;
+
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder,
+  :-ms-input-placeholder,
+  :-moz-placeholder {
+    font-family: "Montserrat", Helvetica, sans-serif;
+  }
+}
+
+.auth-page {
+  padding-top: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .success-message {
+    width: 250px;
+    text-align: center;
+    font-size: $subtext-font-size;
+  }
+
+  .sub-text {
+    width: 250px;
+    text-align: center;
+    font-size: $subtext-font-size;
+    color: #F1948A;
+    margin-bottom: 0;
+  }
+}
+
+.auth-form {
+  display: flex;
+  width: 100%;
+  max-width: 275px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    height: 40px;
+    width: 100%;
+    font-size: $default-font-size;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 0.5px solid dimgray;
+
+    &.invalid-input {
+      border-bottom: 0.5px solid #E74C3C;
+    }
+  }
+
+  button {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: $default-font-size;
+    border: 1px solid dimgray;
+    cursor: pointer;
+  }
+}
