@@ -118,11 +118,7 @@ const validateEmail = (email) => {
 
 const validatePassword = (password) => {
     const schema = new passwordValidator();
-    schema
-        .is().min(16)
-        .has().uppercase()
-        .has().lowercase()
-        .has().digits();
+    schema.is().min(18);
     return schema.validate(password);
 };
 
