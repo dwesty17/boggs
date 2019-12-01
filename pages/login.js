@@ -2,45 +2,17 @@ import React from "react"
 import Link from "next/link"
 
 import "../styles.scss"
+import LoginForm from "../components/LoginForm";
 
-class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
+const LoginPage = () => (
+    <div className="auth-page">
+        <h1>Login</h1>
+        <LoginForm />
+        <p>Don't have an account?</p>
+        <Link href="/create-account">
+            <a>Create Account</a>
+        </Link>
+    </div>
+);
 
-        this.state = {
-            email: "",
-            password: "",
-        }
-    }
-
-    render() {
-        return (
-            <div className="auth-page">
-                <h1>Login</h1>
-                <form className="auth-form">
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                    />
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                    />
-                    <button onClick={this.handleSubmit}>
-                        Login
-                    </button>
-                </form>
-                <p>Don't have an account?</p>
-                <Link href="/create-account">
-                    <a>Create Account</a>
-                </Link>
-            </div>
-        );
-    }
-
-    updateInput = (name) => (event) => {}
-}
-
-export default LoginPage
+export default LoginPage;
