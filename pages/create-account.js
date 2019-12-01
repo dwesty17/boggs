@@ -4,7 +4,6 @@ import { isEmpty } from "lodash";
 import passwordValidator from "password-validator";
 
 import "../styles.scss"
-import App from "../components/App"
 
 class CreateAccountPage extends React.Component {
     state = {
@@ -50,47 +49,45 @@ class CreateAccountPage extends React.Component {
         } = errors;
 
         return (
-            <App>
-                <div className="auth-page">
-                    <h1>Request Account</h1>
-                    <form
-                        className="auth-form"
-                        onSubmit={this.handleSubmit}
-                    >
-                        <input
-                            name="email"
-                            type="email"
-                            placeholder="Email"
-                            className={invalidEmail ? "invalid-input" : ""}
-                            onChange={this.updateInput("email")}
-                        />
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder="Password"
-                            className={invalidPassword ? "invalid-input" : ""}
-                            onChange={this.updateInput("password")}
-                        />
-                        <input
-                            name="confirmPassword"
-                            type="password"
-                            placeholder="Confirm password"
-                            className={passwordMismatch ? "invalid-input" : ""}
-                            onChange={this.updateInput("confirmPassword")}
-                        />
-                        <button onClick={this.handleSubmit}>
-                            Request
-                        </button>
-                    </form>
+            <div className="auth-page">
+                <h1>Request Account</h1>
+                <form
+                    className="auth-form"
+                    onSubmit={this.handleSubmit}
+                >
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        className={invalidEmail ? "invalid-input" : ""}
+                        onChange={this.updateInput("email")}
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        className={invalidPassword ? "invalid-input" : ""}
+                        onChange={this.updateInput("password")}
+                    />
+                    <input
+                        name="confirmPassword"
+                        type="password"
+                        placeholder="Confirm password"
+                        className={passwordMismatch ? "invalid-input" : ""}
+                        onChange={this.updateInput("confirmPassword")}
+                    />
+                    <button onClick={this.handleSubmit}>
+                        Request
+                    </button>
+                </form>
 
-                    { showSuccessMessage ? <SuccessMessage/> : <Disclaimer/>}
+                { showSuccessMessage ? <SuccessMessage/> : <Disclaimer/>}
 
-                    <p>Already have an account?</p>
-                    <Link href="/login">
-                        <a>Login</a>
-                    </Link>
-                </div>
-            </App>
+                <p>Already have an account?</p>
+                <Link href="/login">
+                    <a>Login</a>
+                </Link>
+            </div>
         );
     }
 }
