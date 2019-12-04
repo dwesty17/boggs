@@ -1,16 +1,13 @@
 import React from "react";
-import { useApolloClient } from "@apollo/react-hooks";
 
 import "../styles.scss";
 import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";
 
 const Dashboard = ({ loggedInUser }) => {
-    const apolloClient = useApolloClient();
-
     return (
         <div>
-            TODO Dashboard
+            Welcome, {loggedInUser.id}!
         </div>
     );
 };

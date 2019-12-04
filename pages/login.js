@@ -3,8 +3,10 @@ import Link from "next/link"
 
 import "../styles.scss"
 import LoginForm from "../components/LoginForm";
+import checkLoggedIn from "../lib/checkLoggedIn";
+import redirect from "../lib/redirect";
 
-const LoginPage = () => (
+const LoginPage = ({  }) => (
     <div className="auth-page">
         <h1>Login</h1>
         <LoginForm />
@@ -14,5 +16,15 @@ const LoginPage = () => (
         </Link>
     </div>
 );
+
+LoginPage.getInitialProps = async (context) => {
+    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+
+    if (loggedInUser.user) {
+        redirect(context, "/");
+    }
+
+    return {}
+};
 
 export default LoginPage;

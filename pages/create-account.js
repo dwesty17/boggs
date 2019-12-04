@@ -4,6 +4,8 @@ import Link from "next/link"
 import "../styles.scss";
 import "../components/CreateAccountForm";
 import CreateAccountForm from "../components/CreateAccountForm";
+import checkLoggedIn from "../lib/checkLoggedIn";
+import redirect from "../lib/redirect";
 
 class CreateAccountPage extends React.Component {
     state = {
@@ -50,5 +52,15 @@ const Disclaimer = () => (
         will contact you.
     </p>
 );
+
+CreateAccountPage.getInitialProps = async (context) => {
+    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+
+    if (loggedInUser.user) {
+        redirect(context, "/");
+    }
+
+    return {}
+};
 
 export default CreateAccountPage
