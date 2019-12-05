@@ -1,10 +1,56 @@
-import React from "react"
+import React, { useState } from "react"
 import { isEmpty } from "lodash";
 import passwordValidator from "password-validator";
+import { useMutation, useApolloClient } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 import "../styles.scss"
 
-class CreateAccountForm extends React.Component {
+const CREATE_USER_MUTATION = gql`
+    mutation CreateUser($user: UserInput!) {
+        createUser(user: $user) {
+            id
+            token
+            email
+            isAdmin
+        }
+    }
+`;
+
+const CreateAccountForm = ({ handleSuccess }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errors, setErrors] = useState({});
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const newErrors = {};
+        if (!validateEmail(email)) { newErrors.invalidEmail = true }
+        if (!validatePassword(password)) { newErrors.invalidPassword = true }
+        if (password !== confirmPassword) { newErrors.passwordMismatch = true }
+
+        if (isEmpty(errors)) {
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setErrors({});
+            handleSuccess();
+        } else {
+            setErrors(errors);
+        }
+    };
+
+    return (
+        <form
+            className="auth-form"
+            onSubmit={handleSubmit}
+        />
+    );
+};
+
+class CreateAccountFormClass extends React.Component {
     state = {
         email: "",
         password: "",
