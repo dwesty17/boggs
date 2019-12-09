@@ -107,7 +107,7 @@ const validateEmail = (email) => {
 
 const validatePassword = (password) => {
     const schema = new passwordValidator();
-    // TODO increase once
+    // TODO increase once ready for production
     schema.is().min(4);
     return schema.validate(password);
 };
