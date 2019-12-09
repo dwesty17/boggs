@@ -22,12 +22,8 @@ class CreateAccountPage extends React.Component {
         return (
             <div className="auth-page">
                 <h1>Request Account</h1>
-                <CreateAccountForm
-                    handleSuccess={this.handleSuccess}
-                />
-
+                <CreateAccountForm handleSuccess={this.handleSuccess} />
                 { showSuccessMessage ? <SuccessMessage/> : <Disclaimer/>}
-
                 <p>Already have an account?</p>
                 <Link href="/login">
                     <a>Login</a>
@@ -60,7 +56,7 @@ CreateAccountPage.getInitialProps = async ({ apolloClient }) => {
         redirect(context, "/");
     }
 
-    return {}
+    return {};
 };
 
 export default CreateAccountPage

@@ -24,7 +24,7 @@ LoginPage.getInitialProps = async ({ apolloClient }) => {
         redirect(context, "/");
     }
 
-    return {}
+    return {};
 };
 
 export default LoginPage;
