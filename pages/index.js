@@ -7,15 +7,15 @@ import checkLoggedIn from "../lib/checkLoggedIn";
 const Dashboard = ({ loggedInUser }) => {
     return (
         <div>
-            Welcome, {loggedInUser.id}!
+            Welcome, {loggedInUser.email}!
         </div>
     );
 };
 
-Dashboard.getInitialProps = async (context) => {
-    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+Dashboard.getInitialProps = async ({ apolloClient }) => {
+    const { loggedInUser } = await checkLoggedIn(apolloClient);
 
-    if (!loggedInUser.user) {
+    if (!loggedInUser.token) {
         redirect(context, "/login");
     }
 

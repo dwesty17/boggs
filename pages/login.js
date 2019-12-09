@@ -6,7 +6,7 @@ import LoginForm from "../components/LoginForm";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 
-const LoginPage = ({  }) => (
+const LoginPage = () => (
     <div className="auth-page">
         <h1>Login</h1>
         <LoginForm />
@@ -17,10 +17,10 @@ const LoginPage = ({  }) => (
     </div>
 );
 
-LoginPage.getInitialProps = async (context) => {
-    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+LoginPage.getInitialProps = async ({ apolloClient }) => {
+    const { loggedInUser } = await checkLoggedIn(apolloClient);
 
-    if (loggedInUser.user) {
+    if (loggedInUser.token) {
         redirect(context, "/");
     }
 

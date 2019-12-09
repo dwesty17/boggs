@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import { isEmpty } from "lodash";
 import passwordValidator from "password-validator";
-import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 import "../styles.scss"
@@ -11,8 +11,6 @@ const CREATE_USER_MUTATION = gql`
         createUser(user: $user) {
             id
             token
-            email
-            isAdmin
         }
     }
 `;
@@ -23,7 +21,23 @@ const CreateAccountForm = ({ handleSuccess }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
 
-    const handleSubmit = (event) => {
+    const [createUser] = useMutation(CREATE_USER_MUTATION, {
+        onCompleted() {
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setErrors({});
+
+            handleSuccess();
+        },
+        onError (error) {
+            if (error) {
+                setErrors({ serverError: true });
+            }
+        },
+    });
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const newErrors = {};
@@ -31,100 +45,60 @@ const CreateAccountForm = ({ handleSuccess }) => {
         if (!validatePassword(password)) { newErrors.invalidPassword = true }
         if (password !== confirmPassword) { newErrors.passwordMismatch = true }
 
-        if (isEmpty(errors)) {
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
-            setErrors({});
-            handleSuccess();
+        if (isEmpty(newErrors)) {
+            createUser({
+                variables: {
+                    user: { email, password },
+                },
+            });
         } else {
-            setErrors(errors);
+            setErrors(newErrors);
         }
     };
+
+    const {
+        invalidEmail,
+        invalidPassword,
+        passwordMismatch,
+        serverError,
+    } = errors;
 
     return (
         <form
             className="auth-form"
             onSubmit={handleSubmit}
-        />
+        >
+            { serverError && "We experienced an error creating your account!" }
+            <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                className={invalidEmail ? "invalid-input" : ""}
+                onChange={(event) => { setEmail(event.target.value) }}
+            />
+            <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                className={invalidPassword ? "invalid-input" : ""}
+                onChange={(event) => { setPassword(event.target.value) }}
+            />
+            <input
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm password"
+                className={passwordMismatch ? "invalid-input" : ""}
+                onChange={(event) => { setConfirmPassword(event.target.value) }}
+            />
+            <button
+                disabled={!email && !password && !confirmPassword}
+                onClick={handleSubmit}
+            >
+                Request
+            </button>
+        </form>
     );
 };
-
-class CreateAccountFormClass extends React.Component {
-    state = {
-        email: "",
-        password: "",
-        confirmPassword: "",
-        errors: {},
-    };
-
-    updateInput = (name) => (event) => {
-        this.setState({ [name]: event.target.value })
-    };
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        const { email, password, confirmPassword } = this.state;
-        const errors = {};
-
-        if (!validateEmail(email)) { errors.invalidEmail = true }
-        if (!validatePassword(password)) { errors.invalidPassword = true }
-        if (password !== confirmPassword) { errors.passwordMismatch = true }
-
-        if (isEmpty(errors)) {
-            this.setState({
-                email: "",
-                password: "",
-                confirmPassword: "",
-            });
-            this.props.handleSuccess();
-        } else {
-            this.setState({ errors });
-        }
-    };
-
-    render () {
-        const { errors } = this.state;
-        const {
-            invalidEmail,
-            invalidPassword,
-            passwordMismatch,
-        } = errors;
-
-        return (
-            <form
-                className="auth-form"
-                onSubmit={this.handleSubmit}
-            >
-                <input
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    className={invalidEmail ? "invalid-input" : ""}
-                    onChange={this.updateInput("email")}
-                />
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    className={invalidPassword ? "invalid-input" : ""}
-                    onChange={this.updateInput("password")}
-                />
-                <input
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="Confirm password"
-                    className={passwordMismatch ? "invalid-input" : ""}
-                    onChange={this.updateInput("confirmPassword")}
-                />
-                <button onClick={this.handleSubmit}>
-                    Request
-                </button>
-            </form>
-        );
-    }
-}
 
 const validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -133,7 +107,8 @@ const validateEmail = (email) => {
 
 const validatePassword = (password) => {
     const schema = new passwordValidator();
-    schema.is().min(18);
+    // TODO increase once
+    schema.is().min(4);
     return schema.validate(password);
 };
 
