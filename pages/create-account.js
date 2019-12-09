@@ -49,8 +49,8 @@ const Disclaimer = () => (
     </p>
 );
 
-CreateAccountPage.getInitialProps = async ({ apolloClient }) => {
-    const { loggedInUser } = await checkLoggedIn(apolloClient);
+CreateAccountPage.getInitialProps = async (context) => {
+    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
     if (loggedInUser.token) {
         redirect(context, "/");
