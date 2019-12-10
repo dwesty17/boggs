@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import "../styles.scss";
 import { withApollo } from "../lib/apollo";
@@ -20,7 +21,15 @@ Dashboard.getInitialProps = async (context) => {
         redirect(context, "/login");
     }
 
-    return { loggedInUser }
+    return { loggedInUser };
+};
+
+Dashboard.propTypes = {
+    loggedInUser: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        token: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 export default withApollo(Dashboard)

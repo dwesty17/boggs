@@ -11,7 +11,7 @@ const LoginPage = () => (
     <div className="auth-page">
         <h1>Login</h1>
         <LoginForm />
-        <p>Don't have an account?</p>
+        <p>{ "Don't have an account?" }</p>
         <Link href="/create-account">
             <a>Create Account</a>
         </Link>

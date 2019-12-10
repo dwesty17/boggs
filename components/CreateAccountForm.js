@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import { useMutation } from "@apollo/react-hooks";
 import { isEmpty } from "lodash";
 import passwordValidator from "password-validator";
@@ -98,6 +99,10 @@ const CreateAccountForm = ({ handleSuccess }) => {
             </button>
         </form>
     );
+};
+
+CreateAccountForm.propTypes = {
+    handleSuccess: PropTypes.func.isRequired,
 };
 
 const validateEmail = (email) => {
