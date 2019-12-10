@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useMutation } from "@apollo/react-hooks";
 import { isEmpty } from "lodash";
 import passwordValidator from "password-validator";
 import gql from "graphql-tag";
 
-import "../styles.scss"
+import "../styles.scss";
 
 const CREATE_USER_MUTATION = gql`
     mutation CreateUser($user: UserInput!) {
@@ -42,9 +42,9 @@ const CreateAccountForm = ({ handleSuccess }) => {
         event.preventDefault();
 
         const newErrors = {};
-        if (!validateEmail(email)) { newErrors.invalidEmail = true }
-        if (!validatePassword(password)) { newErrors.invalidPassword = true }
-        if (password !== confirmPassword) { newErrors.passwordMismatch = true }
+        if (!validateEmail(email)) { newErrors.invalidEmail = true; }
+        if (!validatePassword(password)) { newErrors.invalidPassword = true; }
+        if (password !== confirmPassword) { newErrors.passwordMismatch = true; }
 
         if (isEmpty(newErrors)) {
             createUser({
@@ -75,21 +75,21 @@ const CreateAccountForm = ({ handleSuccess }) => {
                 type="email"
                 placeholder="Email"
                 className={invalidEmail ? "invalid-input" : ""}
-                onChange={(event) => { setEmail(event.target.value) }}
+                onChange={(event) => { setEmail(event.target.value); }}
             />
             <input
                 name="password"
                 type="password"
                 placeholder="Password"
                 className={invalidPassword ? "invalid-input" : ""}
-                onChange={(event) => { setPassword(event.target.value) }}
+                onChange={(event) => { setPassword(event.target.value); }}
             />
             <input
                 name="confirmPassword"
                 type="password"
                 placeholder="Confirm password"
                 className={passwordMismatch ? "invalid-input" : ""}
-                onChange={(event) => { setConfirmPassword(event.target.value) }}
+                onChange={(event) => { setConfirmPassword(event.target.value); }}
             />
             <button
                 disabled={!email && !password && !confirmPassword}
@@ -117,4 +117,4 @@ const validatePassword = (password) => {
     return schema.validate(password);
 };
 
-export default CreateAccountForm
+export default CreateAccountForm;

@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import Link from "next/link"
+import React, { useState } from "react";
+import Link from "next/link";
 
 import "../styles.scss";
 import { withApollo } from "../lib/apollo";
@@ -49,4 +49,4 @@ CreateAccountPage.getInitialProps = async (context) => {
     return {};
 };
 
-export default withApollo(CreateAccountPage)
+export default withApollo(CreateAccountPage);

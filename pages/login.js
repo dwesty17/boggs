@@ -1,7 +1,7 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import "../styles.scss"
+import "../styles.scss";
 import { withApollo } from "../lib/apollo";
 import LoginForm from "../components/LoginForm";
 import checkLoggedIn from "../lib/checkLoggedIn";

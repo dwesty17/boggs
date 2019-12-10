@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import "../styles.scss";
 import { withApollo } from "../lib/apollo";
@@ -32,4 +32,4 @@ Dashboard.propTypes = {
     }).isRequired,
 };
 
-export default withApollo(Dashboard)
+export default withApollo(Dashboard);

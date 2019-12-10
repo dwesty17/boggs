@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useApolloClient, useLazyQuery } from "@apollo/react-hooks";
-import cookie from 'cookie'
+import cookie from "cookie";
 import gql from "graphql-tag";
 
-import "../styles.scss"
+import "../styles.scss";
 import redirect from "../lib/redirect";
 
 const LOGIN_USER_QUERY = gql`
@@ -38,7 +38,7 @@ const LoginForm = () => {
             maxAge: 30 * 24 * 60 * 60, // 30 days
             path: "/",
         });
-        client.cache.reset().then(() => {redirect({}, "/")});
+        client.cache.reset().then(() => {redirect({}, "/");});
     }
 
     const handleSubmit = (event) => {
@@ -48,7 +48,7 @@ const LoginForm = () => {
             variables: {
                 user: { email, password },
             },
-        })
+        });
     };
 
     const { invalidCredentials, failedConnection } = errors;
@@ -59,13 +59,13 @@ const LoginForm = () => {
                 name="email"
                 type="email"
                 placeholder="Email"
-                onChange={(event) => { setEmail(event.target.value) }}
+                onChange={(event) => { setEmail(event.target.value); }}
             />
             <input
                 name="password"
                 type="password"
                 placeholder="Password"
-                onChange={(event) => { setPassword(event.target.value) }}
+                onChange={(event) => { setPassword(event.target.value); }}
             />
             <button
                 disabled={!email && !password}
