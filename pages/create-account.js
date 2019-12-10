@@ -2,7 +2,7 @@ import React from "react"
 import Link from "next/link"
 
 import "../styles.scss";
-import "../components/CreateAccountForm";
+import { withApollo } from "../lib/apollo";
 import CreateAccountForm from "../components/CreateAccountForm";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
@@ -59,4 +59,4 @@ CreateAccountPage.getInitialProps = async (context) => {
     return {};
 };
 
-export default CreateAccountPage
+export default withApollo(CreateAccountPage)

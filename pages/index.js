@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../styles.scss";
+import { withApollo } from "../lib/apollo";
 import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";
 
@@ -22,4 +23,4 @@ Dashboard.getInitialProps = async (context) => {
     return { loggedInUser }
 };
 
-export default Dashboard
+export default withApollo(Dashboard)
