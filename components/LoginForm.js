@@ -32,13 +32,10 @@ const LoginForm = () => {
 
         if (!token) {
             setErrors({ invalidCredentials: true });
+        } else {
+            localStorage.setItem("token", token);
+            client.cache.reset().then(() => {redirect({}, "/");});
         }
-
-        document.cookie = cookie.serialize("token", data.loginUser.token, {
-            maxAge: 30 * 24 * 60 * 60, // 30 days
-            path: "/",
-        });
-        client.cache.reset().then(() => {redirect({}, "/");});
     }
 
     const handleSubmit = (event) => {

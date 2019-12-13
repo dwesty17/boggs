@@ -23,11 +23,16 @@ const CreateAccountForm = ({ handleSuccess }) => {
     const [errors, setErrors] = useState({});
 
     const [createUser] = useMutation(CREATE_USER_MUTATION, {
-        onCompleted() {
+        onCompleted({ createUser }) {
             setEmail("");
             setPassword("");
             setConfirmPassword("");
             setErrors({});
+
+            // This should be undefined until I allow accounts to be created without a review process
+            if (createUser.token) {
+                localStorage.setItem("token", data);
+            }
 
             handleSuccess();
         },
