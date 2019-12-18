@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useApolloClient, useLazyQuery } from "@apollo/react-hooks";
-import cookie from "cookie";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import cookie from "cookie";
 
 import "../styles.scss";
 import redirect from "../lib/redirect";
 
-const LOGIN_USER_QUERY = gql`
-    query LoginUser($user: UserInput!) {
+const NINETY_DAYS = 30 * 24 * 60 * 60;
+
+const LOGIN_USER_MUTATION = gql`
+    mutation LoginUser($user: UserInput!) {
         loginUser(user: $user) {
             id
             token
@@ -21,27 +23,33 @@ const LoginForm = () => {
     const [errors, setErrors] = useState({});
 
     const client = useApolloClient();
-    const [loginUser, { called, data, error }] = useLazyQuery(LOGIN_USER_QUERY);
+    const [loginUser] = useMutation(LOGIN_USER_MUTATION, {
+        onCompleted({ loginUser }) {
+            setEmail("");
+            setPassword("");
+            setErrors({});
 
-    if (called && error) {
-        setErrors({ failedConnection: true });
-    }
+            if (loginUser.token) {
+                document.cookie = cookie.serialize("token", loginUser.token, {
+                    maxAge: NINETY_DAYS,
+                    path: "/"
+                });
+                client.cache.reset().then(() => { redirect({}, "/"); });
+            } else {
+                setErrors({ invalidCredentials: true });
+            }
+        },
+        onError (error) {
+            if (error) {
+                console.error(error);
+                setErrors({ failedConnection: true });
+            }
+        },
+    });
 
-    if (called && data && data.loginUser) {
-        const { token } = data.loginUser;
-
-        if (!token) {
-            setErrors({ invalidCredentials: true });
-        } else {
-            localStorage.setItem("token", token);
-            client.cache.reset().then(() => {redirect({}, "/");});
-        }
-    }
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
-        loginUser({
+        await loginUser({
             variables: {
                 user: { email, password },
             },

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useMutation } from "@apollo/react-hooks";
+import {useApolloClient, useMutation} from "@apollo/react-hooks";
 import { isEmpty } from "lodash";
 import passwordValidator from "password-validator";
 import gql from "graphql-tag";
+import cookie from "cookie";
 
 import "../styles.scss";
+import redirect from "../lib/redirect";
+
+const NINETY_DAYS = 30 * 24 * 60 * 60;
 
 const CREATE_USER_MUTATION = gql`
     mutation CreateUser($user: UserInput!) {
@@ -22,6 +26,7 @@ const CreateAccountForm = ({ handleSuccess }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
 
+    const client = useApolloClient();
     const [createUser] = useMutation(CREATE_USER_MUTATION, {
         onCompleted({ createUser }) {
             setEmail("");
@@ -31,7 +36,11 @@ const CreateAccountForm = ({ handleSuccess }) => {
 
             // This should be undefined until I allow accounts to be created without a review process
             if (createUser.token) {
-                localStorage.setItem("token", data);
+                document.cookie = cookie.serialize("token", createUser.token, {
+                    maxAge: NINETY_DAYS,
+                    path: "/"
+                });
+                client.cache.reset().then(() => { redirect({}, "/"); });
             }
 
             handleSuccess();
@@ -52,7 +61,7 @@ const CreateAccountForm = ({ handleSuccess }) => {
         if (password !== confirmPassword) { newErrors.passwordMismatch = true; }
 
         if (isEmpty(newErrors)) {
-            createUser({
+            await createUser({
                 variables: {
                     user: { email, password },
                 },
