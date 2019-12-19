@@ -3,6 +3,7 @@ $default-font-size: 16px;
 
 body {
   font-family: "Montserrat", Helvetica, sans-serif;
+  margin: 0;
 
   ::-webkit-input-placeholder,
   ::-moz-placeholder,
@@ -62,5 +63,21 @@ body {
     font-size: $default-font-size;
     border: 1px solid dimgray;
     cursor: pointer;
+  }
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 50px;
+  padding: 0 20px;
+  border-bottom: 1px solid black;
+
+  a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
   }
 }

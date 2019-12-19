@@ -24,7 +24,7 @@ const LoginForm = () => {
 
     const client = useApolloClient();
     const [loginUser] = useMutation(LOGIN_USER_MUTATION, {
-        onCompleted({ loginUser }) {
+        async onCompleted({ loginUser }) {
             setEmail("");
             setPassword("");
             setErrors({});
@@ -34,7 +34,8 @@ const LoginForm = () => {
                     maxAge: NINETY_DAYS,
                     path: "/"
                 });
-                client.cache.reset().then(() => { redirect({}, "/"); });
+                await client.cache.reset();
+                redirect({}, "/");
             } else {
                 setErrors({ invalidCredentials: true });
             }
