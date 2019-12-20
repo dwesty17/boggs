@@ -28,7 +28,7 @@ const CreateAccountForm = ({ handleSuccess }) => {
 
     const client = useApolloClient();
     const [createUser] = useMutation(CREATE_USER_MUTATION, {
-        onCompleted({ createUser }) {
+        async onCompleted({ createUser }) {
             setEmail("");
             setPassword("");
             setConfirmPassword("");
@@ -40,7 +40,8 @@ const CreateAccountForm = ({ handleSuccess }) => {
                     maxAge: NINETY_DAYS,
                     path: "/"
                 });
-                client.cache.reset().then(() => { redirect({}, "/"); });
+                await client.cache.reset();
+                redirect({}, "/");
             }
 
             handleSuccess();
