@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {useApolloClient, useMutation} from "@apollo/react-hooks";
-import { isEmpty } from "lodash";
+import {isEmpty} from "lodash";
 import passwordValidator from "password-validator";
 import gql from "graphql-tag";
 import cookie from "cookie";
