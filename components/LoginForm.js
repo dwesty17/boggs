@@ -65,12 +65,14 @@ const LoginForm = () => {
                 name="email"
                 type="email"
                 placeholder="Email"
+                value={email}
                 onChange={(event) => { setEmail(event.target.value); }}
             />
             <input
                 name="password"
                 type="password"
                 placeholder="Password"
+                value={password}
                 onChange={(event) => { setPassword(event.target.value); }}
             />
             <button

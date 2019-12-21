@@ -86,24 +86,27 @@ const CreateAccountForm = ({ handleSuccess }) => {
         >
             { serverError && "We experienced an error creating your account!" }
             <input
+                className={invalidEmail ? "invalid-input" : ""}
                 name="email"
                 type="email"
                 placeholder="Email"
-                className={invalidEmail ? "invalid-input" : ""}
+                value={email}
                 onChange={(event) => { setEmail(event.target.value); }}
             />
             <input
+                className={invalidPassword ? "invalid-input" : ""}
                 name="password"
                 type="password"
                 placeholder="Password"
-                className={invalidPassword ? "invalid-input" : ""}
+                value={password}
                 onChange={(event) => { setPassword(event.target.value); }}
             />
             <input
+                className={passwordMismatch ? "invalid-input" : ""}
                 name="confirmPassword"
                 type="password"
                 placeholder="Confirm password"
-                className={passwordMismatch ? "invalid-input" : ""}
+                value={confirmPassword}
                 onChange={(event) => { setConfirmPassword(event.target.value); }}
             />
             <button

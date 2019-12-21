@@ -13,6 +13,32 @@ body {
   }
 }
 
+// UI components
+
+input {
+  height: 40px;
+  width: 100%;
+  font-size: $default-font-size;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 0.5px solid dimgray;
+
+  &.invalid-input {
+    border-bottom: 0.5px solid #E74C3C;
+  }
+}
+
+button {
+  height: 40px;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: $default-font-size;
+  border: 1px solid dimgray;
+  cursor: pointer;
+}
+
+// Unauthenticated pages
+
 .auth-page {
   padding-top: 75px;
   display: flex;
@@ -42,27 +68,39 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
 
-  input {
-    height: 40px;
-    width: 100%;
-    font-size: $default-font-size;
-    margin-bottom: 20px;
-    border: none;
-    border-bottom: 0.5px solid dimgray;
+// Authenticated pages
 
-    &.invalid-input {
-      border-bottom: 0.5px solid #E74C3C;
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  .modal-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: fixed;
+    width: 225px;
+    padding: 20px 30px 60px 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+
+    h2 {
+      margin-bottom: 0;
     }
-  }
 
-  button {
-    height: 40px;
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: $default-font-size;
-    border: 1px solid dimgray;
-    cursor: pointer;
+    .set-goal {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 

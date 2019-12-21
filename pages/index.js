@@ -7,9 +7,11 @@ import { withApollo } from "../lib/apollo";
 import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
+import SetGoalModal from "../components/SetGoalModal";
 
-const Dashboard = () => (
+const Dashboard = ({ loggedInUser }) => (
     <AuthenticatedPage>
+        <SetGoalModal visible={true} />
     </AuthenticatedPage>
 );
 
@@ -25,9 +27,10 @@ Dashboard.getInitialProps = async (context) => {
 
 Dashboard.propTypes = {
     loggedInUser: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         token: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
+        monthlySpendingGoal: PropTypes.number,
     }).isRequired,
 };
 
