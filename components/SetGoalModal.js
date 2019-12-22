@@ -19,7 +19,9 @@ const SetGoalModal = ({ visible }) => {
     const [monthlySpendingGoal, setMonthlySpendingGoal] = useState("");
 
     const [updateUser] = useMutation(UPDATE_USER_MUTATION, {
-        onCompleted() {},
+        onCompleted({}) {
+            setMonthlySpendingGoal("");
+        },
         onError(error) {
             if (error) {
                 console.error(error);
@@ -27,9 +29,14 @@ const SetGoalModal = ({ visible }) => {
         },
     });
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         await updateUser({
-            variables: { monthlySpendingGoal }
+            variables: {
+                updatedUser: {
+                    monthlySpendingGoal: parseFloat(monthlySpendingGoal),
+                },
+            }
         });
     };
 
