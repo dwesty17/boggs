@@ -1,8 +1,9 @@
-import React, {useState} from "react";
-import {useMutation} from "@apollo/react-hooks";
+import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 import "../styles.scss";
+import redirect from "../lib/redirect";
 
 const UPDATE_USER_MUTATION = gql`
     mutation UpdateUser($updatedUser: UserInput!) {
@@ -21,6 +22,7 @@ const SetGoalModal = ({ visible }) => {
     const [updateUser] = useMutation(UPDATE_USER_MUTATION, {
         onCompleted({}) {
             setMonthlySpendingGoal("");
+            redirect({}, "/");
         },
         onError(error) {
             if (error) {
