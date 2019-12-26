@@ -48,6 +48,7 @@ const CreateAccountForm = ({ handleSuccess }) => {
         },
         onError (error) {
             if (error) {
+                console.error(error);
                 setErrors({ serverError: true });
             }
         },
