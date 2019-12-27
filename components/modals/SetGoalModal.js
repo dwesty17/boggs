@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
-import "../styles.scss";
-import redirect from "../lib/redirect";
+import "../../styles.scss";
+import redirect from "../../lib/redirect";
 
 const UPDATE_USER_MUTATION = gql`
     mutation UpdateUser($updatedUser: UserInput!) {
@@ -47,9 +47,8 @@ const SetGoalModal = ({ visible }) => {
             <section className="modal-main">
                 <h2>Welcome to $$$!</h2>
                 <p>Enter your monthly spending goal to get started!</p>
-                <form className="set-goal">
+                <form>
                     <input
-                        name="monthlySpendingGoal"
                         placeholder="Monthly goal"
                         type="number"
                         min="0"
