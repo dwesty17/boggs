@@ -12,9 +12,11 @@ import SetGoalModal from "../components/SetGoalModal";
 const Dashboard = ({ loggedInUser }) => (
     <AuthenticatedPage>
         <SetGoalModal visible={!loggedInUser.monthlySpendingGoal} />
-        {loggedInUser.monthlySpendingGoal && (
-            <p>Your monthly spending goal is: ${ loggedInUser.monthlySpendingGoal.toFixed(2) }</p>
-        )}
+        <h2>
+            {loggedInUser.monthlySpendingGoal && (
+                <p>Your monthly spending goal is: ${ loggedInUser.monthlySpendingGoal.toFixed(2) }</p>
+            )}
+        </h2>
 
     </AuthenticatedPage>
 );
