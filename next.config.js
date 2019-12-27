@@ -1,9 +1,9 @@
 const withSass = require("@zeit/next-sass");
 
-const config = withSass({
+const config = {
     env: {
         SERVER_URL: process.env.SERVER_URL,
     },
-});
+};
 
-module.exports = config;
+module.exports = withSass(config);
