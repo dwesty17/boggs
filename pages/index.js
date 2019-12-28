@@ -19,7 +19,6 @@ const Dashboard = ({ loggedInUser }) => (
                 <p>Your monthly spending goal is: ${ loggedInUser.monthlySpendingGoal.toFixed(2) }</p>
             )}
         </h2>
-
     </AuthenticatedPage>
 );
 
