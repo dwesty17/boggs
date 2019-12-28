@@ -18,14 +18,14 @@ const AddTransactionModal = ({ visible, onClose }) => {
     if (!visible) { return null; }
 
     // "1970-03-01T00:10"
-    const [timestamp, setTimestamp] = useState(moment().format("YYYY-MM-DDTHH:mm"));
+    const [transactionTime, setTransactionTime] = useState(moment().format("YYYY-MM-DDTHH:mm"));
     const [amount, setAmount] = useState("");
     const [transactee, setTransactee] = useState("");
     const [description, setDescription] = useState("");
 
     const [updateUser] = useMutation(ADD_TRANSACTION_MUTATION, {
         onCompleted({}) {
-            setTimestamp(moment().format("YYYY-MM-DDTHH:mm"));
+            setTransactionTime(moment().format("YYYY-MM-DDTHH:mm"));
             setAmount("");
             setTransactee("");
             setDescription("");
@@ -43,7 +43,7 @@ const AddTransactionModal = ({ visible, onClose }) => {
         await updateUser({
             variables: {
                 transaction: {
-                    timestamp,
+                    transactionTime,
                     amount: parseFloat(amount),
                     transactee,
                     description,
@@ -60,8 +60,8 @@ const AddTransactionModal = ({ visible, onClose }) => {
                     <input
                         placeholder="Time"
                         type="datetime-local"
-                        value={timestamp}
-                        onChange={(event) => { setTimestamp(event.target.value); }}
+                        value={transactionTime}
+                        onChange={(event) => { setTransactionTime(event.target.value); }}
                     />
 
                     <input
