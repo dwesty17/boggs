@@ -14,10 +14,9 @@ const ADD_TRANSACTION_MUTATION = gql`
     }
 `;
 
-const AddTransactionModal = ({ visible, onClose }) => {
+const AddTransactionModal = ({ visible, handleClose }) => {
     if (!visible) { return null; }
 
-    // "1970-03-01T00:10"
     const [transactionTime, setTransactionTime] = useState(moment().format("YYYY-MM-DDTHH:mm"));
     const [amount, setAmount] = useState("");
     const [transactee, setTransactee] = useState("");
@@ -29,6 +28,7 @@ const AddTransactionModal = ({ visible, onClose }) => {
             setAmount("");
             setTransactee("");
             setDescription("");
+            handleClose();
             redirect({}, "/");
         },
         onError(error) {
@@ -43,7 +43,7 @@ const AddTransactionModal = ({ visible, onClose }) => {
         await updateUser({
             variables: {
                 transaction: {
-                    transactionTime,
+                    transactionTime: moment(transactionTime).valueOf().toString(),
                     amount: parseFloat(amount),
                     transactee,
                     description,
@@ -94,7 +94,7 @@ const AddTransactionModal = ({ visible, onClose }) => {
 
                     <button
                         disabled={false}
-                        onClick={onClose}
+                        onClick={handleClose}
                     >
                         Cancel
                     </button>
