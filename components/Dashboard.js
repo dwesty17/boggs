@@ -45,9 +45,12 @@ const Dashboard = ({monthlySpendingGoal}) => {
     return (
         <div className="dashboard">
             {monthlySpendingGoal && <h2>Monthly spending goal: ${monthlySpendingGoal}</h2>}
-            <h3>Daily spending: ${dailyAmountSpent.toFixed(2)} / ${dailyGoal(monthlySpendingGoal).toFixed(2)}</h3>
-            <h3>Weekly spending: ${weeklyAmountSpent.toFixed(2)} / ${weeklyGoal(monthlySpendingGoal).toFixed(2)}</h3>
-            <h3>Monthly spending: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal.toFixed(2)}</h3>
+            <p>Daily spending: ${dailyAmountSpent.toFixed(2)} / ${dailyGoal(monthlySpendingGoal).toFixed(2)}</p>
+            <p>Weekly spending: ${weeklyAmountSpent.toFixed(2)} / ${weeklyGoal(monthlySpendingGoal).toFixed(2)}</p>
+            <p>Monthly spending: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal.toFixed(2)}</p>
+
+            <h2>Adjusted</h2>
+            TODO
         </div>
     );
 };
