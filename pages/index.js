@@ -9,16 +9,14 @@ import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
 import SetGoalModal from "../components/modals/SetGoalModal";
 import AddTransactionModal from "../components/modals/AddTransactionModal";
+import TransactionsTable from "../components/TransactionsTable";
 
 const Dashboard = ({ loggedInUser }) => (
     <AuthenticatedPage>
         <SetGoalModal visible={!loggedInUser.monthlySpendingGoal} />
         <AddTransactionModal visible={false} />
-        <h2>
-            {loggedInUser.monthlySpendingGoal && (
-                <p>Your monthly spending goal is: ${ loggedInUser.monthlySpendingGoal.toFixed(2) }</p>
-            )}
-        </h2>
+
+        <TransactionsTable />
     </AuthenticatedPage>
 );
 
