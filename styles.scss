@@ -241,4 +241,14 @@ button.icon-button {
     justify-content: left;
     align-items: baseline;
   }
+
+  .transactions-table-row {
+    display: flex;
+    margin-bottom: 5px;
+
+    p {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  }
 }

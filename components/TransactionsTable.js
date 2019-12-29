@@ -1,6 +1,7 @@
 import React from "react";
-import {useQuery} from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import {useQuery} from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import moment from "moment";
 import {MdAdd} from "react-icons/md";
 
 import "../styles.scss";
@@ -35,9 +36,7 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
     if (transactions.length === 0) {
         return (
             <div className="transactions-table">
-                <TransactionsTableHeader
-                    handleAddTransactionClick={handleAddTransactionClick}
-                />
+                <TransactionsTableHeader handleAddTransactionClick={handleAddTransactionClick}/>
                 <p>You haven't recorded any transactions yet.</p>
             </div>
         )
@@ -45,9 +44,13 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
 
     return (
         <div className="transactions-table">
-            <TransactionsTableHeader
-                handleAddTransactionClick={handleAddTransactionClick}
-            />
+            <TransactionsTableHeader handleAddTransactionClick={handleAddTransactionClick}/>
+            {transactions.map((transaction) => (
+                <TransactionsTableRow
+                    key={transaction.id}
+                    transaction={transaction}
+                />
+            ))}
         </div>
     );
 };
@@ -61,6 +64,15 @@ const TransactionsTableHeader = ({handleAddTransactionClick}) => (
         >
             <MdAdd/>
         </button>
+    </div>
+);
+
+const TransactionsTableRow = ({transaction}) => (
+    <div className="transactions-table-row">
+        <p>{moment(parseInt(transaction.transactionTime)).format("M/D/YY HH:mm")}</p>
+        <p>${transaction.amount.toFixed(2)}</p>
+        <p>{transaction.transactee}</p>
+        <p>{transaction.description}</p>
     </div>
 );
 
