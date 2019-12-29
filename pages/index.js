@@ -9,6 +9,7 @@ import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
 import SetGoalModal from "../components/modals/SetGoalModal";
 import AddTransactionModal from "../components/modals/AddTransactionModal";
+import Dashboard from "../components/Dashboard";
 import TransactionsTable from "../components/TransactionsTable";
 
 const IndexPage = ({loggedInUser}) => {
@@ -22,9 +23,10 @@ const IndexPage = ({loggedInUser}) => {
                 handleClose={() => { setShowTransactionModal(false); }}
             />
 
-            <TransactionsTable
-                handleAddTransactionClick={() => { setShowTransactionModal(true); }}
-            />
+            <div className="main-view">
+                <Dashboard monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>
+                <TransactionsTable handleAddTransactionClick={() => { setShowTransactionModal(true); }}/>
+            </div>
         </AuthenticatedPage>
     );
 };

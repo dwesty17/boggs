@@ -3,6 +3,8 @@ type Query {
     getUser: User
 
     getTransactions: [ Transaction! ]
+
+    getAmountSpent(since: String!): Float!
 }
 
 type Mutation {

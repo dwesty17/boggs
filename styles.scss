@@ -231,9 +231,18 @@ button.icon-button {
   }
 }
 
-.transactions-table {
-  width: 50%;
+.main-view {
+  display: flex;
+}
+
+.dashboard {
   min-width: 400px;
+  width: 50%;
+}
+
+.transactions-table {
+  min-width: 400px;
+  width: 50%;
 
   .transactions-table-header {
     display: flex;
