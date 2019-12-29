@@ -11,7 +11,7 @@ import SetGoalModal from "../components/modals/SetGoalModal";
 import AddTransactionModal from "../components/modals/AddTransactionModal";
 import TransactionsTable from "../components/TransactionsTable";
 
-const Dashboard = ({loggedInUser}) => {
+const IndexPage = ({loggedInUser}) => {
     const [showTransactionModal, setShowTransactionModal] = useState(false);
 
     return (
@@ -29,7 +29,7 @@ const Dashboard = ({loggedInUser}) => {
     );
 };
 
-Dashboard.getInitialProps = async (context) => {
+IndexPage.getInitialProps = async (context) => {
     const {loggedInUser} = await checkLoggedIn(context.apolloClient);
 
     if (!loggedInUser.token) {
@@ -39,7 +39,7 @@ Dashboard.getInitialProps = async (context) => {
     return {loggedInUser};
 };
 
-Dashboard.propTypes = {
+IndexPage.propTypes = {
     loggedInUser: PropTypes.shape({
         id: PropTypes.string.isRequired,
         token: PropTypes.string.isRequired,
@@ -48,4 +48,4 @@ Dashboard.propTypes = {
     }).isRequired,
 };
 
-export default withApollo(Dashboard);
+export default withApollo(IndexPage);
