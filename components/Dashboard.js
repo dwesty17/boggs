@@ -48,9 +48,6 @@ const Dashboard = ({monthlySpendingGoal}) => {
             <p>Daily spending: ${dailyAmountSpent.toFixed(2)} / ${dailyGoal(monthlySpendingGoal).toFixed(2)}</p>
             <p>Weekly spending: ${weeklyAmountSpent.toFixed(2)} / ${weeklyGoal(monthlySpendingGoal).toFixed(2)}</p>
             <p>Monthly spending: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal.toFixed(2)}</p>
-
-            <h2>Adjusted</h2>
-            TODO
         </div>
     );
 };
