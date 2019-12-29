@@ -233,15 +233,14 @@ button.icon-button {
 
 .main-view {
   display: flex;
+  width: 100%;
 }
 
 .dashboard {
-  min-width: 400px;
   width: 50%;
 }
 
 .transactions-table {
-  min-width: 400px;
   width: 50%;
 
   .transactions-table-header {
