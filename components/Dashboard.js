@@ -42,17 +42,26 @@ const Dashboard = ({monthlySpendingGoal}) => {
         monthlyAmountSpent,
     } = data;
 
+    const dailySpendingGoal = dailyGoal(monthlySpendingGoal);
+    const weeklySpendingGoal = weeklyGoal(monthlySpendingGoal);
+
+    const dailyPercentage = percentageOfGoal(dailyAmountSpent, dailySpendingGoal);
+    const weeklyPercentage = percentageOfGoal(weeklyAmountSpent, weeklySpendingGoal);
+    const monthlyPercentage = percentageOfGoal(monthlyAmountSpent, monthlySpendingGoal);
+
     return (
         <div className="dashboard">
             {monthlySpendingGoal && <h2>Monthly spending goal: ${monthlySpendingGoal}</h2>}
-            <p>Daily spending: ${dailyAmountSpent.toFixed(2)} / ${dailyGoal(monthlySpendingGoal).toFixed(2)}</p>
-            <p>Weekly spending: ${weeklyAmountSpent.toFixed(2)} / ${weeklyGoal(monthlySpendingGoal).toFixed(2)}</p>
-            <p>Monthly spending: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal.toFixed(2)}</p>
+            <p>Daily spend: ${dailyAmountSpent.toFixed(2)} / ${dailySpendingGoal} ({dailyPercentage}%)</p>
+            <p>Weekly spend: ${weeklyAmountSpent.toFixed(2)} / ${weeklySpendingGoal} ({weeklyPercentage}%)</p>
+            <p>Monthly spend: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal} ({monthlyPercentage}%)</p>
         </div>
     );
 };
 
-const dailyGoal = (monthlySpendingGoal) => (monthlySpendingGoal * 12) / 365;
-const weeklyGoal = (monthlySpendingGoal) => (monthlySpendingGoal * 12) / 52;
+const dailyGoal = (monthlySpendingGoal) => ((monthlySpendingGoal * 12) / 365).toFixed(2);
+const weeklyGoal = (monthlySpendingGoal) => ((monthlySpendingGoal * 12) / 52).toFixed(2);
+
+const percentageOfGoal = (amount, goal) => ((amount / goal) * 100).toFixed(1);
 
 export default Dashboard;
