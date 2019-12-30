@@ -4,7 +4,8 @@ import gql from "graphql-tag";
 import moment from "moment";
 
 import "./styles.scss";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
+import PercentageBar from "../PercentageBar";
 
 const GET_AMOUNTS_SPENT_QUERY = gql`
     query GetAmountsSpent(
@@ -52,9 +53,21 @@ const Dashboard = ({monthlySpendingGoal}) => {
     return (
         <div className="dashboard">
             {monthlySpendingGoal && <h2>Monthly spending goal: ${monthlySpendingGoal}</h2>}
-            <p>Daily spend: ${dailyAmountSpent.toFixed(2)} / ${dailySpendingGoal} ({dailyPercentage}%)</p>
-            <p>Weekly spend: ${weeklyAmountSpent.toFixed(2)} / ${weeklySpendingGoal} ({weeklyPercentage}%)</p>
-            <p>Monthly spend: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal} ({monthlyPercentage}%)</p>
+
+            <div className="dashboard-row">
+                <p>Daily spend: ${dailyAmountSpent.toFixed(2)} / ${dailySpendingGoal}</p>
+                <PercentageBar percentage={dailyPercentage} />
+            </div>
+
+            <div className="dashboard-row">
+                <p>Weekly spend: ${weeklyAmountSpent.toFixed(2)} / ${weeklySpendingGoal}</p>
+                <PercentageBar percentage={weeklyPercentage} />
+            </div>
+
+            <div className="dashboard-row">
+                <p>Monthly spend: ${monthlyAmountSpent.toFixed(2)} / ${monthlySpendingGoal}</p>
+                <PercentageBar percentage={monthlyPercentage} />
+            </div>
         </div>
     );
 };
@@ -62,6 +75,6 @@ const Dashboard = ({monthlySpendingGoal}) => {
 const dailyGoal = (monthlySpendingGoal) => ((monthlySpendingGoal * 12) / 365).toFixed(2);
 const weeklyGoal = (monthlySpendingGoal) => ((monthlySpendingGoal * 12) / 52).toFixed(2);
 
-const percentageOfGoal = (amount, goal) => ((amount / goal) * 100).toFixed(1);
+const percentageOfGoal = (amount, goal) => (amount / goal) * 100;
 
 export default Dashboard;
