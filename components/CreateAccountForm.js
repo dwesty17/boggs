@@ -6,7 +6,6 @@ import passwordValidator from "password-validator";
 import gql from "graphql-tag";
 import cookie from "cookie";
 
-import "../styles.scss";
 import redirect from "../lib/redirect";
 
 const NINETY_DAYS = 30 * 24 * 60 * 60;

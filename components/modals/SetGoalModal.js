@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
-import "../../styles.scss";
 import redirect from "../../lib/redirect";
 
 const UPDATE_USER_MUTATION = gql`

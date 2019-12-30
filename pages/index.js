@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-import "../styles.scss";
-import "../components/AuthenticatedPage";
 import {withApollo} from "../lib/apollo";
 import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";

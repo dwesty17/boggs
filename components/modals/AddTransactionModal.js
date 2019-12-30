@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
 
-import "../../styles.scss";
 import redirect from "../../lib/redirect";
 
 const ADD_TRANSACTION_MUTATION = gql`
