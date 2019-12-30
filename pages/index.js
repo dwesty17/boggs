@@ -22,8 +22,12 @@ const IndexPage = ({loggedInUser}) => {
             />
 
             <div className="main-view">
-                <Dashboard monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>
-                <TransactionsTable handleAddTransactionClick={() => { setShowTransactionModal(true); }}/>
+                <div className="main-column">
+                    <Dashboard monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>
+                </div>
+                <div className="main-column">
+                    <TransactionsTable handleAddTransactionClick={() => { setShowTransactionModal(true); }}/>
+                </div>
             </div>
         </AuthenticatedPage>
     );

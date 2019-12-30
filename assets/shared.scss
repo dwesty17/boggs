@@ -145,14 +145,24 @@ button.icon-button {
 
 .main-view {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   box-sizing: border-box;
   padding: 10px 20px;
+
+  @media only screen and (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.main-column {
+  @media only screen and (min-width: 850px) {
+    width: 50%;
+  }
 }
 
 .transactions-table {
-  width: 50%;
-
   .transactions-table-header {
     display: flex;
     flex-direction: row;
