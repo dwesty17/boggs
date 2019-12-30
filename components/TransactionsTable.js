@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import moment from "moment";
 import {MdAdd} from "react-icons/md";
 
-import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "./LoadingSpinner";
 
 const GET_TRANSACTIONS_QUERY = gql`
     query {
@@ -68,7 +68,7 @@ const TransactionsTableHeader = ({handleAddTransactionClick}) => (
 
 const TransactionsTableRow = ({transaction}) => (
     <div className="transactions-table-row">
-        <p>{moment(parseInt(transaction.transactionTime)).format("M/D/YY HH:mm")}</p>
+        <p>{moment(parseInt(transaction.transactionTime)).fromNow()}</p>
         <p>${transaction.amount.toFixed(2)}</p>
         <p>{transaction.transactee}</p>
         <p>{transaction.description}</p>
