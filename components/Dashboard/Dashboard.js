@@ -3,7 +3,8 @@ import {useQuery} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
 
-import LoadingSpinner from "./LoadingSpinner";
+import "./styles.scss";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const GET_AMOUNTS_SPENT_QUERY = gql`
     query GetAmountsSpent(

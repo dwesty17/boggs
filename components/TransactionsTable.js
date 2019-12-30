@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import moment from "moment";
 import {MdAdd} from "react-icons/md";
 
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 
 const GET_TRANSACTIONS_QUERY = gql`
     query {
