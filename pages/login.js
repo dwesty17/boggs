@@ -12,7 +12,7 @@ const LoginPage = () => (
         <LoginForm />
         <p>{ "Don't have an account?" }</p>
         <Link href="/create-account">
-            <a>Create Account</a>
+            <a>Request Account</a>
         </Link>
     </div>
 );
