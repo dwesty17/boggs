@@ -1,8 +1,18 @@
 $subtext-font-size: 12px;
 $default-font-size: 16px;
 
+$gray-0: #a;
+$gray-1: #dddddd;
+
+$aqua: #7fdbff;
+$navy: #001f3f;
+
+$red: #ff4136;
+
 body {
   font-family: "Montserrat", Helvetica, sans-serif;
+  background-color: $gray-1;
+  color: $navy;
   margin: 0;
 
   ::-webkit-input-placeholder,
@@ -29,7 +39,7 @@ input {
   border-bottom: 0.5px solid dimgray;
 
   &.invalid-input {
-    border-bottom: 0.5px solid #e74c3c;
+    border-bottom: 0.5px solid $red;
   }
 }
 
@@ -49,8 +59,8 @@ button.icon-button {
   justify-content: center;
   height: auto;
   width: auto;
-  background-color: #7fdbff;
-  color: #001f3f;
+  background-color: $aqua;
+  color: $navy;
   margin: 0 10px;
   border-radius: 100px;
   border: none;
@@ -76,7 +86,7 @@ button.icon-button {
     width: 250px;
     text-align: center;
     font-size: $subtext-font-size;
-    color: #F1948A;
+    color: $red;
     margin-bottom: 0;
   }
 }
@@ -132,7 +142,7 @@ button.icon-button {
 
   height: 50px;
   padding: 0 20px;
-  background-color: #7fdbff;
+  background-color: $aqua;
 
   a {
     color: black;
