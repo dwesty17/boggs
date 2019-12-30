@@ -4,12 +4,17 @@ import "./styles.scss";
 
 const PercentageBar = ({percentage}) => (
     <div className="percentage-container">
-        <div
-            className="percentage-bar"
-            style={{ width: `${percentage}%` }}
-        >
-            {percentage.toFixed(0)}%
-        </div>
+        {percentage ?
+            <div
+                className="percentage-bar"
+                style={{ width: `${percentage}%` }}
+            >
+                {percentage.toFixed(0)}%
+            </div> :
+            <div className="empty-percentage-bar">
+                {percentage.toFixed(0)}%
+            </div>
+        }
     </div>
 );
 

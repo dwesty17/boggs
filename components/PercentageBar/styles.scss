@@ -6,8 +6,12 @@
 }
 
 .percentage-bar {
-  box-sizing: border-box;
+  @extend .percentage-container;
   background-color: #7FDBFF;
-  border-radius: 5px;
   padding: 7.5px 5px;
 }
+
+.empty-percentage-bar {
+  @extend .percentage-bar;
+  background-color: transparent;
+};
