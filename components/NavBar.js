@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import moment from "moment";
 
 import "../styles.scss";
 import SignOutButton from "./SignOutButton";
@@ -7,9 +7,7 @@ import SignOutButton from "./SignOutButton";
 const NavBar = () => (
   <nav className="nav-bar">
       <div className="strong-side">
-          <Link href="/">
-              <a>$$$</a>
-          </Link>
+          {moment().format("dddd, MMMM D, YYYY")}
       </div>
 
       <div className="right-side">
