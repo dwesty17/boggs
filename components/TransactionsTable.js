@@ -61,7 +61,7 @@ const TransactionsTableHeader = ({handleAddTransactionClick}) => (
             className="icon-button"
             onClick={handleAddTransactionClick}
         >
-            <MdAdd/>
+            <MdAdd size={18}/>
         </button>
     </div>
 );
