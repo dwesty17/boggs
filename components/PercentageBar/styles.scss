@@ -7,11 +7,16 @@
 
 .percentage-bar {
   @extend .percentage-container;
-  background-color: #7FDBFF;
+  background-color: #7fdbff;
   padding: 7.5px 5px;
 }
 
 .empty-percentage-bar {
   @extend .percentage-bar;
   background-color: transparent;
-};
+}
+
+.percentage-bar-warning {
+  @extend .percentage-bar;
+  background-color: #ff4136;
+}

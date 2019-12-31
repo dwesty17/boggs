@@ -6,8 +6,8 @@ const PercentageBar = ({percentage}) => (
     <div className="percentage-container">
         {percentage ?
             <div
-                className="percentage-bar"
-                style={{ width: `${percentage}%` }}
+                className={percentage < 100 ? "percentage-bar" : "percentage-bar-warning"}
+                style={{ width: `${Math.min(percentage, 100)}%` }}
             >
                 {percentage.toFixed(0)}%
             </div> :
