@@ -93,9 +93,9 @@ const TransactionsTableRow = ({transaction, previousTransaction}) => {
             <td>
                 {transaction.transactee}
             </td>
-            <td className="description-column">
-                {transaction.description}
-            </td>
+            {/*<td className="description-column">*/}
+            {/*    {transaction.description}*/}
+            {/*</td>*/}
         </tr>
     );
 };
