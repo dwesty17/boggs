@@ -1,0 +1,30 @@
+.transactions-table {
+  .transactions-table-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+  }
+
+  table {
+    width: 100%;
+    table-layout: auto;
+  }
+
+  td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 6px;
+  }
+
+  .transactions-table-divider-row {
+    td {
+      border-top: 1px #001f3f dotted;
+    }
+  }
+
+  .amount-column {
+    text-align: right;
+  }
+}

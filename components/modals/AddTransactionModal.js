@@ -3,8 +3,6 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
 
-import redirect from "../../lib/redirect";
-
 const ADD_TRANSACTION_MUTATION = gql`
     mutation CreateTransaction($transaction: TransactionInput!) {
         createTransaction(transaction: $transaction) {

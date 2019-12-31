@@ -4,7 +4,8 @@ import gql from "graphql-tag";
 import moment from "moment";
 import {MdAdd} from "react-icons/md";
 
-import LoadingSpinner from "./LoadingSpinner";
+import "./styles.scss";
+import LoadingSpinner from "../LoadingSpinner";
 
 const GET_TRANSACTIONS_QUERY = gql`
     query {
@@ -44,12 +45,15 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
     return (
         <div className="transactions-table">
             <TransactionsTableHeader handleAddTransactionClick={handleAddTransactionClick}/>
-            {transactions.map((transaction) => (
-                <TransactionsTableRow
-                    key={transaction.id}
-                    transaction={transaction}
-                />
-            ))}
+            <table>
+                {transactions.map((transaction, index, transactions) => (
+                    <TransactionsTableRow
+                        key={transaction.id}
+                        transaction={transaction}
+                        previousTransaction={index ? transactions[index - 1] : transactions[0]}
+                    />
+                ))}
+            </table>
         </div>
     );
 };
@@ -66,13 +70,33 @@ const TransactionsTableHeader = ({handleAddTransactionClick}) => (
     </div>
 );
 
-const TransactionsTableRow = ({transaction}) => (
-    <div className="transactions-table-row">
-        <p>{moment(parseInt(transaction.transactionTime)).fromNow()}</p>
-        <p>${transaction.amount.toFixed(2)}</p>
-        <p>{transaction.transactee}</p>
-        <p>{transaction.description}</p>
-    </div>
-);
+const TransactionsTableRow = ({transaction, previousTransaction}) => {
+    const transactionMoment = moment(parseInt(transaction.transactionTime));
+    const previousTransactionMoment = moment(parseInt(previousTransaction.transactionTime));
+    const lastOfDay = (
+        transaction === previousTransaction ||
+        transactionMoment.day() !== previousTransactionMoment.day()
+    );
+
+    return (
+        <tr className={lastOfDay ? "transactions-table-divider-row" : ""}>
+            <td>
+                {lastOfDay ? transactionMoment.format("M/D") : ""}
+            </td>
+            <td>
+                {transactionMoment.format("LT")}
+            </td>
+            <td className="amount-column">
+                ${transaction.amount.toFixed(2)}
+            </td>
+            <td>
+                {transaction.transactee}
+            </td>
+            {/*<td className="description-column">*/}
+            {/*    {transaction.description}*/}
+            {/*</td>*/}
+        </tr>
+    );
+};
 
 export default TransactionsTable;

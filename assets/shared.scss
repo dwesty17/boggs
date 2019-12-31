@@ -177,22 +177,3 @@ button.icon-button {
     width: 50%;
   }
 }
-
-.transactions-table {
-  .transactions-table-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-  }
-
-  .transactions-table-row {
-    display: flex;
-    margin-bottom: 5px;
-
-    p {
-      font-size: 14px;
-      margin-right: 10px;
-    }
-  }
-}
