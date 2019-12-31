@@ -28,7 +28,7 @@ const AddTransactionModal = ({ visible, handleClose }) => {
             setTransactee("");
             setDescription("");
             handleClose();
-            redirect({}, "/");
+            window.location.reload(false);
         },
         onError(error) {
             if (error) {
