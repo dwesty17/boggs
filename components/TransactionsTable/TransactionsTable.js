@@ -78,6 +78,7 @@ const TransactionsTableRow = ({transaction, previousTransaction}) => {
         transactionMoment.day() !== previousTransactionMoment.day()
     );
 
+    // TODO figure out how to make description column collapsible
     return (
         <tr className={lastOfDay ? "transactions-table-divider-row" : ""}>
             <td>
@@ -92,9 +93,9 @@ const TransactionsTableRow = ({transaction, previousTransaction}) => {
             <td>
                 {transaction.transactee}
             </td>
-            {/*<td className="description-column">*/}
-            {/*    {transaction.description}*/}
-            {/*</td>*/}
+            <td className="description-column">
+                {transaction.description}
+            </td>
         </tr>
     );
 };
