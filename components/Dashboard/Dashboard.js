@@ -13,9 +13,9 @@ const GET_AMOUNTS_SPENT_QUERY = gql`
         $startOfWeek: String!,
         $startOfMonth: String!,
     ) {
-        dailyAmountSpent: getAmountSpent(since: $startOfDay)
-        weeklyAmountSpent: getAmountSpent(since: $startOfWeek)
-        monthlyAmountSpent: getAmountSpent(since: $startOfMonth)
+        dailyAmountSpent: getAmountSpent(from: $startOfDay)
+        weeklyAmountSpent: getAmountSpent(from: $startOfWeek)
+        monthlyAmountSpent: getAmountSpent(from: $startOfMonth)
     }
 `;
 

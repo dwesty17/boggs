@@ -2,7 +2,8 @@ type Query {
     getUser: User
     getTransactions: [ Transaction! ]
     getBudgets: [ Budget! ]
-    getAmountSpent(since: String!): Float!
+    getAmountSpent(from: String to: String): Float!
+    getAmountSpentPerDay(from: String to: String): Float!
 }
 
 type Mutation {
@@ -39,6 +40,7 @@ input TransactionInput {
     amount: Float!
     transactee: String!
     description: String!
+    budgetId: ID
 }
 
 type Budget {
