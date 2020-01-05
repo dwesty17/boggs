@@ -1,8 +1,7 @@
 type Query {
     getUser: User
-
     getTransactions: [ Transaction! ]
-
+    getBudgets: [ Budget! ]
     getAmountSpent(since: String!): Float!
 }
 
@@ -10,7 +9,6 @@ type Mutation {
     loginUser (user: UserInput!): User
     createUser (user: UserInput!): User
     updateUser (updatedUser: UserInput!): User
-
     createTransaction (transaction: TransactionInput!): Transaction!
 }
 
@@ -41,4 +39,18 @@ input TransactionInput {
     amount: Float!
     transactee: String!
     description: String!
+}
+
+type Budget {
+    id: ID!
+    name: String!
+    description: String
+    amount: Float!
+    timespan: Timespan!
+}
+
+enum Timespan {
+    WEEK
+    MONTH
+    YEAR
 }

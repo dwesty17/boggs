@@ -1,7 +1,18 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
+
+import LoadingSpinner from "../LoadingSpinner";
+
+const GET_BUDGETS_QUERY = gql`
+    query GetBudgets {
+        getBudgets {
+            id
+            name
+        }
+    }
+`;
 
 const ADD_TRANSACTION_MUTATION = gql`
     mutation CreateTransaction($transaction: TransactionInput!) {
@@ -18,6 +29,9 @@ const AddTransactionModal = ({ visible, handleClose }) => {
     const [amount, setAmount] = useState("");
     const [transactee, setTransactee] = useState("");
     const [description, setDescription] = useState("");
+    const [budgetId, setBudgetId] = useState("");
+
+    const {loading, error, data} = useQuery(GET_BUDGETS_QUERY);
 
     const [updateUser] = useMutation(ADD_TRANSACTION_MUTATION, {
         onCompleted({}) {
@@ -25,6 +39,7 @@ const AddTransactionModal = ({ visible, handleClose }) => {
             setAmount("");
             setTransactee("");
             setDescription("");
+            setBudgetId("");
             handleClose();
             window.location.reload(false);
         },
@@ -44,16 +59,30 @@ const AddTransactionModal = ({ visible, handleClose }) => {
                     amount: parseFloat(amount),
                     transactee,
                     description,
+                    budgetId,
                 },
             }
         });
     };
+
+    if (error) {
+        alert("We are experiencing a problem");
+        return;
+    }
+
+    if (loading) {
+        return <LoadingSpinner/>;
+    }
+
+    const budgets = data.getBudgets;
 
     return (
         <div className="modal-background">
             <section className="modal-main">
                 <h2>New transaction</h2>
                 <form>
+                    <h4>Required</h4>
+
                     <input
                         placeholder="Time"
                         type="datetime-local"
@@ -81,6 +110,19 @@ const AddTransactionModal = ({ visible, handleClose }) => {
                         value={description}
                         onChange={(event) => { setDescription(event.target.value); }}
                     />
+
+                    <h4>Optional</h4>
+
+                    <select onChange={(event) => { setBudgetId(event.target.value); }}>
+                        <option key="null" value={null}>
+                            -- Select a budget --
+                        </option>
+                        {budgets.map((budget) => (
+                            <option key={budget.id} value={budget.id}>
+                                {budget.name}
+                            </option>
+                        ))}
+                    </select>
 
                     <button
                         disabled={false}

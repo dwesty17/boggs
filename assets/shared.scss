@@ -45,6 +45,13 @@ input {
   }
 }
 
+select {
+  height: 40px;
+  width: 100%;
+  font-size: $default-font-size;
+  margin-bottom: 20px;
+}
+
 button {
   height: 40px;
   width: 100%;
