@@ -71,7 +71,11 @@ const AddTransactionModal = ({ visible, handleClose }) => {
     }
 
     if (loading) {
-        return <LoadingSpinner/>;
+        return (
+            <div className="modal-background">
+                <LoadingSpinner/>
+            </div>
+        );
     }
 
     const budgets = data.getBudgets;
