@@ -29,7 +29,7 @@ const AddTransactionModal = ({ visible, handleClose }) => {
     const [amount, setAmount] = useState("");
     const [transactee, setTransactee] = useState("");
     const [description, setDescription] = useState("");
-    const [budgetId, setBudgetId] = useState("");
+    const [budgetId, setBudgetId] = useState(null);
 
     const {loading, error, data} = useQuery(GET_BUDGETS_QUERY);
 
@@ -39,7 +39,7 @@ const AddTransactionModal = ({ visible, handleClose }) => {
             setAmount("");
             setTransactee("");
             setDescription("");
-            setBudgetId("");
+            setBudgetId(null);
             handleClose();
             window.location.reload(false);
         },

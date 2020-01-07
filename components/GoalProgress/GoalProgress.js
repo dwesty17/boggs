@@ -19,7 +19,7 @@ const GET_AMOUNTS_SPENT_QUERY = gql`
     }
 `;
 
-const Dashboard = ({monthlySpendingGoal}) => {
+const GoalProgress = ({monthlySpendingGoal}) => {
     const {loading, error, data} = useQuery(GET_AMOUNTS_SPENT_QUERY, {
         variables: {
             startOfDay: moment().startOf("day").valueOf().toString(),
@@ -52,20 +52,20 @@ const Dashboard = ({monthlySpendingGoal}) => {
     const monthlyPercentage = percentageOfGoal(monthlyAmountSpent, monthlyGoal);
 
     return (
-        <div className="dashboard">
+        <div className="goal-progress">
             {monthlySpendingGoal && <h2>This month's goal: ${monthlyGoal}</h2>}
 
-            <div className="dashboard-row">
+            <div className="goal-progress-row">
                 <p>Daily spend: ${dailyAmountSpent.toFixed(2)} / ${dailyGoal}</p>
                 <PercentageBar percentage={dailyPercentage} />
             </div>
 
-            <div className="dashboard-row">
+            <div className="goal-progress-row">
                 <p>Weekly spend: ${weeklyAmountSpent.toFixed(2)} / ${weeklyGoal}</p>
                 <PercentageBar percentage={weeklyPercentage} />
             </div>
 
-            <div className="dashboard-row">
+            <div className="goal-progress-row">
                 <p>Monthly spend: ${monthlyAmountSpent.toFixed(2)} / ${monthlyGoal}</p>
                 <PercentageBar percentage={monthlyPercentage} />
             </div>
@@ -79,4 +79,4 @@ const getMonthlyGoal = (dailyGoal) => (dailyGoal * moment().daysInMonth()).toFix
 
 const percentageOfGoal = (amount, goal) => (amount / goal) * 100;
 
-export default Dashboard;
+export default GoalProgress;
