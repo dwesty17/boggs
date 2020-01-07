@@ -46,13 +46,15 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
         <div className="transactions-table">
             <TransactionsTableHeader handleAddTransactionClick={handleAddTransactionClick}/>
             <table>
-                {transactions.map((transaction, index, transactions) => (
-                    <TransactionsTableRow
-                        key={transaction.id}
-                        transaction={transaction}
-                        previousTransaction={index ? transactions[index - 1] : transactions[0]}
-                    />
-                ))}
+                <tbody>
+                    {transactions.map((transaction, index, transactions) => (
+                        <TransactionsTableRow
+                            key={transaction.id}
+                            transaction={transaction}
+                            previousTransaction={index ? transactions[index - 1] : transactions[0]}
+                        />
+                    ))}
+                </tbody>
             </table>
         </div>
     );
