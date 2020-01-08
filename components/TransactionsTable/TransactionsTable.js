@@ -23,7 +23,7 @@ const GET_TRANSACTIONS_QUERY = gql`
 const TransactionsTable = ({handleAddTransactionClick}) => {
     const [showTransactionModal, setShowTransactionModal] = useState(false);
 
-    const {loading, error, data, refetch} = useQuery(GET_TRANSACTIONS_QUERY);
+    const {loading, error, data} = useQuery(GET_TRANSACTIONS_QUERY);
 
     if (error) {
         alert("We are experiencing a problem");
@@ -49,7 +49,6 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
         <div className="transactions-table">
             <AddTransactionModal
                 visible={showTransactionModal}
-                refetchTransactions={refetch}
                 handleClose={() => { setShowTransactionModal(false); }}
             />
             <TransactionsTableHeader

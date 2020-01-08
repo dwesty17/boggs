@@ -22,7 +22,26 @@ const ADD_TRANSACTION_MUTATION = gql`
     }
 `;
 
-const AddTransactionModal = ({ visible, refetchTransactions, handleClose }) => {
+const REFETCH_QUERIES = gql`
+    query RefetchQueries(
+        $startOfDay: String!,
+        $startOfWeek: String!,
+        $startOfMonth: String!,
+    ) {
+        dailyAmountSpent: getAmountSpent(from: $startOfDay)
+        weeklyAmountSpent: getAmountSpent(from: $startOfWeek)
+        monthlyAmountSpent: getAmountSpent(from: $startOfMonth)
+        getTransactions {
+            id
+            transactionTime
+            amount
+            transactee
+            description
+        }
+    }
+`;
+
+const AddTransactionModal = ({ visible, handleClose }) => {
     if (!visible) { return null; }
 
     const [transactionTime, setTransactionTime] = useState(moment().format("YYYY-MM-DDTHH:mm"));
@@ -34,14 +53,21 @@ const AddTransactionModal = ({ visible, refetchTransactions, handleClose }) => {
     const {loading, error, data} = useQuery(GET_BUDGETS_QUERY);
 
     const [updateUser] = useMutation(ADD_TRANSACTION_MUTATION, {
-        onCompleted({}) {
+        refetchQueries: [{
+            query: REFETCH_QUERIES,
+            variables: {
+                startOfDay: moment().startOf("day").valueOf().toString(),
+                startOfWeek: moment().startOf("week").valueOf().toString(),
+                startOfMonth: moment().startOf("month").valueOf().toString(),
+            }
+        }],
+        onCompleted() {
             setTransactionTime(moment().format("YYYY-MM-DDTHH:mm"));
             setAmount("");
             setTransactee("");
             setDescription("");
             setBudgetId(null);
             handleClose();
-            refetchTransactions();
         },
         onError(error) {
             if (error) {
