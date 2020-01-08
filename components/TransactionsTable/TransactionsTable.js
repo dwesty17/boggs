@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
@@ -6,6 +6,7 @@ import {MdAdd} from "react-icons/md";
 
 import "./styles.scss";
 import LoadingSpinner from "../LoadingSpinner";
+import AddTransactionModal from "../modals/AddTransactionModal";
 
 const GET_TRANSACTIONS_QUERY = gql`
     query {
@@ -20,7 +21,9 @@ const GET_TRANSACTIONS_QUERY = gql`
 `;
 
 const TransactionsTable = ({handleAddTransactionClick}) => {
-    const {loading, error, data} = useQuery(GET_TRANSACTIONS_QUERY);
+    const [showTransactionModal, setShowTransactionModal] = useState(false);
+
+    const {loading, error, data, refetch} = useQuery(GET_TRANSACTIONS_QUERY);
 
     if (error) {
         alert("We are experiencing a problem");
@@ -44,7 +47,14 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
 
     return (
         <div className="transactions-table">
-            <TransactionsTableHeader handleAddTransactionClick={handleAddTransactionClick}/>
+            <AddTransactionModal
+                visible={showTransactionModal}
+                refetchTransactions={refetch}
+                handleClose={() => { setShowTransactionModal(false); }}
+            />
+            <TransactionsTableHeader
+                handleAddTransactionClick={() => { setShowTransactionModal(true);}}
+            />
             <table>
                 <tbody>
                     {transactions.map((transaction, index, transactions) => (

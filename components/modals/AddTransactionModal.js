@@ -22,7 +22,7 @@ const ADD_TRANSACTION_MUTATION = gql`
     }
 `;
 
-const AddTransactionModal = ({ visible, handleClose }) => {
+const AddTransactionModal = ({ visible, refetchTransactions, handleClose }) => {
     if (!visible) { return null; }
 
     const [transactionTime, setTransactionTime] = useState(moment().format("YYYY-MM-DDTHH:mm"));
@@ -41,7 +41,7 @@ const AddTransactionModal = ({ visible, handleClose }) => {
             setDescription("");
             setBudgetId(null);
             handleClose();
-            window.location.reload(false);
+            refetchTransactions();
         },
         onError(error) {
             if (error) {
@@ -73,7 +73,9 @@ const AddTransactionModal = ({ visible, handleClose }) => {
     if (loading) {
         return (
             <div className="modal-background">
-                <LoadingSpinner/>
+                <section className="modal-main">
+                    <LoadingSpinner/>
+                </section>
             </div>
         );
     }

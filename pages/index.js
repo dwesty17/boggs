@@ -6,21 +6,14 @@ import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
 import SetGoalModal from "../components/modals/SetGoalModal";
-import AddTransactionModal from "../components/modals/AddTransactionModal";
 import GoalProgress from "../components/GoalProgress";
 import SpendingPerDay from "../components/SpendingPerDay";
 import TransactionsTable from "../components/TransactionsTable";
 
 const IndexPage = ({loggedInUser}) => {
-    const [showTransactionModal, setShowTransactionModal] = useState(false);
-
     return (
         <AuthenticatedPage>
             <SetGoalModal visible={!loggedInUser.monthlySpendingGoal}/>
-            <AddTransactionModal
-                visible={showTransactionModal}
-                handleClose={() => { setShowTransactionModal(false); }}
-            />
 
             <div className="main-view">
                 <div className="main-column">
@@ -29,7 +22,7 @@ const IndexPage = ({loggedInUser}) => {
 
                 <div className="main-column">
                     {/*<SpendingPerDay monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>*/}
-                    <TransactionsTable handleAddTransactionClick={() => { setShowTransactionModal(true); }}/>
+                    <TransactionsTable />
                 </div>
 
             </div>
