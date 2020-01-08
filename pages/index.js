@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import {withApollo} from "../lib/apollo";
@@ -8,6 +8,8 @@ import AuthenticatedPage from "../components/AuthenticatedPage";
 import SetGoalModal from "../components/modals/SetGoalModal";
 import SpendingPerDay from "../components/SpendingPerDay";
 import TransactionsTable from "../components/TransactionsTable";
+
+// TODO maybes add daily/weekly/monthly goals back
 
 const IndexPage = ({loggedInUser}) => {
     return (
