@@ -6,7 +6,6 @@ import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
 import SetGoalModal from "../components/modals/SetGoalModal";
-import GoalProgress from "../components/GoalProgress";
 import SpendingPerDay from "../components/SpendingPerDay";
 import TransactionsTable from "../components/TransactionsTable";
 
@@ -17,14 +16,12 @@ const IndexPage = ({loggedInUser}) => {
 
             <div className="main-view">
                 <div className="main-column">
-                    <GoalProgress monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>
+                    <SpendingPerDay monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>
                 </div>
 
                 <div className="main-column">
-                    {/*<SpendingPerDay monthlySpendingGoal={loggedInUser.monthlySpendingGoal}/>*/}
-                    <TransactionsTable />
+                    <TransactionsTable/>
                 </div>
-
             </div>
         </AuthenticatedPage>
     );
