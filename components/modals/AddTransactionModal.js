@@ -24,13 +24,17 @@ const ADD_TRANSACTION_MUTATION = gql`
 
 const REFETCH_QUERIES = gql`
     query RefetchQueries(
-        $startOfDay: String!,
-        $startOfWeek: String!,
-        $startOfMonth: String!,
+        $from5: String!, 
+        $from10: String!, 
+        $from20: String!, 
+        $from40: String!,
+        $from80: String!,
     ) {
-        dailyAmountSpent: getAmountSpent(from: $startOfDay)
-        weeklyAmountSpent: getAmountSpent(from: $startOfWeek)
-        monthlyAmountSpent: getAmountSpent(from: $startOfMonth)
+        spendingIn5: getAmountSpent(from: $from5)
+        spendingIn10: getAmountSpent(from: $from10)
+        spendingIn20: getAmountSpent(from: $from20)
+        spendingIn40: getAmountSpent(from: $from40)
+        spendingIn80: getAmountSpent(from: $from80)
         getTransactions {
             id
             transactionTime
@@ -52,14 +56,22 @@ const AddTransactionModal = ({ visible, handleClose }) => {
 
     const {loading, error, data} = useQuery(GET_BUDGETS_QUERY);
 
+    const fiveDaysAgo = moment().subtract(5, "days").startOf("day").valueOf().toString();
+    const tenDaysAgo = moment().subtract(10, "days").startOf("day").valueOf().toString();
+    const twentyDaysAgo = moment().subtract(20, "days").startOf("day").valueOf().toString();
+    const fortyDaysAgo = moment().subtract(40, "days").startOf("day").valueOf().toString();
+    const eightyDaysAgo = moment().subtract(80, "days").startOf("day").valueOf().toString();
+
     const [updateUser] = useMutation(ADD_TRANSACTION_MUTATION, {
         refetchQueries: [{
             query: REFETCH_QUERIES,
             variables: {
-                startOfDay: moment().startOf("day").valueOf().toString(),
-                startOfWeek: moment().startOf("week").valueOf().toString(),
-                startOfMonth: moment().startOf("month").valueOf().toString(),
-            }
+                from5: fiveDaysAgo,
+                from10: tenDaysAgo,
+                from20: twentyDaysAgo,
+                from40: fortyDaysAgo,
+                from80: eightyDaysAgo,
+            },
         }],
         onCompleted() {
             setTransactionTime(moment().format("YYYY-MM-DDTHH:mm"));
