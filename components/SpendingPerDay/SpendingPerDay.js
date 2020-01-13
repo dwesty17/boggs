@@ -85,10 +85,10 @@ const SpendingPerDay = ({monthlySpendingGoal}) => {
                 <PercentageBar percentage={percentageFor10} />
             </div>
 
-            {/*<div className="goal-progress-row">*/}
-            {/*    <p>Past 20 days: ${spendingIn20.toFixed(2)} / ${goalFor20}</p>*/}
-            {/*    <PercentageBar percentage={percentageFor20} />*/}
-            {/*</div>*/}
+            <div className="goal-progress-row">
+                <p>Past 20 days: ${spendingIn20.toFixed(2)} / ${goalFor20}</p>
+                <PercentageBar percentage={percentageFor20} />
+            </div>
 
             {/*<div className="goal-progress-row">*/}
             {/*    <p>Past 40 days: ${spendingIn40.toFixed(2)} / ${goalFor40}</p>*/}
