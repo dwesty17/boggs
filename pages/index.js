@@ -7,6 +7,7 @@ import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
 import SetGoalModal from "../components/modals/SetGoalModal";
 import SpendingPerDay from "../components/SpendingPerDay";
+import PaymentChart from "../components/PaymentChart";
 import TransactionsTable from "../components/TransactionsTable";
 
 // TODO maybes add daily/weekly/monthly goals back
@@ -22,8 +23,10 @@ const IndexPage = ({loggedInUser}) => {
                 </div>
 
                 <div className="main-column">
-                    <TransactionsTable/>
+                    <PaymentChart/>
                 </div>
+
+                <TransactionsTable/>
             </div>
         </AuthenticatedPage>
     );
