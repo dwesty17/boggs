@@ -24,11 +24,11 @@ const SPENDING_QUERIES = gql`
 `;
 
 const SpendingPerDay = ({monthlySpendingGoal}) => {
-    const fiveDaysAgo = moment().subtract(5, "days").startOf("day").valueOf().toString();
-    const tenDaysAgo = moment().subtract(10, "days").startOf("day").valueOf().toString();
-    const twentyDaysAgo = moment().subtract(20, "days").startOf("day").valueOf().toString();
-    const fortyDaysAgo = moment().subtract(40, "days").startOf("day").valueOf().toString();
-    const eightyDaysAgo = moment().subtract(80, "days").startOf("day").valueOf().toString();
+    const fiveDaysAgo = moment().subtract(4, "days").startOf("day").valueOf().toString();
+    const tenDaysAgo = moment().subtract(9, "days").startOf("day").valueOf().toString();
+    const twentyDaysAgo = moment().subtract(19, "days").startOf("day").valueOf().toString();
+    const fortyDaysAgo = moment().subtract(39, "days").startOf("day").valueOf().toString();
+    const eightyDaysAgo = moment().subtract(79, "days").startOf("day").valueOf().toString();
 
     const {loading, error, data} = useQuery(SPENDING_QUERIES, {
         variables: {
