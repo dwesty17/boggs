@@ -72,30 +72,30 @@ const SpendingPerDay = ({monthlySpendingGoal}) => {
     const percentageFor80 = percentageOfGoal(spendingIn80, goalFor80);
 
     return (
-        <div className="goal-progress">
+        <div className="spending-per-day-container">
             {monthlySpendingGoal && <h2>Spending</h2>}
 
-            <div className="goal-progress-row">
+            <div className="spending-per-day-progress-row">
                 <p>Past 5 days: ${spendingIn5.toFixed(2)} / ${goalFor5}</p>
                 <PercentageBar percentage={percentageFor5} />
             </div>
 
-            <div className="goal-progress-row">
+            <div className="spending-per-day-progress-row">
                 <p>Past 10 days: ${spendingIn10.toFixed(2)} / ${goalFor10}</p>
                 <PercentageBar percentage={percentageFor10} />
             </div>
 
-            <div className="goal-progress-row">
+            <div className="spending-per-day-progress-row">
                 <p>Past 20 days: ${spendingIn20.toFixed(2)} / ${goalFor20}</p>
                 <PercentageBar percentage={percentageFor20} />
             </div>
 
-            {/*<div className="goal-progress-row">*/}
+            {/*<div className="spending-per-day-progress-row">*/}
             {/*    <p>Past 40 days: ${spendingIn40.toFixed(2)} / ${goalFor40}</p>*/}
             {/*    <PercentageBar percentage={percentageFor40} />*/}
             {/*</div>*/}
 
-            {/*<div className="goal-progress-row">*/}
+            {/*<div className="spending-per-day-progress-row">*/}
             {/*    <p>Past 80 days: ${spendingIn80.toFixed(2)} / ${goalFor80}</p>*/}
             {/*    <PercentageBar percentage={percentageFor80} />*/}
             {/*</div>*/}

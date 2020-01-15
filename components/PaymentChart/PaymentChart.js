@@ -2,7 +2,14 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
-import { VictoryChart, VictoryBar } from "victory";
+import {
+    FlexibleXYPlot,
+    VerticalGridLines,
+    HorizontalGridLines,
+    XAxis,
+    YAxis,
+    VerticalBarSeries,
+} from 'react-vis';
 
 import "./styles.scss";
 import LoadingSpinner from "../LoadingSpinner";
@@ -14,7 +21,7 @@ const SPENDING_PER_DAY_QUERY = gql`
 `;
 
 const PaymentChart = () => {
-    const from = moment().subtract(5, "days").startOf("day").valueOf().toString();
+    const from = moment().subtract(10, "days").startOf("day").valueOf().toString();
     const to = moment().startOf("day").valueOf().toString();
 
     const { loading, error, data } = useQuery(SPENDING_PER_DAY_QUERY, {
@@ -32,18 +39,23 @@ const PaymentChart = () => {
 
     const { getAmountSpentPerDay } = data;
 
+    const chartData = getAmountSpentPerDay.map((amount, index) => ({
+        x: index, // moment().subtract(10 - index, "days").valueOf(),
+        y: amount,
+    }));
+
     return (
         <div className="container">
-            <VictoryChart>
-                <VictoryBar
-                    data={getAmountSpentPerDay.map((amount, index) => ({
-                        x: index,
-                        y0: 0,
-                        y: amount,
-                        label: `$${amount.toFixed(0)}`,
-                    }))}
+            <FlexibleXYPlot>
+                <VerticalGridLines />
+                <HorizontalGridLines />
+                <XAxis />
+                <YAxis />
+                <VerticalBarSeries
+                    color="#7fdbff"
+                    data={chartData}
                 />
-            </VictoryChart>
+            </FlexibleXYPlot>
         </div>
     )
 };
