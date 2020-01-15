@@ -4,10 +4,9 @@ import gql from "graphql-tag";
 import moment from "moment";
 import {
     FlexibleXYPlot,
-    VerticalGridLines,
-    HorizontalGridLines,
     XAxis,
     YAxis,
+    LabelSeries,
     VerticalBarSeries,
 } from 'react-vis';
 
@@ -40,20 +39,29 @@ const PaymentChart = () => {
     const { getAmountSpentPerDay } = data;
 
     const chartData = getAmountSpentPerDay.map((amount, index) => ({
-        x: index, // moment().subtract(10 - index, "days").valueOf(),
+        x: moment().subtract(10 - index, "days").valueOf(),
         y: amount,
+        label: `$${amount.toFixed(0)}`,
     }));
 
     return (
         <div className="container">
-            <FlexibleXYPlot>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis />
-                <YAxis />
+            <FlexibleXYPlot margin={{ top: 50, left: 50 }}>
+                <YAxis
+                    tickFormat={(y) => `$${y}`}
+                    style={{ text: { fontSize: 12 } }}
+                />
+                <XAxis
+                    tickFormat={(x) => moment(x).format("M/D")}
+                    style={{ text: { fontSize: 12 } }}
+                />
                 <VerticalBarSeries
                     color="#7fdbff"
                     data={chartData}
+                />
+                <LabelSeries
+                    data={chartData}
+                    rotation={-45}
                 />
             </FlexibleXYPlot>
         </div>
