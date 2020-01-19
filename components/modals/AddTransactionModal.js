@@ -24,15 +24,16 @@ const ADD_TRANSACTION_MUTATION = gql`
 
 const REFETCH_QUERIES = gql`
     query RefetchQueries(
-        $from5: String!, 
-        $from10: String!, 
-        $from20: String!, 
+        $from7: String!, 
+        $from14: String!, 
+        $from30: String!,
+        
         $perDayFrom: String!,
         $perDayTo: String!,
     ) {
-        spendingIn5: getAmountSpent(from: $from5)
-        spendingIn10: getAmountSpent(from: $from10)
-        spendingIn20: getAmountSpent(from: $from20)
+        spendingIn7: getAmountSpent(from: $from7)
+        spendingIn14: getAmountSpent(from: $from14)
+        spendingIn30: getAmountSpent(from: $from30)
         getTransactions {
             id
             transactionTime
@@ -55,9 +56,10 @@ const AddTransactionModal = ({ visible, handleClose }) => {
 
     const {loading, error, data} = useQuery(GET_BUDGETS_QUERY);
 
-    const fiveDaysAgo = moment().subtract(4, "days").startOf("day").valueOf().toString();
-    const tenDaysAgo = moment().subtract(9, "days").startOf("day").valueOf().toString();
-    const twentyDaysAgo = moment().subtract(19, "days").startOf("day").valueOf().toString();
+    const sevenDaysAgo = moment().subtract(6, "days").startOf("day").valueOf().toString();
+    const fourteenDaysAgo = moment().subtract(13, "days").startOf("day").valueOf().toString();
+    const thirtyDaysAgo = moment().subtract(29, "days").startOf("day").valueOf().toString();
+
     const perDayFrom = moment().subtract(20, "days").startOf("day").valueOf().toString();
     const perDayTo = moment().startOf("day").valueOf().toString();
 
@@ -65,11 +67,9 @@ const AddTransactionModal = ({ visible, handleClose }) => {
         refetchQueries: [{
             query: REFETCH_QUERIES,
             variables: {
-                from5: fiveDaysAgo,
-                from10: tenDaysAgo,
-                from20: twentyDaysAgo,
-                from40: fortyDaysAgo,
-                from80: eightyDaysAgo,
+                from5: sevenDaysAgo,
+                from10: fourteenDaysAgo,
+                from20: thirtyDaysAgo,
                 perDayFrom,
                 perDayTo,
             },
