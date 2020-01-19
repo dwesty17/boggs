@@ -27,16 +27,12 @@ const REFETCH_QUERIES = gql`
         $from5: String!, 
         $from10: String!, 
         $from20: String!, 
-        $from40: String!,
-        $from80: String!,
         $perDayFrom: String!,
         $perDayTo: String!,
     ) {
         spendingIn5: getAmountSpent(from: $from5)
         spendingIn10: getAmountSpent(from: $from10)
         spendingIn20: getAmountSpent(from: $from20)
-        spendingIn40: getAmountSpent(from: $from40)
-        spendingIn80: getAmountSpent(from: $from80)
         getTransactions {
             id
             transactionTime
@@ -62,8 +58,6 @@ const AddTransactionModal = ({ visible, handleClose }) => {
     const fiveDaysAgo = moment().subtract(4, "days").startOf("day").valueOf().toString();
     const tenDaysAgo = moment().subtract(9, "days").startOf("day").valueOf().toString();
     const twentyDaysAgo = moment().subtract(19, "days").startOf("day").valueOf().toString();
-    const fortyDaysAgo = moment().subtract(39, "days").startOf("day").valueOf().toString();
-    const eightyDaysAgo = moment().subtract(79, "days").startOf("day").valueOf().toString();
     const perDayFrom = moment().subtract(20, "days").startOf("day").valueOf().toString();
     const perDayTo = moment().startOf("day").valueOf().toString();
 
