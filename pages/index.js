@@ -51,4 +51,4 @@ IndexPage.propTypes = {
     }).isRequired,
 };
 
-export default withApollo(IndexPage);
+export default withApollo(IndexPage, { ssr: false });

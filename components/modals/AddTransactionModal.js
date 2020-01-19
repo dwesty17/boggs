@@ -29,6 +29,8 @@ const REFETCH_QUERIES = gql`
         $from20: String!, 
         $from40: String!,
         $from80: String!,
+        $perDayFrom: String!,
+        $perDayTo: String!,
     ) {
         spendingIn5: getAmountSpent(from: $from5)
         spendingIn10: getAmountSpent(from: $from10)
@@ -42,6 +44,7 @@ const REFETCH_QUERIES = gql`
             transactee
             description
         }
+        getAmountSpentPerDay(from: $perDayFrom, to: $perDayTo)
     }
 `;
 
@@ -61,6 +64,8 @@ const AddTransactionModal = ({ visible, handleClose }) => {
     const twentyDaysAgo = moment().subtract(19, "days").startOf("day").valueOf().toString();
     const fortyDaysAgo = moment().subtract(39, "days").startOf("day").valueOf().toString();
     const eightyDaysAgo = moment().subtract(79, "days").startOf("day").valueOf().toString();
+    const perDayFrom = moment().subtract(20, "days").startOf("day").valueOf().toString();
+    const perDayTo = moment().startOf("day").valueOf().toString();
 
     const [updateUser] = useMutation(ADD_TRANSACTION_MUTATION, {
         refetchQueries: [{
@@ -71,6 +76,8 @@ const AddTransactionModal = ({ visible, handleClose }) => {
                 from20: twentyDaysAgo,
                 from40: fortyDaysAgo,
                 from80: eightyDaysAgo,
+                perDayFrom,
+                perDayTo,
             },
         }],
         onCompleted() {
