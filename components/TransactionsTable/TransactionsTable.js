@@ -2,11 +2,13 @@ import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
+import {MdAdd} from "react-icons/md";
 
 import "./styles.scss";
 import LoadingSpinner from "../LoadingSpinner";
 import AddTransactionModal from "../modals/AddTransactionModal";
 import AddTransactionButton from "../AddTransactionButton";
+import IconButton from "../IconButton";
 
 const GET_TRANSACTIONS_QUERY = gql`
     query {
@@ -72,10 +74,9 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
 const TransactionsTableHeader = ({handleAddTransactionClick}) => (
     <div className="transactions-table-header">
         <h2>Transactions</h2>
-        <AddTransactionButton
-            size={18}
-            handleAddTransactionClick={handleAddTransactionClick}
-        />
+        <IconButton onClick={handleAddTransactionClick}>
+            <MdAdd size={18} />
+        </IconButton>
     </div>
 );
 
