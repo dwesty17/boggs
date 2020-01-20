@@ -4,17 +4,16 @@ import { useApolloClient } from "@apollo/react-hooks";
 import redirect from "../lib/redirect"
 import cookie from "cookie";
 
-const SignOutButton = () => {
-    const client = useApolloClient();
-
+const SignOutButton = ({ onSignOut }) => {
     const signOut = async () => {
+        const client = useApolloClient();
         document.cookie = cookie.serialize("token", null, { maxAge: -1, path: "/" });
         await client.cache.reset();
         redirect({}, "/login");
     };
 
     return (
-        <button onClick={signOut}>
+        <button onClick={onSignOut || signOut}>
             Sign out
         </button>
     );

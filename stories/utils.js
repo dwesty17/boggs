@@ -8,7 +8,8 @@ export const StoryContainer = styled.div`
   width: 100%;
   height: 100vh;
   background-color: ${SILVER};
-  padding: 20px;
+  box-sizing: border-box;
+  padding: ${({noPadding}) => noPadding ? 0 : "20px"};
 `;
 
 export const RowContainer = styled.div`
