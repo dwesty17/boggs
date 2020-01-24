@@ -50,10 +50,8 @@ const CalculatorInput = (props) => {
 
 const calculateNewValue = (value) => {
     value = value.trim();
-    if (value[0] !== "$") {
+    if (value && value[0] !== "$") {
         value = `$${value}`;
-    } else if (value === "$") {
-        return "";
     }
     return value;
 };
