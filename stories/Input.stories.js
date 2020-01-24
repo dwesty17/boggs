@@ -5,6 +5,7 @@ import {StoryContainer} from "./utils";
 import {WHITE} from "../styles/colors";
 
 import Input from "../components/Input";
+import CalculatorInput from "../components/CalculatorInput";
 
 export default {
   title: 'Input',
@@ -21,8 +22,8 @@ export const Basic = () => (
     <StoryContainer noPadding={true}>
         <FormContainer>
             <h2>Form</h2>
-            <Input placeholder="Basic input"/>
-            <Input placeholder="Calculator input" />
+            <Input placeholder="Basic input" />
+            <CalculatorInput placeholder="Calculator input" />
         </FormContainer>
     </StoryContainer>
 );
