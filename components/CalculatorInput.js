@@ -5,6 +5,10 @@ import Input from "./Input";
 const CalculatorInput = (props) => {
     const [value, setValue] = useState("");
 
+    // TODO call onChange prop with value
+    // TODO do math if another operand is entered after right operator
+    // TODO switch operands if a second is typed in after the first
+    // TODO validate value on every change cycle
     const onChange = ({ target }) => {
         setValue(calculateNewValue(target.value));
     };
