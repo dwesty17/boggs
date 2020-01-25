@@ -10,7 +10,7 @@ const CalculatorInput = (props) => {
     // TODO switch operands if a second is typed in after the first
     // TODO validate value on every change cycle
     const onChange = ({ target }) => {
-        setValue(calculateNewValue(target.value));
+        setValue(validateInput(target.value));
     };
 
     const onBlur = () => {
@@ -52,9 +52,29 @@ const CalculatorInput = (props) => {
     );
 };
 
-const calculateNewValue = (value) => {
-    value = value.trim();
-    if (value && value[0] !== "$") {
+const validateInput = (value) => {
+    value = value.trim().replace("$", "");
+
+    let operands = [value];
+
+    if (value.split("+").length > 1) {
+        operands = value.split("+");
+    } else if (value.split("-").length > 1) {
+        operands = value.split("-");
+    } else if (value.split("*").length > 1) {
+        operands = value.split("*");
+    } else if (value.split("/").length > 1) {
+        operands = value.split("/");
+    }
+
+    for (let i = 0; i < operands.length; i++) {
+        if (isNaN(operands[i])) {
+            // TODO it would be better to return the previous value which was valid, but how do we get it?
+            return "";
+        }
+    }
+
+    if (value) {
         value = `$${value}`;
     }
     return value;
