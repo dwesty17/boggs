@@ -20,7 +20,7 @@ const SPENDING_PER_DAY_QUERY = gql`
 `;
 
 const PaymentChart = () => {
-    const from = moment().subtract(20, "days").startOf("day").valueOf().toString();
+    const from = moment().subtract(29, "days").startOf("day").valueOf().toString();
     const to = moment().startOf("day").valueOf().toString();
 
     const { loading, error, data } = useQuery(SPENDING_PER_DAY_QUERY, {
@@ -39,7 +39,7 @@ const PaymentChart = () => {
     const { getAmountSpentPerDay } = data;
 
     const chartData = getAmountSpentPerDay.map((amount, index) => ({
-        x: moment().subtract(20 - index, "days").valueOf(),
+        x: moment().subtract(29 - index, "days").valueOf(),
         y: amount,
         label: `$${amount.toFixed(0)}`,
     }));
