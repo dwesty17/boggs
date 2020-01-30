@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { action } from "@storybook/addon-actions";
 
 import {StoryContainer} from "./utils";
 import {WHITE} from "../styles/colors";
@@ -18,12 +19,15 @@ const FormContainer = styled.form`
   background-color: ${WHITE};
 `;
 
-export const Basic = () => (
+export const SampleForm = () => (
     <StoryContainer noPadding={true}>
         <FormContainer>
             <h2>Form</h2>
             <Input placeholder="Basic input" />
-            <CalculatorInput placeholder="Calculator input" />
+            <CalculatorInput
+                placeholder="Calculator input"
+                onChange={action("CalculatorInput#change")}
+            />
         </FormContainer>
     </StoryContainer>
 );
