@@ -128,4 +128,8 @@ const validOperands = (operands) => {
     return !isNaN(parseFloat(operands[0])) && !isNaN(parseFloat(operands[1]));
 };
 
+const operatorRegEx = /[+\-*\/]/gm;
+export const getRawOperands = (inputString) => inputString.split(operatorRegEx);
+export const getOperators = (inputString) => inputString.matchAll(operatorRegEx);
+
 export default CalculatorInput;
