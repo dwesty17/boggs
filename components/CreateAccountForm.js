@@ -37,7 +37,7 @@ const CreateAccountForm = ({ handleSuccess }) => {
             if (createUser.token) {
                 document.cookie = cookie.serialize("token", createUser.token, {
                     maxAge: NINETY_DAYS,
-                    path: "/"
+                    path: "/",
                 });
                 await client.cache.reset();
                 redirect({}, "/");

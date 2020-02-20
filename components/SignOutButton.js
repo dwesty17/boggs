@@ -1,7 +1,7 @@
 import React from "react";
 import { useApolloClient } from "@apollo/react-hooks";
 
-import redirect from "../lib/redirect"
+import redirect from "../lib/redirect";
 import cookie from "cookie";
 
 const SignOutButton = ({ onSignOut }) => {

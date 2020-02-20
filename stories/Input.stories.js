@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 import { action } from "@storybook/addon-actions";
 
@@ -9,7 +9,7 @@ import Input from "../components/Input";
 import CalculatorInput from "../components/CalculatorInput";
 
 export default {
-  title: 'Input',
+  title: "Input",
 };
 
 const FormContainer = styled.form`

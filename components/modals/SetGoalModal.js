@@ -37,7 +37,7 @@ const SetGoalModal = ({ visible }) => {
                 updatedUser: {
                     monthlySpendingGoal: parseFloat(monthlySpendingGoal),
                 },
-            }
+            },
         });
     };
 

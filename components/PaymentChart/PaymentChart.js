@@ -8,7 +8,7 @@ import {
     YAxis,
     LabelSeries,
     VerticalBarSeries,
-} from 'react-vis';
+} from "react-vis";
 
 import "./styles.scss";
 import LoadingSpinner from "../LoadingSpinner";
@@ -65,7 +65,7 @@ const PaymentChart = () => {
                 />
             </FlexibleXYPlot>
         </div>
-    )
+    );
 };
 
 export default PaymentChart;

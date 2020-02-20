@@ -100,7 +100,7 @@ const AddTransactionModal = ({ visible, handleClose }) => {
                     description,
                     budgetId,
                 },
-            }
+            },
         });
     };
 

@@ -31,7 +31,7 @@ const LoginForm = () => {
             if (loginUser.token) {
                 document.cookie = cookie.serialize("token", loginUser.token, {
                     maxAge: NINETY_DAYS,
-                    path: "/"
+                    path: "/",
                 });
                 await client.cache.reset();
                 redirect({}, "/");

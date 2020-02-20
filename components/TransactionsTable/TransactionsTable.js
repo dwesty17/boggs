@@ -44,7 +44,7 @@ const TransactionsTable = ({handleAddTransactionClick}) => {
                 <TransactionsTableHeader handleAddTransactionClick={handleAddTransactionClick}/>
                 <p>You haven't recorded any transactions yet.</p>
             </div>
-        )
+        );
     }
 
     return (
