@@ -2,8 +2,6 @@ import React, {useState} from "react";
 
 import Input from "./Input";
 
-const OPERATORS = ["+", "-", "*", "/"];
-
 const CalculatorInput = (props) => {
     const [previousValue, setPreviousValue] = useState("");
     const [value, setValue] = useState("");
@@ -129,7 +127,49 @@ const validOperands = (operands) => {
 };
 
 const operatorRegEx = /[+\-*\/]/gm;
-export const getRawOperands = (inputString) => inputString.split(operatorRegEx);
-export const getOperators = (inputString) => inputString.matchAll(operatorRegEx);
+
+export const getRawOperands = (inputString) => {
+    return inputString.split(operatorRegEx).map((operator) => {
+        return operator[0] === "$" ? operator.slice(1) : operator;
+    });
+};
+
+export const getOperators = (inputString) => {
+    return [...inputString.matchAll(operatorRegEx)].map((match) => match[0])
+};
+
+export const buildOperation = (operands, operators) => {
+    return areOperandsValid(operands) ? {
+        operands: operands.map((operand) => parseFloat(operand)),
+        operators
+    } : { operands: [], operators: [] };
+};
+
+export const areOperandsValid = (operands) => {
+    for (const operand of operands) {
+        if (isNaN(operand)) { return false; }
+    }
+    return true;
+};
+
+export const calculateResult = (operation) => {
+    let result = operation.operands[0];
+    for (let i = 1; i < operation.operands.length; i++) {
+        if (operation.operands[i-1] === "+") { result += operation.operands[i] }
+        if (operation.operands[i-1] === "-") { result -= operation.operands[i] }
+        if (operation.operands[i-1] === "*") { result *= operation.operands[i] }
+        if (operation.operands[i-1] === "/") { result /= operation.operands[i] }
+    }
+    return result;
+};
+
+export const constructNewInputValue = () => {
+
+};
+
+export const reduceOperation = () => {
+
+};
+
 
 export default CalculatorInput;
