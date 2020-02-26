@@ -6,75 +6,23 @@ const CalculatorInput = (props) => {
     const [previousValue, setPreviousValue] = useState("");
     const [value, setValue] = useState("");
 
-    // TODO call onChange prop with value
-    // TODO do math if another operand is entered after right operator
-    // TODO switch operands if a second is typed in after the first
     const onChange = ({ target }) => {
-        // const nextInputValue = validateInput(target.value);
-        // setValue(nextInputValue);
+        const operation = buildOperation(target.value);
+        if (isOperationValid(operation)) {
+            setValue(previousValue);
+        } else {
+            const reducedOperation = reduceOperation(operation);
 
-        const operationArray = getOperationAsArray(target.value);
-        setValue(target.value);
-        props.onChange(operationArray[0], operationArray[1]);
+            const newInputValue = constructNewInputValue(reducedOperation);
+            setValue(newInputValue);
+            setPreviousValue(newInputValue);
+
+            const result = calculateResult(operation);
+            props.onChange(result);
+        }
     };
 
-    const validateInput = (value) => {
-        value = value.trim().replace("$", "");
-
-        let operands = [value];
-
-        if (value.split("+").length > 1) {
-            operands = value.split("+");
-        } else if (value.split("-").length > 1) {
-            operands = value.split("-");
-        } else if (value.split("*").length > 1) {
-            operands = value.split("*");
-        } else if (value.split("/").length > 1) {
-            operands = value.split("/");
-        }
-
-        for (let i = 0; i < operands.length; i++) {
-            if (isNaN(operands[i])) {
-                return previousValue;
-            }
-        }
-
-        if (value) {
-            value = `$${value}`;
-        }
-
-        setPreviousValue(value);
-        return value;
-    };
-
-    const onBlur = () => {
-        ["+", "-", "*", "/"].forEach((operator) => {
-            const operands = value.replace("$", "").split(operator);
-
-            if (!operands[1]) { return; }
-            if (!validOperands(operands)) {
-                setValue("");
-            }
-
-            const leftOperand = parseFloat(operands[0]);
-            const rightOperand = parseFloat(operands[1]);
-
-            switch (operator) {
-                case "+":
-                    setValue(`$${(leftOperand + rightOperand).toFixed(2)}`);
-                    return;
-                case "-":
-                    setValue(`$${(leftOperand - rightOperand).toFixed(2)}`);
-                    return;
-                case "*":
-                    setValue(`$${(leftOperand * rightOperand).toFixed(2)}`);
-                    return;
-                case "/":
-                    setValue(`$${(leftOperand / rightOperand).toFixed(2)}`);
-                    return;
-            }
-        });
-    };
+    const onBlur = () => {};
 
     return (
         <Input
@@ -86,63 +34,25 @@ const CalculatorInput = (props) => {
     );
 };
 
-const getOperationAsArray = (inputString) => {
-    const operatorRegExp = /[*\/+\-]/gm;
-    const operators = inputString.match(operatorRegExp) || [];
-    const operands = inputString.split(operatorRegExp);
-    return operands.reduce((result, operand, index) => result.push(operand, operators[index]), []);
-};
-
-const calculateDollarAmount = (inputString) => {
-    ["+", "-", "*", "/"].forEach((operator) => {
-        const operands = inputString.replace("$", "").split(operator).map(operand => parseFloat(operand));
-
-        if (!operands[1]) { return; }
-        if (!validOperands(operands)) {
-            setValue("");
-        }
-
-        const leftOperand = parseFloat(operands[0]);
-        const rightOperand = parseFloat(operands[1]);
-
-        switch (operator) {
-            case "+":
-                setValue(`$${(leftOperand + rightOperand).toFixed(2)}`);
-                return;
-            case "-":
-                setValue(`$${(leftOperand - rightOperand).toFixed(2)}`);
-                return;
-            case "*":
-                setValue(`$${(leftOperand * rightOperand).toFixed(2)}`);
-                return;
-            case "/":
-                setValue(`$${(leftOperand / rightOperand).toFixed(2)}`);
-                return;
-        }
-    });
-};
-
-const validOperands = (operands) => {
-    return !isNaN(parseFloat(operands[0])) && !isNaN(parseFloat(operands[1]));
+export const buildOperation = (inputString) => {
+    const operands = getRawOperands(inputString);
+    const operators = getOperators(inputString);
+    return areOperandsValid(operands) && {
+        operands: operands.filter((operand) => !!operand).map((operand) => parseFloat(operand)),
+        operators,
+    };
 };
 
 const operatorRegEx = /[+\-*\/]/gm;
 
 export const getRawOperands = (inputString) => {
-    return inputString.split(operatorRegEx).map((operator) => {
+    return inputString.trim().split(operatorRegEx).map((operator) => {
         return operator[0] === "$" ? operator.slice(1) : operator;
     });
 };
 
 export const getOperators = (inputString) => {
-    return [...inputString.matchAll(operatorRegEx)].map((match) => match[0])
-};
-
-export const buildOperation = (operands, operators) => {
-    return areOperandsValid(operands) ? {
-        operands: operands.map((operand) => parseFloat(operand)),
-        operators
-    } : { operands: [], operators: [] };
+    return [...inputString.matchAll(operatorRegEx)].map((match) => match[0]);
 };
 
 export const areOperandsValid = (operands) => {
@@ -152,9 +62,33 @@ export const areOperandsValid = (operands) => {
     return true;
 };
 
-export const calculateResult = (operation) => {
+export const isOperationValid = (operation) => {
+    return operation
+      && (operation.operands.length === operation.operators.length)
+      && ((operation.operands.length - 1) === operation.operators.length);
+};
+
+export const reduceOperation = (operation) => {
+    if (operation.operands.length < 2) {
+        return operation;
+    } else if (operation.operands.length === operation.operators.length) {
+        const newFirstOperand = calculateResult(operation, 0);
+        return {
+            operands: [ newFirstOperand ],
+            operators: [ ...operation.operators.slice(-1) ],
+        };
+    } else {
+        const newFirstOperand = calculateResult(operation, 1);
+        return {
+            operands: [ newFirstOperand, ...operation.operands.slice(-1) ],
+            operators: [ ...operation.operators.slice(-1) ],
+        };
+    }
+};
+
+export const calculateResult = (operation, leaveNumOperands = 0) => {
     let result = operation.operands[0];
-    for (let i = 1; i < operation.operands.length; i++) {
+    for (let i = 1; i < (operation.operands.length - leaveNumOperands); i++) {
         if (operation.operands[i-1] === "+") { result += operation.operands[i] }
         if (operation.operands[i-1] === "-") { result -= operation.operands[i] }
         if (operation.operands[i-1] === "*") { result *= operation.operands[i] }
@@ -163,13 +97,15 @@ export const calculateResult = (operation) => {
     return result;
 };
 
-export const constructNewInputValue = () => {
-
+export const constructNewInputValue = (operation) => {
+    let inputString = "";
+    for (let i = 0; i < operation.operands.length; i++) {
+        inputString = `${inputString}${operation.operands[i]}`;
+        if (operation.operators[i]) {
+            inputString = `${inputString}${operation.operators[i]}`;
+        }
+    }
+    return inputString ? `$${inputString}` : "";
 };
-
-export const reduceOperation = () => {
-
-};
-
 
 export default CalculatorInput;
