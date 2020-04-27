@@ -5,8 +5,9 @@ import redirect from "../lib/redirect";
 import cookie from "cookie";
 
 const SignOutButton = ({ onSignOut }) => {
+    const client = useApolloClient();
+
     const signOut = async () => {
-        const client = useApolloClient();
         document.cookie = cookie.serialize("token", null, { maxAge: -1, path: "/" });
         await client.cache.reset();
         redirect({}, "/login");
