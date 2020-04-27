@@ -5,7 +5,7 @@ import {
   getOperators,
   reduceOperation,
   constructNewInputValue,
-} from "../components/CalculatorInput";
+} from "./CalculatorInput";
 
 describe("<CalculatorInput />", () => {
   describe("input parsing helpers", () => {
