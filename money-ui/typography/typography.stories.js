@@ -11,16 +11,16 @@ export default {
 
 export const Default = () => (
     <SpacedGroup>
-        <Text>This is the default ReelCall text.</Text>
+        <Text>This is the default Pennyworth text.</Text>
         <Text size={20}>But we can change the size of the text.</Text>
-        <Text color={Color.IceCold}>Or the color.</Text>
-        <Text size={14} color={Color.HippieBlue}>Or both.</Text>
+        <Text color={Color.GovernorsBay}>Or the color.</Text>
+        <Text size={14} color={Color.Arapawa}>Or both.</Text>
     </SpacedGroup>
 );
 
 export const Captions = () => (
     <SpacedGroup>
         <Caption>Captions are smaller than regular text.</Caption>
-        <Caption color={Color.Carnation}>We can change the color of them.</Caption>
+        <Caption color={Color.Crail}>We can change the color of them.</Caption>
     </SpacedGroup>
 );

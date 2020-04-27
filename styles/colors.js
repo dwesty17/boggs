@@ -12,6 +12,7 @@ export const Color = {
   Alto: "#d8d8d8",
   Arapawa: "#0e0e66",
   Black: "#000000",
+  Crail: "#bf4141",
   GovernorsBay: "#4141bf",
   Portage: "#8383f2",
   ShipGrey: "#414042",
