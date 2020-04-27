@@ -9,10 +9,10 @@ import {
 } from "../../money-ui";
 import { Color } from "../../styles";
 
-const LoginForm = ({ error }) => {
+const SignUpForm = ({ error }) => {
   let errorMessage = "";
   if (error) {
-    errorMessage = error.isInvalid ? "Invalid credentials" : "Something went wrong";
+    errorMessage = "Something went wrong";
   }
 
   return (
@@ -21,9 +21,10 @@ const LoginForm = ({ error }) => {
 
       <TextInput placeholder="email"/>
       <TextInput private={true} placeholder="password"/>
+      <TextInput private={true} placeholder="confirm password"/>
 
       <Button primary={true} fullWidth={true}>
-        Login
+        Sign Up
       </Button>
 
       {errorMessage && (
@@ -35,4 +36,4 @@ const LoginForm = ({ error }) => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;
