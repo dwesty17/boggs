@@ -18,7 +18,7 @@ const InputWrapper = styled.input`
   border: none;
   border-radius: 4px;
   padding: 5px;
-  box-shadow: 0 3px 5px ${Color.Alto};
+  box-shadow: 0 2px 5px ${Color.Alto};
   box-sizing: border-box;
 `;
 

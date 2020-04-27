@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Color, Font } from "../../styles";
 
 export const Text = styled.p`
-  font-family: ${Font.Montserrat};
+  font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 18}px;
   font-weight: 400;
   color: ${(props) => props.color || Color.ShipGrey};
@@ -12,5 +12,5 @@ export const Text = styled.p`
 
 export const Caption = styled(Text)`
   font-size: 13px;
-  color: ${(props) => props.color || Color.SlateGray};
+  color: ${(props) => props.color || Color.Alto};
 `;
