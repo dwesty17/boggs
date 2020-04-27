@@ -18,8 +18,8 @@ export default create({
   //
   // UI
   appBg: Color.White,
-  appContentBg: Color.ChinaIvory,
-  appBorderColor: Color.ChinaIvory,
+  appContentBg: Color.White,
+  appBorderColor: Color.White,
   appBorderRadius: 4,
   //
   // // Text colors

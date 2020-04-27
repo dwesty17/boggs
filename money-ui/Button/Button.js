@@ -9,7 +9,7 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   padding: 5px 15px;
-  box-shadow: 0 3px 5px ${Color.Fog};
+  box-shadow: 0 3px 5px ${Color.Alto};
   box-sizing: border-box;
   cursor: pointer;
   
