@@ -14,5 +14,6 @@ export const Variations = () => (
         <Button>Default</Button>
         <Button primary={true}>Primary</Button>
         <Button disabled={true}>Disabled</Button>
+        <Button primary={true} disabled={true}>Disabled</Button>
     </SpacedGroup>
 );

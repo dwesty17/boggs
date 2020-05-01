@@ -1,6 +1,6 @@
 import React from "react";
 
-import {SpacedGroup} from "../SpacedGroup";
+import { SpacedGroup } from "../SpacedGroup";
 
 import TextInput from "./TextInput";
 

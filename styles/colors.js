@@ -18,4 +18,8 @@ export const Color = {
   ShipGrey: "#414042",
   SilverChalice: "#a8a8a8",
   White: "#ffffff",
+
+  // TODO pick a green
+  Apple: "#41bf41",
+  PastelGreen: "#4ee54e",
 };

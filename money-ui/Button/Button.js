@@ -41,8 +41,8 @@ const PrimaryStyles = css`
 `;
 
 const DisabledStyles = css`
-  background-color: ${Color.White};
-  color: ${Color.Alto};
+  opacity: 0.4;
+  cursor: default;
   
   &:active {
     background-color: ${Color.White};
