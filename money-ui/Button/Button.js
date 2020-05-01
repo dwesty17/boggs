@@ -6,6 +6,7 @@ const Button = styled.button`
   height: 35px;
   width: ${(props) => props.fullWidth ? "100%" : "fit-content"};
   font-size: 16px;
+  outline: none;
   border: none;
   border-radius: 4px;
   padding: 5px 15px;
@@ -18,6 +19,10 @@ const Button = styled.button`
   
   &:active {
     background-color: ${Color.Alto};
+  }
+  
+  &:focus {
+    box-shadow: 0 0 5px 3px ${Color.Portage};
   }
   
   ${(props) => props.primary && PrimaryStyles};
