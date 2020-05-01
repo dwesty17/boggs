@@ -12,5 +12,5 @@ export const Text = styled.p`
 
 export const Caption = styled(Text)`
   font-size: 13px;
-  color: ${(props) => props.color || Color.Alto};
+  color: ${(props) => props.color || Color.SilverChalice};
 `;

@@ -16,5 +16,6 @@ export const Color = {
   GovernorsBay: "#4141bf",
   Portage: "#8383f2",
   ShipGrey: "#414042",
+  SilverChalice: "#a8a8a8",
   White: "#ffffff",
 };
