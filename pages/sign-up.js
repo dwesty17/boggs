@@ -1,42 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import styled from "styled-components";
+import gql from "graphql-tag";
+import cookie from "cookie";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 
 import { withApollo } from "../lib/apollo";
-import CreateAccountForm from "../components/CreateAccountForm";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
+import SignUpForm from "../components/SignUpForm";
+import { Caption, LinkText } from "../money-ui/typography";
+
+const NINETY_DAYS = 30 * 24 * 60 * 60;
+
+const CREATE_USER_MUTATION = gql`
+    mutation CreateUser($user: UserInput!) {
+        createUser(user: $user) {
+            id
+            token
+        }
+    }
+`;
 
 const CreateAccountPage = () => {
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const client = useApolloClient();
+    const [createUser] = useMutation(CREATE_USER_MUTATION, {
+        async onCompleted({ createUser }) {
+            // This should be undefined until I allow accounts to be created without a review process
+            if (createUser.token) {
+                document.cookie = cookie.serialize("token", createUser.token, {
+                    maxAge: NINETY_DAYS,
+                    path: "/",
+                });
+                await client.cache.reset();
+                redirect({}, "/");
+            }
+        },
+        onError(error) {
+            if (error) {
+                console.error(error);
+            }
+        },
+    });
+
+    const onSubmit = async (email, password) => {
+        await createUser({
+            variables: {
+                user: { email, password },
+            },
+        });
+    };
 
     return (
-        <div className="auth-page">
-            <h1>Request Account</h1>
-            <CreateAccountForm handleSuccess={() => { setShowSuccessMessage(true); }} />
-            { showSuccessMessage ? <SuccessMessage/> : <Disclaimer/>}
-            <p>Already have an account?</p>
-            <Link href="/login">
-                <a>Login</a>
-            </Link>
-        </div>
+        <Page>
+            <SignUpForm onSubmit={onSubmit}/>
+            <Caption>
+                Already have an account?&nbsp;
+                <Link href="/login">
+                    <LinkText size={13}>Login</LinkText>
+                </Link>
+            </Caption>
+        </Page>
     );
 };
 
-const SuccessMessage = () => (
-    <p className="success-message">
-        Thanks for requesting an account!
-        <br/>
-        We&apos;ll reach out to you shortly.
-    </p>
-);
-
-const Disclaimer = () => (
-    <p className="sub-text">
-        This tool is not publicly available yet. If you&apos;d
-        like an account, fill out the form above and someone
-        will contact you.
-    </p>
-);
+const Page = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 CreateAccountPage.getInitialProps = async (context) => {
     const { loggedInUser } = await checkLoggedIn(context.apolloClient);

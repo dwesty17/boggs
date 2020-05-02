@@ -1,14 +1,9 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import passwordValidator from "password-validator";
 import { isEmpty } from "lodash";
 
-import {
-  Button,
-  Caption,
-  Pennyworth,
-  SpacedGroup,
-  TextInput,
-} from "../../money-ui";
+import { Button, Caption, SpacedGroup, TextInput } from "../../money-ui";
 import { Color } from "../../styles";
 
 // TODO add green check marks to text input
@@ -42,7 +37,7 @@ const SignUpForm = (props) => {
 
   return (
     <SpacedGroup alignment="center" space={20}>
-      <Pennyworth/>
+      <Logo src="/logos/text-logo-governors-bay.png"/>
 
       <TextInput
         value={email}
@@ -85,6 +80,10 @@ const SignUpForm = (props) => {
     </SpacedGroup>
   );
 };
+
+const Logo = styled.img`
+  width: 250px;
+`;
 
 const getEmailErrors = (email) => {
   const errors = {};
