@@ -6,7 +6,7 @@ import { SpacedGroup } from "../../money-ui";
 import SignUpForm from "./SignUpForm";
 
 export default {
-  title: "auth/SignUpForm",
+  title: "components/auth/SignUpForm",
 };
 
 export const Default = () => <SignUpForm onSubmit={action("Sign Up!")}/>;

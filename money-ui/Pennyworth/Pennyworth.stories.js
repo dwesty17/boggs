@@ -7,7 +7,7 @@ import { SpacedGroup } from "../SpacedGroup";
 import Pennyworth from "./Pennyworth";
 
 export default {
-  title: 'reel-ui/Pennyworth',
+  title: "money-ui/Pennyworth",
 };
 
 export const Variations = () => (

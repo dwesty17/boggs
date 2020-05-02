@@ -6,7 +6,7 @@ import { SpacedGroup } from "../SpacedGroup";
 import Button from "./Button";
 
 export default {
-    title: 'reel-ui/Button',
+    title: "money-ui/Button",
 };
 
 export const Variations = () => (

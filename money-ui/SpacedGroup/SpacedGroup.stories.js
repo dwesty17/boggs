@@ -5,7 +5,7 @@ import { TextInput } from "../TextInput";
 import SpacedGroup from "./SpacedGroup";
 
 export default {
-    title: 'reel-ui/SpacedGroup',
+    title: "money-ui/SpacedGroup",
 };
 
 export const Default = () => (

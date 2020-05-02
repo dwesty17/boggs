@@ -6,7 +6,7 @@ import { SpacedGroup } from "../SpacedGroup";
 import { Caption, Text } from "./typography";
 
 export default {
-    title: 'reel-ui/typography',
+    title: "money-ui/typography",
 };
 
 export const Default = () => (
