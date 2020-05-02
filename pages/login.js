@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import styled from "styled-components";
 import gql from "graphql-tag";
 import cookie from "cookie";
-import styled from "styled-components";
+import { useRouter } from "next/router";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 
 import LoginForm from "../components/LoginForm/index";
@@ -22,37 +23,59 @@ const LOGIN_USER_MUTATION = gql`
     }
 `;
 
-const LoginPage = () => {
-  const client = useApolloClient();
-  const [loginUser] = useMutation(LOGIN_USER_MUTATION, {
-    async onCompleted({ loginUser }) {
-      if (loginUser.token) {
-        document.cookie = cookie.serialize("token", loginUser.token, {
-          maxAge: NINETY_DAYS,
-          path: "/",
-        });
-        await client.cache.reset();
-        redirect({}, "/");
-      }
-    },
-    onError (error) {
-      if (error) {
-        console.error(error);
-      }
-    },
-  });
+const LoginPage = (props) => {
+    const router = useRouter();
+    const client = useApolloClient();
 
-  return (
-    <Page>
-      <LoginForm />
-      <Caption>
-          Don&apos;t have an account?&nbsp;
-          <Link href="/sign-up">
-              <LinkText size={13}>Sign up</LinkText>
-          </Link>
-      </Caption>
-    </Page>
-  );
+    const [errors, setErrors] = useState({});
+
+    const [loginUser] = useMutation(LOGIN_USER_MUTATION, {
+        async onCompleted({ loginUser }) {
+            if (loginUser && loginUser.token) {
+                document.cookie = cookie.serialize("token", loginUser.token, {
+                    maxAge: NINETY_DAYS,
+                    path: "/",
+                });
+                await client.cache.reset();
+                // TODO location.reload seems suboptimal.
+                //  We should be able to achieve this with router.replace, but
+                //  that's failing when there is no history.
+                // await router.replace("/");
+                location.reload();
+            } else {
+                setErrors({ invalidCredentials: true });
+            }
+        },
+        onError(error) {
+            if (error) {
+                console.error(error);
+                setErrors({ serverError: true });
+            }
+        },
+    });
+
+    const onSubmit = async (email, password) => {
+        await loginUser({
+            variables: {
+                user: { email, password },
+            },
+        });
+    };
+
+    return (
+        <Page>
+            <LoginForm
+                errors={errors}
+                onSubmit={onSubmit}
+            />
+            <Caption>
+                Don&apos;t have an account?&nbsp;
+                <Link href="/sign-up">
+                    <LinkText size={13}>Sign up</LinkText>
+                </Link>
+            </Caption>
+        </Page>
+    );
 };
 
 const Page = styled.div`
@@ -61,13 +84,14 @@ const Page = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0;
 `;
 
 LoginPage.getInitialProps = async (context) => {
     const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
     if (loggedInUser.token) {
-        redirect(context, "/");
+        await redirect(context, "/");
     }
 
     return {};

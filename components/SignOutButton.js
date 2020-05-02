@@ -10,7 +10,7 @@ const SignOutButton = ({ onSignOut }) => {
     const signOut = async () => {
         document.cookie = cookie.serialize("token", null, { maxAge: -1, path: "/" });
         await client.cache.reset();
-        redirect({}, "/login");
+        await redirect({}, "/login");
     };
 
     return (

@@ -11,6 +11,8 @@ export const GlobalStyles = createGlobalStyle`
     height: 100vh;
     font-family: ${Font.Lobster};
     background: ${Color.White};
+    padding: 0;
+    margin: 0;
   }
   
   input {
@@ -26,6 +28,8 @@ export const StylesContainer = styled.div`
     height: 100vh;
     font-family: ${Font.Lobster};
     background: ${Color.White};
+    padding: 0;
+    margin: 0;
   }
   
   input {

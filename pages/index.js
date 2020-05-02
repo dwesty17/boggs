@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {withApollo} from "../lib/apollo";
+import { withApollo } from "../lib/apollo";
 import redirect from "../lib/redirect";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import AuthenticatedPage from "../components/AuthenticatedPage";
@@ -12,7 +12,7 @@ import TransactionsTable from "../components/TransactionsTable";
 
 // TODO maybes add daily/weekly/monthly goals back
 
-const IndexPage = ({loggedInUser}) => {
+const IndexPage = ({ loggedInUser }) => {
     return (
         <AuthenticatedPage>
             <SetGoalModal visible={!loggedInUser.monthlySpendingGoal}/>
@@ -33,13 +33,13 @@ const IndexPage = ({loggedInUser}) => {
 };
 
 IndexPage.getInitialProps = async (context) => {
-    const {loggedInUser} = await checkLoggedIn(context.apolloClient);
+    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
-    if (!loggedInUser.token) {
-        redirect(context, "/login");
+    if (!loggedInUser || !loggedInUser.token) {
+        await redirect(context, "/login");
     }
 
-    return {loggedInUser};
+    return { loggedInUser };
 };
 
 IndexPage.propTypes = {

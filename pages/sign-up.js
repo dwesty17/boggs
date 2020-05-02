@@ -3,13 +3,14 @@ import Link from "next/link";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import cookie from "cookie";
+import { useRouter } from "next/router";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 
-import { withApollo } from "../lib/apollo";
+import SignUpForm from "../components/SignUpForm";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
-import SignUpForm from "../components/SignUpForm";
 import { Caption, LinkText } from "../money-ui/typography";
+import { withApollo } from "../lib/apollo";
 
 const NINETY_DAYS = 30 * 24 * 60 * 60;
 
@@ -23,7 +24,9 @@ const CREATE_USER_MUTATION = gql`
 `;
 
 const CreateAccountPage = () => {
+    const router = useRouter();
     const client = useApolloClient();
+
     const [createUser] = useMutation(CREATE_USER_MUTATION, {
         async onCompleted({ createUser }) {
             // This should be undefined until I allow accounts to be created without a review process
@@ -33,7 +36,11 @@ const CreateAccountPage = () => {
                     path: "/",
                 });
                 await client.cache.reset();
-                redirect({}, "/");
+                // TODO location.reload seems suboptimal.
+                //  We should be able to achieve this with router.replace, but
+                //  that's failing when there is no history.
+                // await router.replace("/");
+                location.reload();
             }
         },
         onError(error) {
@@ -70,13 +77,14 @@ const Page = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0;
 `;
 
 CreateAccountPage.getInitialProps = async (context) => {
     const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
     if (loggedInUser.token) {
-        redirect(context, "/");
+        await redirect(context, "/");
     }
 
     return {};
