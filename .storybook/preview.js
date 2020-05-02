@@ -4,7 +4,7 @@ import styled, { createGlobalStyle } from "styled-components";
 
 import { Font } from '../styles';
 
-// TODO I should just be able to use GlobalStyles here but it's not working for some reason
+// TODO I should just be able to use Styles here but it's not working for some reason
 addDecorator((storyFn) => (
   <StorybookContainer>
     <StorybookGlobalStyles/>
