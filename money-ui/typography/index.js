@@ -1,1 +1,1 @@
-export { Caption, Text } from "./typography"
+export { Caption, Text } from "./typography";

@@ -89,10 +89,10 @@ export const reduceOperation = (operation) => {
 export const calculateResult = (operation, leaveNumOperands = 0) => {
     let result = operation.operands[0];
     for (let i = 1; i < (operation.operands.length - leaveNumOperands); i++) {
-        if (operation.operands[i-1] === "+") { result += operation.operands[i] }
-        if (operation.operands[i-1] === "-") { result -= operation.operands[i] }
-        if (operation.operands[i-1] === "*") { result *= operation.operands[i] }
-        if (operation.operands[i-1] === "/") { result /= operation.operands[i] }
+        if (operation.operands[i-1] === "+") { result += operation.operands[i]; }
+        if (operation.operands[i-1] === "-") { result -= operation.operands[i]; }
+        if (operation.operands[i-1] === "*") { result *= operation.operands[i]; }
+        if (operation.operands[i-1] === "/") { result /= operation.operands[i]; }
     }
     return result;
 };
