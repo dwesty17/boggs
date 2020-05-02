@@ -14,7 +14,7 @@ const Text = styled.p`
   font-size: ${(props) => props.size || 50}px;
   margin: 0;
   padding: 0;
-  color: ${(props) => props.color || Color.ShipGrey};
+  color: ${(props) => props.color || Color.GovernorsBay};
 `;
 
 export default Pennyworth;

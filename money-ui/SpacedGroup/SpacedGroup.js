@@ -5,9 +5,11 @@ const SpacedGroup = ({ children, ...props }) => {
     return (
         <Container {...props}>
             {React.Children.map(children, (child) => (
-                <ElementContainer {...props}>
-                    {child}
-                </ElementContainer>
+                child && (
+                    <ElementContainer {...props}>
+                        {child}
+                    </ElementContainer>
+                )
             ))}
         </Container>
     );

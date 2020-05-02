@@ -7,26 +7,26 @@ import { SpacedGroup } from "../SpacedGroup";
 import Pennyworth from "./Pennyworth";
 
 export default {
-  title: "money-ui/Pennyworth",
+    title: "money-ui/Pennyworth",
 };
 
 export const Variations = () => (
-  <SpacedGroup alignment="center">
-    <Pennyworth/>
+    <SpacedGroup alignment="center">
+        <Pennyworth/>
 
-    <Pennyworth color={Color.GovernorsBay}/>
+        <Pennyworth color={Color.ShipGrey}/>
 
-    <DarkBackground>
-      <Pennyworth color={Color.White}/>
-    </DarkBackground>
+        <DarkBackground>
+            <Pennyworth color={Color.White}/>
+        </DarkBackground>
 
-    <DarkBackground color={Color.GovernorsBay}>
-      <Pennyworth color={Color.White}/>
-    </DarkBackground>
-  </SpacedGroup>
+        <DarkBackground color={Color.ShipGrey}>
+            <Pennyworth color={Color.White}/>
+        </DarkBackground>
+    </SpacedGroup>
 );
 
 const DarkBackground = styled.div`
   padding: 0 10px;
-  background-color: ${(props) => props.color || Color.ShipGrey};
+  background-color: ${(props) => props.color || Color.GovernorsBay};
 `;
