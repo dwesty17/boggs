@@ -7,7 +7,7 @@ export default create({
 
   brandTitle: "Pennyworth",
   brandUrl: "https://github.com/dwesty17/pennyworth",
-  // brandImage: "/img/reelcall-logo-min.png",
+  brandImage: "logos/text-logo-ship-gray.png",
 
   // colorPrimary: Color.HippieBlue,
   // colorSecondary: Color.IceCold,
