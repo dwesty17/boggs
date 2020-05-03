@@ -7,5 +7,5 @@ export default {
 };
 
 export const Default = () => <LoginForm />;
-export const InvalidAttempt = () => <LoginForm error={{ isInvalid: true }}/>;
-export const GenericError = () => <LoginForm error={{ isInvalid: false }} />;
+export const InvalidAttempt = () => <LoginForm errors={{ invalidCredentials: true }}/>;
+export const GenericError = () => <LoginForm errors={{ serverError: true }} />;

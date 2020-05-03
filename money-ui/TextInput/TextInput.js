@@ -1,23 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Caption } from "../typography";
 import { Color } from "../../styles";
 
-const TextInput = (props) => (
-  <Container>
-      <InputWrapper
-        {...props}
-        type={props.private ? "password" : "text"}
-      />
-      {props.error && (typeof props.error === "string") && (
-        <PaddedCaption color={Color.Crail}>{props.error}</PaddedCaption>
-      )}
-      {props.hint && !props.error && (
-        <PaddedCaption>{props.hint}</PaddedCaption>
-      )}
-  </Container>
-);
+const TextInput = (props) => {
+    const [value, setValue] = useState("");
+
+    const handleChange = (event) => {
+        const newValue = event.target.value;
+        setValue(newValue);
+        props.onChange && props.onChange(newValue);
+    };
+
+    return (
+        <Container>
+            <InputWrapper
+                value={value}
+                {...props}
+                type={props.private ? "password" : "text"}
+                onChange={handleChange}
+            />
+            {props.error && (typeof props.error === "string") && (
+                <PaddedCaption color={Color.Crail}>{props.error}</PaddedCaption>
+            )}
+            {props.hint && !props.error && (
+                <PaddedCaption>{props.hint}</PaddedCaption>
+            )}
+        </Container>
+    );
+};
 
 const Container = styled.div`
   display: flex;

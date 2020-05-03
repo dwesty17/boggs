@@ -44,7 +44,7 @@ const SignUpForm = (props) => {
                     value={email}
                     placeholder="email"
                     error={getEmailErrorMessage(errors)}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(value) => setEmail(value)}
                 />
 
                 <TextInput
@@ -52,7 +52,7 @@ const SignUpForm = (props) => {
                     value={password}
                     placeholder="password"
                     error={getPasswordErrorMessage(errors)}
-                    onChange={(event) => setPassword(event.target.value)}
+                    onChange={(value) => setPassword(value)}
                 />
 
                 <TextInput
@@ -61,7 +61,7 @@ const SignUpForm = (props) => {
                     placeholder="confirm password"
                     hint="Passwords must be at least 12 characters"
                     error={getPasswordMatchErrorMessage(errors)}
-                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    onChange={(value) => setConfirmPassword(value)}
                 />
 
                 <Button
