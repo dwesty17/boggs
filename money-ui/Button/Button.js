@@ -13,6 +13,7 @@ const Button = styled.button`
   box-shadow: 0 3px 5px ${Color.Alto};
   box-sizing: border-box;
   cursor: pointer;
+  -webkit-appearance: none;
   
   background-color: ${Color.White};
   color: ${Color.ShipGrey};

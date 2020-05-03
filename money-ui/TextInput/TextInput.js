@@ -36,6 +36,7 @@ const InputWrapper = styled.input`
   box-shadow: 0 2px 5px ${Color.Alto};
   box-sizing: border-box;
   outline: none;
+  -webkit-appearance: none;
   
   &:focus {
     box-shadow: 0 0 5px 3px ${Color.Portage};
