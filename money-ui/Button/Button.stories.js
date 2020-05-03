@@ -1,9 +1,9 @@
 import React from "react";
 
 import { SpacedGroup } from "../SpacedGroup";
+import { Text } from "../typography";
 
 import Button from "./Button";
-import { Text } from "../typography";
 
 export default {
     title: "money-ui/Button",
