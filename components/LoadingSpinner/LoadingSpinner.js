@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { Color } from "../../styles";
 
 const load6 = keyframes`
   0% {
@@ -35,8 +36,8 @@ const round = keyframes`
 `;
 
 const LoadingSpinner = styled.div`
-  color: #000000;
-  font-size: 40px;
+  color: ${Color.Portage};
+  font-size: 30px;
   text-indent: -9999em;
   overflow: hidden;
   width: 1em;
