@@ -3,7 +3,7 @@ import React from "react";
 import LoginForm from "./LoginForm";
 
 export default {
-  title: "components/auth/LoginForm",
+  title: "components/LoginForm",
 };
 
 export const Default = () => <LoginForm />;
