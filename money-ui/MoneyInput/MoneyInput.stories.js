@@ -6,4 +6,4 @@ export default {
     title: "money-ui/MoneyInput",
 };
 
-export const Default = () => <MoneyInput/>;
+export const Default = () => <MoneyInput placeholder="Dollar amounts only"/>;
