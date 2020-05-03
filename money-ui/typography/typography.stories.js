@@ -7,7 +7,6 @@ import {
     Caption,
     Header,
     LinkText,
-    Subheader,
     Text,
     Title,
 } from "./typography";
@@ -20,7 +19,6 @@ export const Variations = () => (
     <SpacedGroup>
         <Title>Title</Title>
         <Header>Header</Header>
-        <Subheader>Subheader</Subheader>
         <Text>This is the default text</Text>
         <LinkText>Link</LinkText>
         <Caption>A small little caption</Caption>
