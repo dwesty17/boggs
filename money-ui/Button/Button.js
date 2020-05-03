@@ -3,14 +3,15 @@ import styled, { css } from "styled-components";
 import { Color } from "../../styles";
 
 const Button = styled.button`
-  height: 35px;
+  height: ${(props) => getHeight(props)}px;
   width: ${(props) => props.fullWidth ? "100%" : "fit-content"};
-  font-size: 16px;
+  font-size: ${(props) => getFontSize(props)}px;
+  font-weight: 500;
   outline: none;
   border: none;
   border-radius: 4px;
   padding: 5px 15px;
-  box-shadow: 0 3px 5px ${Color.Alto};
+  box-shadow: ${(props) => props.noShadow ? "none" : `0 3px 5px ${Color.Alto}`};
   box-sizing: border-box;
   cursor: pointer;
   -webkit-appearance: none;
@@ -29,6 +30,18 @@ const Button = styled.button`
   ${(props) => props.primary && PrimaryStyles};
   ${(props) => props.disabled && DisabledStyles};
 `;
+
+const getHeight = (props) => {
+  if (props.size === "small") { return 30; }
+  if (props.size === "large") { return 40; }
+  return 35;
+};
+
+const getFontSize = (props) => {
+  if (props.size === "small") { return 12; }
+  if (props.size === "large") { return 18; }
+  return 16;
+};
 
 const PrimaryStyles = css`
   @keyframes click {

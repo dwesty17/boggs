@@ -1,14 +1,19 @@
 import React from "react";
+import styled from "styled-components";
 
-import NavBar from "./NavBar";
+import Navbar from "./Navbar";
 
 const AuthenticatedPage = ({ children }) => (
     <>
-        <NavBar />
-        <div className="main-view">
+        <Navbar />
+        <SiteContainer>
             { children }
-        </div>
+        </SiteContainer>
     </>
 );
+
+const SiteContainer = styled.div`
+    padding: 20px;
+`;
 
 export default AuthenticatedPage;

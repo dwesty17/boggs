@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    font-family: ${Font.Lobster};
+    font-family: ${Font.OpenSans};
     background: ${Color.White};
     padding: 0;
     margin: 0;
@@ -26,7 +26,7 @@ export const StylesContainer = styled.div`
   body {
     width: 100vw;
     height: 100vh;
-    font-family: ${Font.Lobster};
+    font-family: ${Font.OpenSans};
     background: ${Color.White};
     padding: 0;
     margin: 0;
