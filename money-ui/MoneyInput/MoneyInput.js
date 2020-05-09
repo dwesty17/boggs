@@ -16,9 +16,9 @@ const MoneyInput = (props) => {
 
     return (
         <TextInput
+            value={value}
             {...props}
             private={false}
-            value={value}
             onChange={handleChange}
         />
     );
