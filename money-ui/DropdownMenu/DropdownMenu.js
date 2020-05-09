@@ -4,28 +4,28 @@ import { IoIosArrowDown } from "react-icons/all";
 
 import { Color } from "../../styles";
 
-const DropdownMenu = ({placeholder, options, onChange}) => {
-    const selectedOption = options.find((option) => option.selected);
+const DropdownMenu = (props) => {
+    const selectedOption = props.options.find((option) => option.selected);
 
     const [value, setValue] = useState(selectedOption ? selectedOption.value : undefined);
 
     const handleChange = (event) => {
         const newValue = event.target.value;
         setValue(newValue);
-        onChange(newValue);
+        props.onChange(newValue);
     };
 
     return (
         <Container>
-            <Select hasValue={!!value} onChange={handleChange}>
+            <Select hasValue={!!value} onChange={handleChange} {...props}>
                 <option
                     value=""
                     disabled={true}
                     selected={!value}
                 >
-                    {placeholder || "Select"}
+                    {props.placeholder || "Select"}
                 </option>
-                {options && options.map((option) => (
+                {props.options && props.options.map((option) => (
                     <option
                         key={option.value}
                         value={option.value}
