@@ -53,6 +53,10 @@ const InputWrapper = styled.input`
   &:focus {
     box-shadow: 0 0 5px 3px ${Color.Portage};
   }
+  
+  &::placeholder {
+    color: ${Color.SilverChalice};
+  }
 `;
 
 const PaddedCaption = styled(Caption)`

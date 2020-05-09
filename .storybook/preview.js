@@ -17,11 +17,7 @@ addDecorator((storyFn) => (
 const StorybookGlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto&display=swap');
 
-  body {
-    font-family: ${Font.OpenSans};
-  }
-  
-  input {
+  * {
     font-family: ${Font.OpenSans};
   }
 `;
@@ -29,11 +25,7 @@ const StorybookGlobalStyles = createGlobalStyle`
 const StorybookContainer = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto&display=swap');
 
-  body {
-    font-family: ${Font.OpenSans};
-  }
-  
-  input {
+  * {
     font-family: ${Font.OpenSans};
   }
 `;
