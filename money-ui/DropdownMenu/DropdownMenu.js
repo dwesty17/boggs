@@ -5,23 +5,25 @@ import { IoIosArrowDown } from "react-icons/all";
 import { Color } from "../../styles";
 
 const DropdownMenu = (props) => {
-    const selectedOption = props.options.find((option) => option.selected);
-
-    const [value, setValue] = useState(selectedOption ? selectedOption.value : undefined);
+    const hasValue = props.value !== undefined && props.value !== null;
+    const [value, setValue] = useState(hasValue ? value : "placeholder");
 
     const handleChange = (event) => {
         const newValue = event.target.value;
         setValue(newValue);
-        props.onChange(newValue);
+        props.onChange && props.onChange(newValue);
     };
 
     return (
         <Container>
-            <Select hasValue={!!value} onChange={handleChange} {...props}>
+            <Select
+                value={value}
+                {...props}
+                onChange={handleChange}
+            >
                 <option
-                    value=""
+                    value="placeholder"
                     disabled={true}
-                    selected={!value}
                 >
                     {props.placeholder || "Select"}
                 </option>
@@ -29,7 +31,6 @@ const DropdownMenu = (props) => {
                     <option
                         key={option.value}
                         value={option.value}
-                        selected={option.selected}
                     >
                         {option.name}
                     </option>
@@ -49,7 +50,7 @@ const Select = styled.select`
   width: ${(props) => props.fullWidth ? "100%" : `${props.width || 300}px`};
   font-size: 16px;
   background: ${Color.White};
-  color: ${(props) => props.hasValue ? Color.ShipGrey : Color.SilverChalice};
+  color: ${(props) => props.value !== "placeholder" ? Color.ShipGrey : Color.SilverChalice};
   border: none;
   border-radius: 4px;
   padding: 5px;
