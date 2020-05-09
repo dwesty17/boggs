@@ -22,14 +22,14 @@ const LoginForm = ({ errors, onSubmit }) => {
                 <TextInput
                     value={email}
                     placeholder="email"
-                    onChange={(value) => setEmail(value)}
+                    onChange={setEmail}
                 />
 
                 <TextInput
                     private={true}
                     value={password}
                     placeholder="password"
-                    onChange={(value) => setPassword(value)}
+                    onChange={setPassword}
                 />
 
                 <Button
