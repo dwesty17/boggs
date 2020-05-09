@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import moment from "moment";
 
 import "./styles.scss";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../../money-ui/LoadingSpinner";
 import PercentageBar from "../PercentageBar";
 
 const SPENDING_QUERIES = gql`

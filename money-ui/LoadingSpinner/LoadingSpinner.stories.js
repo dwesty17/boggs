@@ -3,7 +3,7 @@ import React from "react";
 import LoadingSpinner from "./LoadingSpinner";
 
 export default {
-    title: "components/LoadingSpinner",
+    title: "money-ui/LoadingSpinner",
 };
 
 export const Default = () => <LoadingSpinner />;

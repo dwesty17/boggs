@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from "moment";
 
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../../money-ui/LoadingSpinner";
 
 const GET_BUDGETS_QUERY = gql`
     query GetBudgets {

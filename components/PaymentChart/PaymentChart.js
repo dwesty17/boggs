@@ -11,7 +11,7 @@ import {
 } from "react-vis";
 
 import "./styles.scss";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../../money-ui/LoadingSpinner";
 
 const SPENDING_PER_DAY_QUERY = gql`
     query GetAmountsSpent($from: String!, $to: String!) {

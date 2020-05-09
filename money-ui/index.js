@@ -8,6 +8,7 @@ export {
 
 export { Button } from "./Button";
 export { DropdownMenu } from "./DropdownMenu";
+export { LoadingSpinner } from "./LoadingSpinner";
 export { MoneyInput } from "./MoneyInput";
 export { Pennyworth } from "./Pennyworth";
 export { SpacedGroup } from "./SpacedGroup";

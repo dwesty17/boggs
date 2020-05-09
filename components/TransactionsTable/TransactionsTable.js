@@ -5,7 +5,7 @@ import moment from "moment";
 import {MdAdd} from "react-icons/md";
 
 import "./styles.scss";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../../money-ui/LoadingSpinner";
 import AddTransactionModal from "../modals/AddTransactionModal";
 import AddTransactionButton from "../AddTransactionButton";
 import IconButton from "../IconButton";
