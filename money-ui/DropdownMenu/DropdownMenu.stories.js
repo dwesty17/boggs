@@ -31,7 +31,7 @@ export const Variations = () => (
         />
 
         <DropdownMenu
-            value={2}
+            value={0}
             options={[
                 { value: 0, name: "Option 1" },
                 { value: 1, name: "Option 2" },
