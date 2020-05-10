@@ -5,7 +5,7 @@ import { Color, Font } from "../../styles";
 export const Title = styled.p`
   font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 30}px;
-  font-weight: 900;
+  font-weight: 600;
   color: ${(props) => props.color || Color.ShipGrey};
   margin: 0;
 `;
@@ -13,7 +13,7 @@ export const Title = styled.p`
 export const Header = styled.p`
   font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 24}px;
-  font-weight: 400;
+  font-weight: 600;
   color: ${(props) => props.color || Color.ShipGrey};
   margin: 0;
 `;

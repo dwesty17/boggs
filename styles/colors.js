@@ -10,6 +10,7 @@ export const Color = {
   Portage: "#8383f2",
   ShipGrey: "#414042",
   SilverChalice: "#a8a8a8",
+  TitanWhite: "#e6e6ff",
   White: "#ffffff",
 
   // TODO pick a green
