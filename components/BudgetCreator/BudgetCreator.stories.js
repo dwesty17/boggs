@@ -10,6 +10,7 @@ export const BlankBudget = () => <BudgetCreator/>;
 
 export const ExampleBudget = () => (
     <BudgetCreator
+        name="2 Paycheck Months"
         incomes={[
             { name: "Paycheck #1", amount: 25000 },
             { name: "Paycheck #2", amount: 25000 },

@@ -14,6 +14,7 @@ import BudgetItemRow from "./BudgetItemRow";
 import InputRow from "./InputRow";
 
 const BudgetCreator = (props) => {
+    const [name, setName] = useState(props.name || "New Budget");
     const [incomes, setIncomes] = useState((props.incomes && props.incomes.sort(byDescendingAmount)) || []);
     const [expenses, setExpenses] = useState((props.expenses && props.expenses.sort(byDescendingAmount)) || []);
 
@@ -39,8 +40,9 @@ const BudgetCreator = (props) => {
     return (
         <SpacedGroup>
             <EditableText
+                value={name}
                 typography="title"
-                value="New Budget"
+                onChange={setName}
             />
 
             <SectionContainer>
