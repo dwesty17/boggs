@@ -6,4 +6,18 @@ export default {
     title: "components/BudgetCreator",
 };
 
-export const Default = () => <BudgetCreator/>;
+export const BlankBudget = () => <BudgetCreator/>;
+
+export const ExampleBudget = () => (
+    <BudgetCreator
+        incomes={[
+            { name: "Paycheck #1", amount: 25000 },
+            { name: "Paycheck #2", amount: 25000 },
+        ]}
+        expenses={[
+            { name: "Groceries", amount: 8000 },
+            { name: "Rent", amount: 12000 },
+            { name: "NYT Subscription", amount: 52 },
+        ]}
+    />
+);

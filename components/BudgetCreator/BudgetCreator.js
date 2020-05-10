@@ -1,116 +1,124 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import {
-    Button,
-    DropdownMenu,
+    Caption,
     Header,
-    MoneyInput,
     SpacedGroup,
-    TextInput,
     Title,
 } from "../../money-ui";
+import { Color } from "../../styles";
+
+import BudgetItemRow from "./BudgetItemRow";
+import InputRow from "./InputRow";
 
 const BudgetCreator = (props) => {
-    const [unsavedChanges, setUnsavedChanges] = useState(false);
-    const [budget, setBudget] = useState(props.budget || { incomes: [], expenses: [] });
+    const [incomes, setIncomes] = useState((props.incomes && props.incomes.sort(byDescendingAmount)) || []);
+    const [expenses, setExpenses] = useState((props.expenses && props.expenses.sort(byDescendingAmount)) || []);
+
+    const incomeTotal = {
+        name: "Total Income",
+        amount: incomes.reduce((sum, income) => sum + income.amount, 0),
+    };
+    const expenseTotal = {
+        name: "Total Expenses",
+        amount: expenses.reduce((sum, expense) => sum + expense.amount, 0),
+    };
+
+    const budgetTotal = incomeTotal.amount - expenseTotal.amount;
 
     const handleNewIncome = (item) => {
-        budget.incomes.push(item);
-        budget.incomes.sort(sortByAmount);
-        setBudget(budget);
-        setUnsavedChanges(true);
+        setIncomes([...incomes, item].sort(byDescendingAmount));
     };
 
     const handleNewExpense = (item) => {
-        budget.expenses.push(item);
-        budget.expenses.sort(sortByAmount);
-        setBudget(budget);
-        setUnsavedChanges(true);
+        setExpenses([...expenses, item].sort(byDescendingAmount));
     };
 
     return (
         <SpacedGroup>
-            <Title>Budget: Default</Title>
+            <Title>New Budget</Title>
 
-            <Header>Incomes</Header>
-            {budget.incomes.map((income, index) => (
-                <BudgetItemRow key={index} budgetItem={income}/>
-            ))}
-            <InputRow onAdd={handleNewIncome}/>
+            <SectionContainer>
+                <Header>Incomes</Header>
+                <RowsContainer centered={!incomes.length}>
+                    {incomes.length ? (
+                        <>
+                            {incomes.map((income, index) => (
+                                <BudgetItemRow
+                                    key={index}
+                                    budgetItem={income}
+                                    isOddNumberedRow={!!(index % 2)}
+                                />
+                            ))}
+                            <BudgetItemRow
+                                budgetItem={incomeTotal}
+                                isTotalRow={true}
+                                isOddNumberedRow={!!(incomes.length % 2)}
+                            />
+                        </>
+                    ) : (
+                        <Caption color={Color.ShipGrey}>You haven&apos;t added any sources of income yet</Caption>
+                    )}
+                </RowsContainer>
+                <InputRow onAdd={handleNewIncome}/>
+            </SectionContainer>
 
-            <Header>Expenses</Header>
-            {budget.expenses.map((expense, index) => (
-                <BudgetItemRow key={index} budgetItem={expense}/>
-            ))}
-            <InputRow onAdd={handleNewExpense}/>
+            <SectionContainer>
+                <Header>Expenses</Header>
+                <RowsContainer centered={!expenses.length}>
+                    {expenses.length ? (
+                        <>
+                            {expenses.map((expense, index) => (
+                                <BudgetItemRow
+                                    key={index}
+                                    budgetItem={expense}
+                                    isOddNumberedRow={!!(index % 2)}
+                                />
+                            ))}
+                            <BudgetItemRow
+                                budgetItem={expenseTotal}
+                                isTotalRow={true}
+                                isOddNumberedRow={!!(expenses.length % 2)}
+                            />
+                        </>
+                    ) : (
+                        <Caption color={Color.ShipGrey}>You haven&apos;t added any expenses yet</Caption>
+                    )}
+                </RowsContainer>
+                <InputRow onAdd={handleNewExpense}/>
+            </SectionContainer>
+
+            {budgetTotal ? <Header>Total: {formatAmount(budgetTotal)}</Header> : null}
         </SpacedGroup>
     );
 };
 
-const sortByAmount = (budgetItem1, budgetItem2) => {
-    return budgetItem1.amount - budgetItem2.amount;
+const SectionContainer = styled.div`
+  background-color: ${Color.TitanWhite};
+  padding: 30px;
+  border-radius: 5px;
+`;
+
+const RowsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: ${(props) => props.centered ? "center" : "flex-start"};
+  align-items: center;
+  background-color: ${Color.White};
+  margin: 20px 0;
+  border-radius: 5px;
+  padding: 15px 10px;
+`;
+
+const byDescendingAmount = (budgetItem1, budgetItem2) => {
+    return budgetItem2.amount - budgetItem1.amount;
 };
 
-// TODO should I have a table component
-
-// TODO move this into it's own file probably
-const BudgetItemRow = ({ budgetItem }) => [
-    <div key="name">{budgetItem.name}</div>,
-    <div key="amount">{budgetItem.amount}</div>,
-];
-
-// TODO move this into it's own file probably
-const InputRow = ({ onAdd }) => {
-    const [name, setName] = useState("");
-    const [amount, setAmount] = useState("");
-    const [frequency, setFrequency] = useState("PER_MONTH");
-
-    const handleAdd = () => {
-        onAdd({ name, amount: getYearlyAmount(amount, frequency) });
-        setName("");
-        setAmount("");
-        setFrequency("PER_MONTH");
-    };
-
-    return (
-        <SpacedGroup direction="row">
-            <TextInput
-                value={name}
-                placeholder="Name"
-                width={125}
-                onChange={setName}
-            />
-
-            <MoneyInput
-                value={amount}
-                placeholder="Amount"
-                width={125}
-                onChange={setAmount}
-            />
-
-            <DropdownMenu
-                placeholder="Frequency"
-                width={125}
-                options={[
-                    { value: "PER_DAY", name: "Per Day" },
-                    { value: "PER_WEEK", name: "Per Week" },
-                    { value: "PER_MONTH", name: "Per Month", selected: true },
-                    { value: "PER_YEAR", name: "Per Year" },
-                ]}
-                onChange={setFrequency}
-            />
-
-            <Button primary={true} onClick={handleAdd}>Add</Button>
-        </SpacedGroup>
-    );
-};
-
-const getYearlyAmount = (amount, frequency) => {
-    if (frequency === "PER_DAY") { return amount * 365; }
-    if (frequency === "PER_WEEK") { return amount * 52; }
-    if (frequency === "PER_MONTH") { return amount * 12; }
-    if (frequency === "PER_YEAR") { return amount; }
-    throw new Error(`Unknown budget item frequency ${JSON.stringify(frequency)}`);
+const formatAmount = (amount) => {
+    const currencyParts = (amount / 12).toFixed(2).toString().split(".");
+    currencyParts[0] = currencyParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `$${currencyParts.join(".")}`;
 };
 
 export default BudgetCreator;
