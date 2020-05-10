@@ -2,15 +2,32 @@ import React from "react";
 import styled from "styled-components";
 
 import { Color } from "../../styles";
+import { EditableText } from "../../money-ui";
+import { formatAmount } from "../../lib/currency";
 
 const BudgetItemRow = ({ budgetItem, isTotalRow, isOddNumberedRow }) => (
     <Container isOddNumberedRow={isOddNumberedRow}>
         <NameColumn isTotalRow={isTotalRow}>
-            {budgetItem.name}
+            {isTotalRow ? (
+                budgetItem.name
+            ) : (
+                <EditableText
+                    value={budgetItem.name}
+                    compact={true}
+                />
+            )}
         </NameColumn>
 
         <AmountColumn isTotalRow={isTotalRow}>
-            {formatAmount(budgetItem.amount)}
+            {isTotalRow ? (
+                formatAmount(budgetItem.amount)
+            ) : (
+                <EditableText
+                    type="money"
+                    value={formatAmount(budgetItem.amount)}
+                    compact={true}
+                />
+            )}
         </AmountColumn>
     </Container>
 );
@@ -25,16 +42,12 @@ const Container = styled.div`
 const NameColumn = styled.div`
   width: 45%;
   font-weight: ${(props) => props.isTotalRow ? 600 : 400};
+  padding: ${(props) => props.isTotalRow && "2px 0 0 5px"}
 `;
 
 const AmountColumn = styled.div`
   font-weight: ${(props) => props.isTotalRow ? 600 : 400};
+  padding: ${(props) => props.isTotalRow && "2px 0"}
 `;
-
-const formatAmount = (amount) => {
-    const currencyParts = (amount / 12).toFixed(2).toString().split(".");
-    currencyParts[0] = currencyParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return `$${currencyParts.join(".")}`;
-};
 
 export default BudgetItemRow;

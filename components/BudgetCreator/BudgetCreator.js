@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 import {
     Caption,
+    EditableText,
     Header,
     SpacedGroup,
-    Title,
 } from "../../money-ui";
 import { Color } from "../../styles";
+import { formatAmount } from "../../lib/currency";
 
 import BudgetItemRow from "./BudgetItemRow";
 import InputRow from "./InputRow";
@@ -37,10 +38,13 @@ const BudgetCreator = (props) => {
 
     return (
         <SpacedGroup>
-            <Title>New Budget</Title>
+            <EditableText
+                typography="title"
+                value="New Budget"
+            />
 
             <SectionContainer>
-                <Header>Incomes</Header>
+                <Header>Income</Header>
                 <RowsContainer centered={!incomes.length}>
                     {incomes.length ? (
                         <>
@@ -113,12 +117,6 @@ const RowsContainer = styled.div`
 
 const byDescendingAmount = (budgetItem1, budgetItem2) => {
     return budgetItem2.amount - budgetItem1.amount;
-};
-
-const formatAmount = (amount) => {
-    const currencyParts = (amount / 12).toFixed(2).toString().split(".");
-    currencyParts[0] = currencyParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return `$${currencyParts.join(".")}`;
 };
 
 export default BudgetCreator;
