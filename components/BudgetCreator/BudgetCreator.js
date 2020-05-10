@@ -13,6 +13,8 @@ import { formatAmount } from "../../lib/currency";
 import BudgetItemRow from "./BudgetItemRow";
 import InputRow from "./InputRow";
 
+// TODO do better than stringified income/expense key
+
 const BudgetCreator = (props) => {
     const [name, setName] = useState(props.name || "New Budget");
     const [incomes, setIncomes] = useState((props.incomes && props.incomes.sort(byDescendingAmount)) || []);
@@ -52,7 +54,7 @@ const BudgetCreator = (props) => {
                         <>
                             {incomes.map((income, index) => (
                                 <BudgetItemRow
-                                    key={index}
+                                    key={JSON.stringify(income)}
                                     budgetItem={income}
                                     isOddNumberedRow={!!(index % 2)}
                                 />
@@ -77,7 +79,7 @@ const BudgetCreator = (props) => {
                         <>
                             {expenses.map((expense, index) => (
                                 <BudgetItemRow
-                                    key={index}
+                                    key={JSON.stringify(expense)}
                                     budgetItem={expense}
                                     isOddNumberedRow={!!(index % 2)}
                                 />
