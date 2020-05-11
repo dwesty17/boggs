@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import styled from "styled-components";
 
 import { Caption } from "../typography";
 import { Color } from "../../styles";
 
-const TextInput = (props) => {
+const TextInput = forwardRef((props, ref) => {
     const [value, setValue] = useState("");
 
     const handleChange = (event) => {
@@ -18,6 +18,7 @@ const TextInput = (props) => {
             <InputWrapper
                 value={value}
                 {...props}
+                ref={ref}
                 type={props.private ? "password" : "text"}
                 onChange={handleChange}
             />
@@ -29,7 +30,7 @@ const TextInput = (props) => {
             )}
         </Container>
     );
-};
+});
 
 const Container = styled.div`
   display: flex;
