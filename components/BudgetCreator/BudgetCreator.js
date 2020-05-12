@@ -19,24 +19,48 @@ const BudgetCreator = (props) => {
     const [name, setName] = useState(props.name || "New Budget");
     const [incomes, setIncomes] = useState((props.incomes && props.incomes.sort(byDescendingAmount)) || []);
     const [expenses, setExpenses] = useState((props.expenses && props.expenses.sort(byDescendingAmount)) || []);
-
-    const incomeTotal = {
-        name: "Total Income",
-        amount: incomes.reduce((sum, income) => sum + income.amount, 0),
-    };
-    const expenseTotal = {
-        name: "Total Expenses",
-        amount: expenses.reduce((sum, expense) => sum + expense.amount, 0),
-    };
-
-    const budgetTotal = incomeTotal.amount - expenseTotal.amount;
+    const [incomeTotal, setIncomeTotal] = useState(getTotal(incomes));
+    const [expenseTotal, setExpenseTotal] = useState(getTotal(expenses));
+    const [budgetTotal, setBudgetTotal] = useState(incomeTotal - expenseTotal);
 
     const handleNewIncome = (item) => {
-        setIncomes([...incomes, item].sort(byDescendingAmount));
+        const newIncomes = [...incomes, item].sort(byDescendingAmount);
+        setIncomes(newIncomes);
+        setIncomeTotal(getTotal(newIncomes));
+        setBudgetTotal(getTotal(newIncomes) - expenseTotal);
     };
 
     const handleNewExpense = (item) => {
-        setExpenses([...expenses, item].sort(byDescendingAmount));
+        const newExpenses = [...expenses, item].sort(byDescendingAmount);
+        setExpenses(newExpenses);
+        setExpenseTotal(getTotal(newExpenses));
+        setBudgetTotal(incomeTotal - getTotal(newExpenses));
+    };
+
+    const handleIncomeItemUpdate = (index) => (nameOrAmount) => (value) => {
+        if (nameOrAmount === "name") {
+            incomes[index].name = value;
+        }
+
+        if (nameOrAmount === "amount") {
+            incomes[index].amount = value * 12;
+        }
+        setIncomes(incomes);
+        setIncomeTotal(getTotal(incomes));
+        setBudgetTotal(getTotal(incomes) - expenseTotal);
+    };
+
+    const handleExpenseItemUpdate = (index) => (nameOrAmount) => (value) => {
+        if (nameOrAmount === "name") {
+            expenses[index].name = value;
+        }
+
+        if (nameOrAmount === "amount") {
+            expenses[index].amount = value * 12;
+        }
+        setExpenses(expenses);
+        setExpenseTotal(getTotal(expenses));
+        setBudgetTotal(incomeTotal - getTotal(expenses));
     };
 
     return (
@@ -57,10 +81,11 @@ const BudgetCreator = (props) => {
                                     key={JSON.stringify(income)}
                                     budgetItem={income}
                                     isOddNumberedRow={!!(index % 2)}
+                                    onUpdate={handleIncomeItemUpdate(index)}
                                 />
                             ))}
                             <BudgetItemRow
-                                budgetItem={incomeTotal}
+                                budgetItem={{ name: "Total Income", amount: incomeTotal }}
                                 isTotalRow={true}
                                 isOddNumberedRow={!!(incomes.length % 2)}
                             />
@@ -82,10 +107,11 @@ const BudgetCreator = (props) => {
                                     key={JSON.stringify(expense)}
                                     budgetItem={expense}
                                     isOddNumberedRow={!!(index % 2)}
+                                    onUpdate={handleExpenseItemUpdate(index)}
                                 />
                             ))}
                             <BudgetItemRow
-                                budgetItem={expenseTotal}
+                                budgetItem={{ name: "Total Expenses", amount: expenseTotal }}
                                 isTotalRow={true}
                                 isOddNumberedRow={!!(expenses.length % 2)}
                             />
@@ -97,7 +123,7 @@ const BudgetCreator = (props) => {
                 <InputRow onAdd={handleNewExpense}/>
             </SectionContainer>
 
-            {budgetTotal ? <Header>Total: {formatAmount(budgetTotal)}</Header> : null}
+            {budgetTotal ? <Header>Total: {formatAmount(budgetTotal / 12)}</Header> : null}
         </SpacedGroup>
     );
 };
@@ -118,6 +144,10 @@ const RowsContainer = styled.div`
   border-radius: 5px;
   padding: 15px 10px;
 `;
+
+const getTotal = (list) => {
+    return list.reduce((sum, item) => sum + item.amount, 0);
+};
 
 const byDescendingAmount = (budgetItem1, budgetItem2) => {
     return budgetItem2.amount - budgetItem1.amount;

@@ -5,7 +5,12 @@ import { Color } from "../../styles";
 import { EditableText } from "../../money-ui";
 import { formatAmount } from "../../lib/currency";
 
-const BudgetItemRow = ({ budgetItem, isTotalRow, isOddNumberedRow }) => (
+const BudgetItemRow = ({
+   budgetItem,
+   isTotalRow,
+   isOddNumberedRow,
+   onUpdate,
+}) => (
     <Container isOddNumberedRow={isOddNumberedRow}>
         <NameColumn isTotalRow={isTotalRow}>
             {isTotalRow ? (
@@ -14,18 +19,20 @@ const BudgetItemRow = ({ budgetItem, isTotalRow, isOddNumberedRow }) => (
                 <EditableText
                     value={budgetItem.name}
                     compact={true}
+                    onChange={onUpdate("name")}
                 />
             )}
         </NameColumn>
 
         <AmountColumn isTotalRow={isTotalRow}>
             {isTotalRow ? (
-                formatAmount(budgetItem.amount)
+                formatAmount(budgetItem.amount / 12)
             ) : (
                 <EditableText
                     type="money"
-                    value={formatAmount(budgetItem.amount)}
+                    value={formatAmount(budgetItem.amount / 12)}
                     compact={true}
+                    onChange={onUpdate("amount")}
                 />
             )}
         </AmountColumn>

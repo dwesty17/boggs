@@ -8,7 +8,6 @@ import {
     TitleStyles,
 } from "../typography";
 import { Color } from "../../styles";
-import { formatAmount } from "../../lib/currency";
 
 const EditableText = (props) => {
     const [value, setValue] = useState(props.value || "");
@@ -16,7 +15,6 @@ const EditableText = (props) => {
     const handleChange = (event) => {
         const newValue = event.target.value;
         setValue(newValue);
-        props.onChange && props.onChange(newValue);
     };
 
     const handleFocus = () => {
@@ -27,8 +25,7 @@ const EditableText = (props) => {
 
     const handleBlur = () => {
         if (props.type === "money") {
-            setValue(formatAmount(value*12));
-            props.onChange && props.onChange(formatAmount(value*12));
+            props.onChange && props.onChange(value);
         }
     };
 
