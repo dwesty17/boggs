@@ -2,14 +2,9 @@
 
 Server-side rendered React frontend for daily spending goal application 📈
 
-## Setup
+## Run Storybooks
 
-### Prerequistes
-
-### Installation
-
-## Usage
-
-### Run locally
-
-## Deployment
+```sh
+npm install
+npm run storybook
+```
