@@ -46,7 +46,7 @@ const Container = styled.div`
 `;
 
 const Select = styled.select`
-  height: 35px;
+  height: 40px;
   width: ${(props) => props.fullWidth ? "100%" : `${props.width || 300}px`};
   font-size: 16px;
   background: ${Color.White};
@@ -66,7 +66,7 @@ const Select = styled.select`
 
 const DownArrow = styled(IoIosArrowDown)`
   position: absolute;
-  top: 8px;
+  top: 11px;
   right: 11px;
   color: ${Color.ShipGrey};
   pointer-events: none;

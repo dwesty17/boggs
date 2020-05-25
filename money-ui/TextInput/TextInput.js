@@ -39,7 +39,7 @@ const Container = styled.div`
 `;
 
 const InputWrapper = styled.input`
-  height: 35px;
+  height: 40px;
   width: ${(props) => props.fullWidth ? "100%" : `${props.width || 300}px`};
   font-size: 16px;
   background: ${Color.White};

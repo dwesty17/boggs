@@ -32,9 +32,9 @@ const Button = styled.button`
 `;
 
 const getHeight = (props) => {
-  if (props.size === "small") { return 30; }
-  if (props.size === "large") { return 40; }
-  return 35;
+  if (props.size === "small") { return 35; }
+  if (props.size === "large") { return 45; }
+  return 40;
 };
 
 const getFontSize = (props) => {

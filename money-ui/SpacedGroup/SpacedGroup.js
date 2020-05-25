@@ -20,6 +20,8 @@ const Container = styled.div`
   display: flex;
   align-items: ${(props) => props.alignment || "flex-start"};
   flex-direction: ${(props) => props.direction || "column"};
+  margin-bottom: ${(props) => (props.direction !== "row")  && -(props.space || 15)}px;
+  margin-right: ${(props) => (props.direction === "row")  && -(props.space || 15)}px;
 `;
 
 const ElementContainer = styled.div`
