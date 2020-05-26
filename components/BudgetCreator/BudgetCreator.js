@@ -16,9 +16,9 @@ import InputRow from "./InputRow";
 // TODO do better than stringified income/expense key
 
 const BudgetCreator = (props) => {
-    const [name, setName] = useState(props.name || "New Budget");
-    const [incomes, setIncomes] = useState((props.incomes && props.incomes.sort(byDescendingAmount)) || []);
-    const [expenses, setExpenses] = useState((props.expenses && props.expenses.sort(byDescendingAmount)) || []);
+    const [name, setName] = useState((props.budget && props.budget.name) || "New Budget");
+    const [incomes, setIncomes] = useState(((props.budget && props.budget.incomes) && props.budget.incomes.sort(byDescendingAmount)) || []);
+    const [expenses, setExpenses] = useState(((props.budget && props.budget.expenses) && props.budget.expenses.sort(byDescendingAmount)) || []);
     const [incomeTotal, setIncomeTotal] = useState(getTotal(incomes));
     const [expenseTotal, setExpenseTotal] = useState(getTotal(expenses));
     const [budgetTotal, setBudgetTotal] = useState(incomeTotal - expenseTotal);
@@ -149,6 +149,7 @@ const getTotal = (list) => {
     return list.reduce((sum, item) => sum + item.amount, 0);
 };
 
+// TODO this should go into a shared utils file
 const byDescendingAmount = (budgetItem1, budgetItem2) => {
     return budgetItem2.amount - budgetItem1.amount;
 };

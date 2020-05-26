@@ -11,6 +11,7 @@ export {
 } from "./typography";
 
 export { Button } from "./Button";
+export { Card } from "./Card";
 export { DropdownMenu } from "./DropdownMenu";
 export { EditableText } from "./EditableText";
 export { LoadingDots } from "./LoadingDots";
