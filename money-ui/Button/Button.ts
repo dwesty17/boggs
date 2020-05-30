@@ -1,8 +1,17 @@
+import React from "react";
 import styled, { css } from "styled-components";
 
 import { Color } from "../../styles";
 
-const Button = styled.button`
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: "small" | "large";
+  primary?: boolean;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  noShadow?: boolean;
+}
+
+const Button = styled.button<Props>`
   height: ${(props) => getHeight(props)}px;
   width: ${(props) => props.fullWidth ? "100%" : "fit-content"};
   font-size: ${(props) => getFontSize(props)}px;
@@ -31,13 +40,13 @@ const Button = styled.button`
   ${(props) => props.disabled && DisabledStyles};
 `;
 
-const getHeight = (props) => {
+const getHeight = (props: Props) => {
   if (props.size === "small") { return 35; }
   if (props.size === "large") { return 45; }
   return 40;
 };
 
-const getFontSize = (props) => {
+const getFontSize = (props: Props) => {
   if (props.size === "small") { return 12; }
   if (props.size === "large") { return 18; }
   return 16;
@@ -67,5 +76,12 @@ const DisabledStyles = css`
     background-color: ${Color.White};
   }
 `;
+
+Button.defaultProps = {
+  primary: false,
+  disabled: false,
+  fullWidth: false,
+  noShadow: false,
+};
 
 export default Button;
