@@ -4,10 +4,10 @@ import styled, { keyframes } from "styled-components";
 import { Color } from "../../styles";
 
 interface Props {
-	color?: string;
+    color?: string;
 }
 
-const LoadingDots = ({ color} : Props) => (
+const LoadingDots = ({ color } : Props) => (
     <Container>
         <Dot1 color={color}/>
         <Dot2 color={color}/>
