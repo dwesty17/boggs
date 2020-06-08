@@ -16,12 +16,15 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - name: setup node ${{ matrix.node-version }}
+    - name: Checkout boggs
+      uses: actions/checkout@v1
+
+    - name: Setup node ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-        
-    - name: npm run type-check
+
+    - name: Check for TypeScript errors
       run: |
         npm ci
         npm run type-check
