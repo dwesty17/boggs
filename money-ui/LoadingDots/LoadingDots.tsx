@@ -7,7 +7,7 @@ interface Props {
     color?: string;
 }
 
-const LoadingDots = ({ color } : Props) => (
+const LoadingDots: React.FC<Props> = ({ color }) => (
     <Container>
         <Dot1 color={color}/>
         <Dot2 color={color}/>
