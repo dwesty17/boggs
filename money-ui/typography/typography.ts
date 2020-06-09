@@ -2,7 +2,12 @@ import styled, { css } from "styled-components";
 
 import { Color, Font } from "../../styles";
 
-export const TitleStyles = css`
+interface Props {
+	size?: number;
+	color?: string;
+}
+
+export const TitleStyles = css<Props>`
   font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 30}px;
   font-weight: 600;
@@ -10,11 +15,11 @@ export const TitleStyles = css`
   margin: 0;
 `;
 
-export const Title = styled.p`
+export const Title = styled.p<Props>`
   ${TitleStyles};
 `;
 
-export const HeaderStyles = css`
+export const HeaderStyles = css<Props>`
   font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 24}px;
   font-weight: 600;
@@ -22,11 +27,11 @@ export const HeaderStyles = css`
   margin: 0;
 `;
 
-export const Header = styled.p`
+export const Header = styled.p<Props>`
   ${HeaderStyles};
 `;
 
-export const TextStyles = css`
+export const TextStyles = css<Props>`
   font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 16}px;
   font-weight: 400;
@@ -34,11 +39,11 @@ export const TextStyles = css`
   margin: 0;
 `;
 
-export const Text = styled.p`
+export const Text = styled.p<Props>`
   ${TextStyles};
 `;
 
-export const LinkText = styled.a`
+export const LinkText = styled.a<Props>`
   font-family: ${Font.OpenSans};
   font-size: ${(props) => props.size || 16}px;
   text-decoration: underline;
@@ -46,7 +51,7 @@ export const LinkText = styled.a`
   cursor: pointer;
 `;
 
-export const CaptionStyles = css`
+export const CaptionStyles = css<Props>`
   font-size: 12px;
   color: ${(props) => props.color || Color.SilverChalice};
 `;
