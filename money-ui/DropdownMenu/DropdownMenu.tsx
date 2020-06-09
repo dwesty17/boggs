@@ -1,14 +1,24 @@
-import React, {useState} from "react";
+import React, { useState, FormEvent, SelectHTMLAttributes, ChangeEvent } from "react";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/all";
 
 import { Color } from "../../styles";
 
-const DropdownMenu = (props) => {
-    const hasValue = props.value !== undefined && props.value !== null;
-    const [value, setValue] = useState(hasValue ? value : "placeholder");
+interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
+	value: string;
+	hasValue: boolean;
 
-    const handleChange = (event) => {
+	fullWidth: boolean;
+	width: number;
+
+}
+
+const DropdownMenu: React.FC<Props> = (props) => {
+    const hasValue = props.value !== undefined && props.value !== null;
+
+    const [value, setValue] = useState(hasValue ? props.value : "placeholder");
+
+    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const newValue = event.target.value;
         setValue(newValue);
         props.onChange && props.onChange(newValue);
@@ -45,7 +55,7 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Select = styled.select`
+const Select = styled.select<Props>`
   height: 40px;
   width: ${(props) => props.fullWidth ? "100%" : `${props.width || 300}px`};
   font-size: 16px;
