@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import passwordValidator from "password-validator";
+import PasswordValidator from "password-validator";
 import { isEmpty } from "lodash";
 
 import { Button, Caption, SpacedGroup, TextInput } from "../../money-ui";
 import { Color } from "../../styles";
 
+interface Props {
+    errors: FormErrors;
+    onSubmit: (email: string, password: string) => void;
+}
+
+interface FormErrors {
+    emailInUse?: boolean;
+    invalidEmail?: boolean;
+    shortPassword?: boolean;
+    commonPassword?: boolean;
+    passwordMismatch?: boolean;
+    serverError?: boolean;
+}
+
 // TODO add green check marks to text input
 // TODO add thanks for signing up message
 
-const SignUpForm = (props) => {
-    const { onSubmit } = props;
-
+const SignUpForm = (props: Props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -25,7 +37,7 @@ const SignUpForm = (props) => {
         };
 
         if (isEmpty(errors)) {
-            onSubmit(email, password);
+            props.onSubmit(email, password);
 
             setEmail("");
             setPassword("");
@@ -87,25 +99,28 @@ const Logo = styled.img`
   width: 250px;
 `;
 
-const getEmailErrors = (email) => {
-    const errors = {};
+const getEmailErrors = (email: string) => {
+    const errors: FormErrors = {};
+
     if (emailIsInvalid(email)) {
         errors.invalidEmail = true;
     }
+
     return errors;
 };
 
-const emailIsInvalid = (email) => {
+const emailIsInvalid = (email: string) => {
     const re = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return !re.test(String(email).toLowerCase());
 };
 
-const getPasswordErrors = (password) => {
-    const schema = new passwordValidator();
+const getPasswordErrors = (password: string) => {
+    const schema = new PasswordValidator();
     schema.is().min(12);
-    const failures = schema.validate(password, { list: true });
+    const failures = schema.validate(password, { list: true }) as string[];
 
-    const errors = {};
+    const errors: FormErrors = {};
+
     if (failures.includes("min")) {
         errors.shortPassword = true;
     }
@@ -115,15 +130,16 @@ const getPasswordErrors = (password) => {
     return errors;
 };
 
-const getPasswordMatchErrors = (password, confirmPassword) => {
-    const errors = {};
+const getPasswordMatchErrors = (password: string, confirmPassword: string) => {
+    const errors: FormErrors = {};
+
     if (confirmPassword !== password) {
         errors.passwordMismatch = true;
     }
     return errors;
 };
 
-const getEmailErrorMessage = (errors) => {
+const getEmailErrorMessage = (errors: FormErrors) => {
     if (errors.emailInUse) {
         return "Email is already in use";
     }
@@ -132,7 +148,7 @@ const getEmailErrorMessage = (errors) => {
     }
 };
 
-const getPasswordErrorMessage = (errors) => {
+const getPasswordErrorMessage = (errors: FormErrors) => {
     if (errors.shortPassword) {
         return "Password is too short";
     }
@@ -141,7 +157,7 @@ const getPasswordErrorMessage = (errors) => {
     }
 };
 
-const getPasswordMatchErrorMessage = (errors) => {
+const getPasswordMatchErrorMessage = (errors: FormErrors) => {
     if (errors.passwordMismatch) {
         return "Passwords don't match";
     }

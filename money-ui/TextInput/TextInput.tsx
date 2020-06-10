@@ -1,28 +1,41 @@
-import React, { forwardRef, useState } from "react";
+import React, {forwardRef, useState} from "react";
 import styled from "styled-components";
 
 import { Caption } from "../typography";
 import { Color } from "../../styles";
 
-const TextInput = forwardRef((props, ref) => {
+interface Props {
+    value?: string;
+    fullWidth?: boolean;
+    width?: number;
+    private?: boolean;
+    hint?: string;
+    error?: string;
+    placeholder?: string;
+    defaultValue?: string;
+    onChange: (newValue: string) => void;
+}
+
+// TODO should we require that this is used as a controlled component?
+const TextInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
     const [value, setValue] = useState("");
 
-    const handleChange = (event) => {
-        const newValue = event.target.value;
+    const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+        const newValue = event.currentTarget.value;
         setValue(newValue);
-        props.onChange && props.onChange(newValue);
+        props.onChange(newValue);
     };
 
     return (
         <Container>
             <InputWrapper
-                value={value}
                 {...props}
+                value={value}
                 ref={ref}
                 type={props.private ? "password" : "text"}
                 onChange={handleChange}
             />
-            {props.error && (typeof props.error === "string") && (
+            {props.error && (
                 <PaddedCaption color={Color.Crail}>{props.error}</PaddedCaption>
             )}
             {props.hint && !props.error && (
@@ -38,7 +51,14 @@ const Container = styled.div`
   align-items: flex-start;
 `;
 
-const InputWrapper = styled.input`
+interface WrapperProps {
+    fullWidth?: boolean;
+    width?: number;
+    error?: boolean;
+    [propName: string]: any;
+}
+
+const InputWrapper = styled.input<WrapperProps>`
   height: 40px;
   width: ${(props) => props.fullWidth ? "100%" : `${props.width || 300}px`};
   font-size: 16px;
