@@ -1,11 +1,11 @@
 import React from "react";
-import App from "next/app";
+import App, { AppContext } from "next/app";
 import Head from "next/head";
 
 import { GlobalStyles, StylesContainer } from "../styles";
 
-class MyApp extends App {
-    static async getInitialProps(appContext) {
+class Boggs extends App {
+    static async getInitialProps(appContext: AppContext) {
       const appProps = await App.getInitialProps(appContext);
 
       return { ...appProps };
@@ -25,4 +25,4 @@ class MyApp extends App {
     }
 }
 
-export default MyApp;
+export default Boggs;
