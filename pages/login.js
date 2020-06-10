@@ -6,7 +6,7 @@ import cookie from "cookie";
 import { useRouter } from "next/router";
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 
-import LoginForm from "../components/LoginForm/index";
+import LoginForm from "../components/LoginForm";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 import { Caption, LinkText } from "../money-ui/typography";

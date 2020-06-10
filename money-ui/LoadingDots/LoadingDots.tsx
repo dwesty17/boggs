@@ -3,7 +3,11 @@ import styled, { keyframes } from "styled-components";
 
 import { Color } from "../../styles";
 
-const LoadingDots = ({ color }) => (
+interface Props {
+    color?: string;
+}
+
+const LoadingDots: React.FC<Props> = ({ color }) => (
     <Container>
         <Dot1 color={color}/>
         <Dot2 color={color}/>

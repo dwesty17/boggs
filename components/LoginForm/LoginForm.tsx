@@ -5,13 +5,23 @@ import { isEmpty } from "lodash";
 import { Button, Caption, SpacedGroup, TextInput } from "../../money-ui";
 import { Color } from "../../styles";
 
-const LoginForm = ({ errors, onSubmit }) => {
+interface Props {
+    errors: FormErrors;
+    onSubmit: (email: string, password: string) => void;
+}
+
+interface FormErrors {
+    invalidCredentials?: boolean;
+    serverError?: boolean;
+}
+
+const LoginForm: React.FC<Props> = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        await onSubmit(email, password);
+        await props.onSubmit(email, password);
     };
 
     return (
@@ -41,9 +51,9 @@ const LoginForm = ({ errors, onSubmit }) => {
                     Login
                 </Button>
 
-                {!isEmpty(errors) && (
+                {!isEmpty(props.errors) && (
                     <Caption color={Color.Crail}>
-                        {getErrorMessage(errors)}
+                        {getErrorMessage(props.errors)}
                     </Caption>
                 )}
             </SpacedGroup>
@@ -51,8 +61,9 @@ const LoginForm = ({ errors, onSubmit }) => {
     );
 };
 
-const getErrorMessage = (errors) => {
+const getErrorMessage = (errors: FormErrors) => {
     if (errors.invalidCredentials) { return "Invalid credentials"; }
+    if (errors.serverError) { return "Something went wrong"; }
     return "Something went wrong";
 };
 
