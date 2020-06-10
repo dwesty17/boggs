@@ -4,13 +4,18 @@ import { TextInput } from "../TextInput";
 
 const US_CURRENCY_EXPRESSION = /^\$?[0-9]*(\.[0-9]{0,2})?$/;
 
-const MoneyInput = (props) => {
+interface MoneyProps {
+	onChange: (newValue: string) => void;
+	placeholder?: string;
+}
+
+const MoneyInput: React.FC<MoneyProps> = (props) => {
     const [value, setValue] = useState("");
 
-    const handleChange = (newValue) => {
+    const handleChange = (newValue: string) => {
         if (US_CURRENCY_EXPRESSION.test(newValue)) {
             setValue(newValue);
-            props.onChange && props.onChange(newValue);
+            props.onChange(newValue);
         }
     };
 
