@@ -1,11 +1,15 @@
 module.exports = {
     env: {
         browser: true,
-        node: true,
-        es6: true
+        es6: true,
+        jest: true,
+        node: true
     },
+    parser: "@typescript-eslint/parser",
     extends: [
         "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest/recommended",
         "plugin:react/recommended"
     ],
     globals: {
@@ -20,6 +24,8 @@ module.exports = {
         sourceType: "module"
     },
     plugins: [
+        "@typescript-eslint",
+        "jest",
         "react"
     ],
     rules: {

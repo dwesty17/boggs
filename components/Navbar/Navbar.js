@@ -2,39 +2,51 @@ import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import cookie from "cookie";
-import { useApolloClient } from "@apollo/react-hooks";
+import {useApolloClient} from "@apollo/react-hooks";
 
 import redirect from "../../lib/redirect";
-import { Color } from "../../styles";
-import { Button } from "../../money-ui";
+import {Color} from "../../styles";
+import {Button} from "../../money-ui";
 
-const Navbar = ({ mockClient }) => {
-    const client = mockClient || useApolloClient();
+const Navbar = ({mockClient}) => {
 
-    const signOut = async () => {
-        document.cookie = cookie.serialize("token", null, { maxAge: -1, path: "/" });
-        await client.cache.reset();
-        await redirect({}, "/login");
-    };
+        const client = mockClient || useApolloClient(),
 
-    return (
-        <Container>
-            <Link href="/">
-                <Logo src="/logos/text-logo-white.png"/>
-            </Link>
+            signOut = async () => {
 
-            <Button
-                size="small"
-                noShadow={true}
-                onClick={signOut}
-            >
+                document.cookie = cookie.serialize(
+                    "token",
+                    null,
+                    {"maxAge": -1,
+                        "path": "/"},
+                );
+                await client.cache.reset();
+                await redirect(
+                    {},
+                    "/login",
+                );
+
+            };
+
+        return (
+            <Container>
+                <Link href="/">
+                    <Logo src="/logos/text-logo-white.png" />
+                </Link>
+
+                <Button
+                    noShadow
+                    onClick={signOut}
+                    size="small"
+                >
                 Sign out
-            </Button>
-        </Container>
-    );
-};
+                </Button>
+            </Container>
+        );
 
-const Container = styled.div`
+    },
+
+    Container = styled.div`
   height: 60px;
   display: flex;
   align-items: center;
@@ -43,9 +55,9 @@ const Container = styled.div`
   padding: 0 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 5px ${Color.Alto};
-`;
+`,
 
-const Logo = styled.img`
+    Logo = styled.img`
   height: 25px;
   cursor: pointer;
 `;

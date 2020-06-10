@@ -1,7 +1,7 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 
-import { Color } from "./colors";
-import { Font } from "./fonts";
+import {Color} from "./colors";
+import {Font} from "./fonts";
 
 export const GlobalStyles = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Roboto&display=swap");

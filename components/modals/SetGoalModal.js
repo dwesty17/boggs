@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import React, {useState} from "react";
+import {useMutation} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 import redirect from "../../lib/redirect";
@@ -11,60 +11,91 @@ const UPDATE_USER_MUTATION = gql`
             monthlySpendingGoal
         }
     }
-`;
+`,
 
-const SetGoalModal = ({ visible }) => {
-    if (!visible) { return null; }
+    SetGoalModal = ({visible}) => {
 
-    const [monthlySpendingGoal, setMonthlySpendingGoal] = useState("");
+        if (!visible) {
 
-    const [updateUser] = useMutation(UPDATE_USER_MUTATION, {
-        onCompleted({}) {
-            setMonthlySpendingGoal("");
-            redirect({}, "/");
-        },
-        onError(error) {
-            if (error) {
-                console.error(error);
-            }
-        },
-    });
+            return null;
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        await updateUser({
-            variables: {
-                updatedUser: {
-                    monthlySpendingGoal: parseFloat(monthlySpendingGoal),
+        }
+
+        const [
+                monthlySpendingGoal,
+                setMonthlySpendingGoal,
+            ] = useState(""),
+
+            [updateUser] = useMutation(
+                UPDATE_USER_MUTATION,
+                {
+                    onCompleted ({}) {
+
+                        setMonthlySpendingGoal("");
+                        redirect(
+                            {},
+                            "/",
+                        );
+
+                    },
+                    onError (error) {
+
+                        if (error) {
+
+                            console.error(error);
+
+                        }
+
+                    },
                 },
-            },
-        });
-    };
+            ),
 
-    return (
-        <div className="modal-background">
-            <section className="modal-main">
-                <h2>Welcome to $$$!</h2>
-                <p>Enter your monthly spending goal to get started!</p>
-                <form>
-                    <input
-                        placeholder="Monthly goal"
-                        type="number"
-                        min="0"
-                        step="100"
-                        value={monthlySpendingGoal}
-                        onChange={(event) => { setMonthlySpendingGoal(event.target.value); }}
-                    />
-                    <button
-                        disabled={!monthlySpendingGoal || monthlySpendingGoal < 0}
-                        onClick={handleSubmit}
-                    >
+            handleSubmit = async (event) => {
+
+                event.preventDefault();
+                await updateUser({
+                    "variables": {
+                        "updatedUser": {
+                            "monthlySpendingGoal": parseFloat(monthlySpendingGoal),
+                        },
+                    },
+                });
+
+            };
+
+        return (
+            <div className="modal-background">
+                <section className="modal-main">
+                    <h2>
+Welcome to $$$!
+                    </h2>
+                    <p>
+Enter your monthly spending goal to get started!
+                    </p>
+                    <form>
+                        <input
+                            min="0"
+                            onChange={(event) => {
+
+                                setMonthlySpendingGoal(event.target.value);
+
+                            }}
+                            placeholder="Monthly goal"
+                            step="100"
+                            type="number"
+                            value={monthlySpendingGoal}
+                        />
+                        <button
+                            disabled={!monthlySpendingGoal || monthlySpendingGoal < 0}
+                            onClick={handleSubmit}
+                        >
                         Set goal
-                    </button>
-                </form>
-            </section>
-        </div>
-    );
-};
+                        </button>
+                    </form>
+                </section>
+            </div>
+        );
+
+    };
 
 export default SetGoalModal;

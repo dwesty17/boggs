@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState} from "react";
 
 import {
     Button,
@@ -8,74 +8,118 @@ import {
     TextInput,
 } from "../../money-ui";
 
-const InputRow = ({ onAdd }) => {
-    const nameInput = useRef(null);
+const InputRow = ({onAdd}) => {
 
-    const [name, setName] = useState("");
-    const [amount, setAmount] = useState("");
-    const [frequency, setFrequency] = useState("PER_MONTH");
+        const nameInput = useRef(null),
 
-    const handleAdd = (event) => {
-        event.preventDefault();
-        if (name && amount && frequency) {
-            onAdd({ name, amount: getYearlyAmount(amount, frequency) });
-            setName("");
-            setAmount("");
-            setFrequency("PER_MONTH");
-            nameInput.current.focus();
-        }
-    };
+            [
+                name,
+                setName,
+            ] = useState(""),
+            [
+                amount,
+                setAmount,
+            ] = useState(""),
+            [
+                frequency,
+                setFrequency,
+            ] = useState("PER_MONTH"),
 
-    return (
-        <form onSubmit={handleAdd}>
-            <SpacedGroup direction="row">
-                <TextInput
-                    ref={nameInput}
-                    value={name}
-                    placeholder="Name"
-                    width={125}
-                    onChange={setName}
-                />
+            handleAdd = (event) => {
 
-                <MoneyInput
-                    value={amount}
-                    placeholder="Amount"
-                    width={125}
-                    onChange={setAmount}
-                />
+                event.preventDefault();
+                if (name && amount && frequency) {
 
-                <DropdownMenu
-                    value={frequency}
-                    placeholder="Frequency"
-                    options={[
-                        { value: "PER_DAY", name: "Per Day" },
-                        { value: "PER_WEEK", name: "Per Week" },
-                        { value: "PER_MONTH", name: "Per Month" },
-                        { value: "PER_YEAR", name: "Per Year" },
-                    ]}
-                    width={125}
-                    onChange={setFrequency}
-                />
+                    onAdd({name,
+                        "amount": getYearlyAmount(
+                            amount,
+                            frequency,
+                        )});
+                    setName("");
+                    setAmount("");
+                    setFrequency("PER_MONTH");
+                    nameInput.current.focus();
 
-                <Button
-                    primary={true}
-                    disabled={!name || !amount}
-                    onClick={handleAdd}
-                >
+                }
+
+            };
+
+        return (
+            <form onSubmit={handleAdd}>
+                <SpacedGroup direction="row">
+                    <TextInput
+                        onChange={setName}
+                        placeholder="Name"
+                        ref={nameInput}
+                        value={name}
+                        width={125}
+                    />
+
+                    <MoneyInput
+                        onChange={setAmount}
+                        placeholder="Amount"
+                        value={amount}
+                        width={125}
+                    />
+
+                    <DropdownMenu
+                        onChange={setFrequency}
+                        options={[
+                            {"value": "PER_DAY",
+                                "name": "Per Day"},
+                            {"value": "PER_WEEK",
+                                "name": "Per Week"},
+                            {"value": "PER_MONTH",
+                                "name": "Per Month"},
+                            {"value": "PER_YEAR",
+                                "name": "Per Year"},
+                        ]}
+                        placeholder="Frequency"
+                        value={frequency}
+                        width={125}
+                    />
+
+                    <Button
+                        disabled={!name || !amount}
+                        onClick={handleAdd}
+                        primary
+                    >
                     Add
-                </Button>
-            </SpacedGroup>
-        </form>
-    );
-};
+                    </Button>
+                </SpacedGroup>
+            </form>
+        );
 
-const getYearlyAmount = (amountStr, frequency) => {
-    const amount = parseFloat(amountStr.replace(/\$/, ""));
-    if (frequency === "PER_DAY") { return amount * 365; }
-    if (frequency === "PER_WEEK") { return amount * 52; }
-    if (frequency === "PER_MONTH") { return amount * 12; }
-    if (frequency === "PER_YEAR") { return amount; }
-    throw new Error(`Unknown budget item frequency ${JSON.stringify(frequency)}`);
-};
+    },
+
+    getYearlyAmount = (amountStr, frequency) => {
+
+        const amount = parseFloat(amountStr.replace(
+            /\$/,
+            "",
+        ));
+        if (frequency === "PER_DAY") {
+
+            return amount * 365;
+
+        }
+        if (frequency === "PER_WEEK") {
+
+            return amount * 52;
+
+        }
+        if (frequency === "PER_MONTH") {
+
+            return amount * 12;
+
+        }
+        if (frequency === "PER_YEAR") {
+
+            return amount;
+
+        }
+        throw new Error(`Unknown budget item frequency ${JSON.stringify(frequency)}`);
+
+    };
 
 export default InputRow;
