@@ -9,11 +9,18 @@ import {
 } from "../typography";
 import { Color } from "../../styles";
 
-const EditableText = (props) => {
+interface Props {
+	typography?: string;
+	value?: string;
+	type?: string;
+	onChange: (value: string) => void;
+}
+
+const EditableText: React.FC<Props> = (props) => {
     const [value, setValue] = useState(props.value || "");
 
-    const handleChange = (event) => {
-        const newValue = event.target.value;
+    const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+        const newValue = event.currentTarget.value;
         setValue(newValue);
     };
 
@@ -31,7 +38,7 @@ const EditableText = (props) => {
 
     return (
         <Container contenteditable={true}>
-            <TextInput
+            <StyledInput
                 {...props}
                 value={value}
                 onChange={handleChange}
@@ -45,12 +52,22 @@ const EditableText = (props) => {
     );
 };
 
-const Container = styled.div`
+interface ContainerProps {
+	contenteditable?: boolean;
+}
+
+const Container = styled.div<ContainerProps>`
   width: fit-content;
   position: relative;
 `;
 
-const TextInput = styled.input`
+interface StyledProps {
+	typography?: string;
+	compact?: boolean;
+	[propName: string]: any;
+}
+
+const StyledInput = styled.input<StyledProps>`
   width: 100%;
   position: absolute;
   ${TextStyles};
@@ -76,7 +93,7 @@ const TextInput = styled.input`
   }
 `;
 
-const HiddenText = styled.div`
+const HiddenText = styled.div<StyledProps>`
   visibility: hidden;
   width: fit-content;
   ${TextStyles};
