@@ -9,7 +9,7 @@ jobs:
   build:
     name: Type checking
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 10
 
     strategy:
       matrix:

@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-	alignment: string;
-	direction: "column" | "row";
-	space: number;
+	alignment?: string;
+	direction?: "column" | "row";
+	space?: number;
 }
 
 const SpacedGroup: React.FC<Props> = ({ children, ...props }) => {

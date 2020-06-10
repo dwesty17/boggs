@@ -3,13 +3,18 @@ import styled from "styled-components";
 
 import { Color, Font } from "../../styles";
 
-const Pennyworth = (props) => {
+interface Props {
+	size?: number;
+	color?: string;
+}
+
+const Pennyworth: React.FC<Props> = (props) => {
   return (
     <Text {...props}>Pennyworth</Text>
   );
 };
 
-const Text = styled.p`
+const Text = styled.p<Props>`
   font-family: ${Font.Lobster};
   font-size: ${(props) => props.size || 50}px;
   margin: 0;
