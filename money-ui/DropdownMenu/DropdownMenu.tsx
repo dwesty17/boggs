@@ -5,13 +5,13 @@ import { IoIosArrowDown } from "react-icons/all";
 import { Color } from "../../styles";
 
 interface Props {
-	value: string;
-  placeholder: string;
+  value?: string | number;
+  placeholder?: string;
+  onChange: (newValue: string) => void;
   options: {
     value: number,
     name: string
-  }
-  onChange: (newValue: string) => void;
+  }[]
 }
 
 const DropdownMenu: React.FC<Props> = (props) => {
@@ -22,7 +22,7 @@ const DropdownMenu: React.FC<Props> = (props) => {
     const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
         const newValue = event.currentTarget.value;
         setValue(newValue);
-        props.onChange && props.onChange(newValue);
+        props.onChange(newValue);
     };
 
     return (
@@ -56,7 +56,7 @@ const Container = styled.div`
   position: relative;
 `;
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps {
   fullWidth: boolean;
   width: number;
   [propName: string]: any;
