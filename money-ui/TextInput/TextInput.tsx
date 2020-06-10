@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Caption } from "../typography";
 import { Color } from "../../styles";
 
-interface Props {
+export interface Props {
     value?: string;
     fullWidth?: boolean;
     width?: number;

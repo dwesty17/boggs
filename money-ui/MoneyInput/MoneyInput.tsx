@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 
-import { TextInput } from "../TextInput";
+import { TextInput, TextInputProps } from "../TextInput";
 
 const US_CURRENCY_EXPRESSION = /^\$?[0-9]*(\.[0-9]{0,2})?$/;
 
-interface MoneyProps {
-	onChange: (newValue: string) => void;
-	placeholder?: string;
-}
-
-const MoneyInput: React.FC<MoneyProps> = (props) => {
+const MoneyInput: React.FC<TextInputProps> = (props) => {
     const [value, setValue] = useState("");
 
     const handleChange = (newValue: string) => {
