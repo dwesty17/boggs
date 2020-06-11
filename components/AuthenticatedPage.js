@@ -3,13 +3,16 @@ import styled from "styled-components";
 
 import Navbar from "./Navbar";
 
-const AuthenticatedPage = ({children}) => <>
+const AuthenticatedPage = ({ children }) => (
+    <>
         <Navbar />
         <SiteContainer>
             { children }
         </SiteContainer>
-    </>,
-    SiteContainer = styled.div`
+    </>
+);
+
+const SiteContainer = styled.div`
     padding: 20px;
 `;
 

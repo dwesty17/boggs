@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {AQUA, NAVY} from "../styles/colors";
+import { AQUA, NAVY } from "../styles/colors";
 
 const IconButton = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const IconButton = styled.div`
   height: fit-content;
   background-color: ${AQUA};
   color: ${NAVY};
-  font-size: ${({size}) => `${size}px` || "18px"};
+  font-size: ${({ size }) => `${size}px` || "18px"};
   margin: 0 10px;
   border-radius: 100px;
   border: none;
