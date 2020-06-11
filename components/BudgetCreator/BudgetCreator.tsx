@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import {
-    Caption,
-    EditableText,
-    Header,
-    SpacedGroup,
-} from "../../money-ui";
+import { Caption, EditableText, Header, SpacedGroup } from "../../money-ui";
 import { Color } from "../../styles";
 import { formatAmount } from "../../lib/currency";
 

@@ -1,6 +1,6 @@
 module.exports = ({ config }) => {
   config.module.rules.push({
-    test: /.jsx?$/,
+    test: /.tsx?$/,
     exclude: /node_modules/,
     loader: "babel-loader",
     query: {
