@@ -1,7 +1,11 @@
 module.exports = {
-  stories: [
-    "../components/**/*.stories.js",
-    "../money-ui/**/*.stories.js",
-  ],
-  addons: ["@storybook/addon-actions", "@storybook/addon-links"],
+    stories: [
+        "../components/**/*.stories.tsx",
+        "../money-ui/**/*.stories.tsx",
+    ],
+    addons: [
+        "@storybook/addon-actions",
+        "@storybook/addon-links",
+        "@storybook/preset-typescript",
+    ],
 };
