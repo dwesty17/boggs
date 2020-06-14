@@ -16,7 +16,7 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - name: Checkout boggs
+    - name: Checkout pennyworth-ui
       uses: actions/checkout@v1
 
     - name: Setup Node ${{ matrix.node-version }}
