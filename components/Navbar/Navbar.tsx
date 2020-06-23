@@ -8,11 +8,20 @@ import redirect from "../../lib/redirect";
 import { Color } from "../../styles";
 import { Button } from "../../money-ui";
 
-const Navbar = ({ mockClient }) => {
+interface Props {
+  mockClient?: {
+    cache: {
+        reset: () => void,
+    },
+  };
+  
+}
+
+const Navbar: React.FC<Props> = ({ mockClient }) => {
     const client = mockClient || useApolloClient();
 
     const signOut = async () => {
-        document.cookie = cookie.serialize("token", null, { maxAge: -1, path: "/" });
+        document.cookie = cookie.serialize("token", "", { maxAge: -1, path: "/" });
         await client.cache.reset();
         await redirect({}, "/login");
     };
