@@ -14,7 +14,6 @@ interface Props {
         reset: () => void,
     },
   };
-  
 }
 
 const Navbar: React.FC<Props> = ({ mockClient }) => {
